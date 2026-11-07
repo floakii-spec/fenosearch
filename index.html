@@ -375,6 +375,83 @@ h1, h2, h3, p { margin: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
 
+/* história: leitura longa, coluna estreita, timeline filtrável */
+#yv { padding-top: 0; }
+.hbar { position: sticky; top: 0; z-index: 3; height: 3px; margin-inline: -20px; background: transparent; }
+.hbar i { display: block; height: 100%; width: 0; background: var(--acc); box-shadow: 0 0 10px var(--glow); }
+.hist { padding-top: 14px; gap: 40px; }
+.hhero { display: flex; flex-direction: column; gap: 12px; padding-top: 8px; animation: hup .6s ease both; }
+.hkick, .hlab, .hnum { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+.hhero .h1 { font-size: 38px; }
+.hdek { font-size: 18px; line-height: 1.45; color: var(--fg); max-width: 34ch; text-wrap: pretty; }
+.hmeta { font-size: 13px; color: var(--fg3); }
+.hsum { background: var(--glass); border: 1px solid var(--line); border-radius: 24px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px; animation: hup .6s .1s ease both; }
+.hsum ol { margin: 0; padding: 0; list-style: none; counter-reset: hs; display: flex; flex-direction: column; gap: 12px; }
+.hsum li { counter-increment: hs; position: relative; padding-left: 34px; font-size: 15px; line-height: 1.5; }
+.hsum li::before { content: counter(hs); position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(226,165,74,.45); color: var(--acc); font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+.htoc { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; animation: hup .6s .2s ease both; }
+.htoc button { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 16px; font-size: 14px; line-height: 1.25; }
+.htoc span { font-family: var(--fD); color: var(--acc); font-size: 13px; font-weight: 600; flex: none; }
+.hsec { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+.hh2 { font-family: var(--fD); font-weight: 600; font-size: 27px; line-height: 1.12; letter-spacing: -.015em; text-wrap: balance; margin-top: -6px; }
+.hbody { display: flex; flex-direction: column; gap: 16px; }
+.hbody p { font-size: 16.5px; line-height: 1.68; color: #D7DCD3; max-width: 65ch; text-wrap: pretty; }
+.hbody b { color: var(--fg); font-weight: 600; }
+.hbody i { color: var(--fg); }
+.hq { margin: 6px 0; padding: 4px 0 4px 18px; border-left: 2px solid var(--acc); display: flex; flex-direction: column; gap: 8px; }
+.hq p { font-family: var(--fD); font-size: 20px !important; line-height: 1.38 !important; color: var(--fg) !important; letter-spacing: -.01em; }
+.hq cite, .hverse cite { font-style: normal; font-size: 13px; color: var(--fg2); }
+.hverse { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.hverse p { font-family: var(--fD); font-size: 18px !important; line-height: 1.55 !important; color: var(--fg) !important; }
+.hverse b { color: var(--acc) !important; }
+.hverse i { color: var(--fg2) !important; }
+.hfact { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 20px; background: linear-gradient(120deg, rgba(226,165,74,.13), rgba(226,165,74,.03)); border: 1px solid rgba(226,165,74,.25); }
+.hfact b { font-family: var(--fD); font-size: 30px; line-height: 1; color: var(--acc) !important; white-space: nowrap; letter-spacing: -.02em; }
+.hfact span { font-size: 14px; line-height: 1.45; color: var(--fg2); }
+.htl { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; }
+.htl li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; position: relative; padding-bottom: 18px; animation: hup .35s ease both; }
+.htl li::before { content: ""; position: absolute; left: 65px; top: 8px; bottom: -6px; width: 1px; background: var(--line); }
+.htl li:last-child::before { display: none; }
+.htl li > b { font-family: var(--fD); font-size: 17px; font-weight: 600; color: var(--fg); line-height: 1.3; }
+.htl li > div { position: relative; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; }
+.htl li > div::before { content: ""; position: absolute; left: -5px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--hc); box-shadow: 0 0 10px var(--hc); }
+.htl small { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--hc); font-weight: 600; }
+.htl p { font-size: 14.5px; line-height: 1.5; color: #D7DCD3; }
+.hmy { display: flex; flex-direction: column; gap: 10px; }
+.hmy details { border: 1px solid var(--line); border-radius: 18px; background: var(--glass); }
+.hmy summary { list-style: none; cursor: pointer; padding: 15px 44px 15px 16px; font-weight: 600; font-size: 15px; line-height: 1.35; position: relative; display: flex; flex-direction: column; gap: 4px; }
+.hmy summary::-webkit-details-marker { display: none; }
+.hmy summary span { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--c1); }
+.hmy summary::after { content: "+"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 22px; font-weight: 400; color: var(--fg2); transition: transform .2s ease; }
+.hmy details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.hmy details p { padding: 0 16px 16px; font-size: 14.5px; line-height: 1.55; color: var(--fg2); }
+.hmy details p::before { content: "O que as fontes mostram"; display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); font-weight: 600; margin-bottom: 4px; }
+.hwho { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+.hwho div { padding: 13px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; }
+.hwho b { font-weight: 600; font-size: 15px; }
+.hwho small { color: var(--fg3); font-size: 12.5px; text-align: right; }
+.hwho p { grid-column: 1 / -1; font-size: 14px; line-height: 1.5; color: var(--fg2); }
+.hglo { margin: 0; display: grid; grid-template-columns: 1fr; gap: 10px; }
+.hglo div { padding: 12px 14px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); }
+.hglo dt { font-weight: 600; font-size: 14.5px; }
+.hglo dd { margin: 2px 0 0; font-size: 13.5px; line-height: 1.45; color: var(--fg2); }
+.hsrc { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 1px solid var(--line); }
+.hsrc p { font-size: 13px; line-height: 1.5; color: var(--fg2); }
+@keyframes hup { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hhero, .hsum, .htoc, .htl li { animation: none; } }
+@media (hover: hover) and (pointer: fine) { .htoc button:hover, .hmy details:hover { border-color: rgba(255,255,255,.2); } }
+@media (min-width: 900px) {
+  .hist { max-width: 720px; margin-inline: auto; gap: 52px; }
+  .hbar { margin-inline: -32px; }
+  .hhero .h1 { font-size: 54px; }
+  .hdek { font-size: 20px; }
+  .htoc { grid-template-columns: 1fr 1fr 1fr; }
+  .hh2 { font-size: 34px; }
+  .hglo { grid-template-columns: 1fr 1fr; }
+  .htl li { grid-template-columns: 64px minmax(0, 1fr); }
+  .htl li::before { left: 77px; }
+}
+
 /* computador: coluna larga, abas no topo, faixas viram grade, ficha em painel lateral */
 @media (min-width: 900px) {
   #app { max-width: 1240px; border-inline-color: transparent; }
@@ -480,6 +557,7 @@ h1, h2, h3, p { margin: 0; }
     cmp: ic('<rect x="3" y="5" width="7" height="14" rx="2"/><rect x="14" y="5" width="7" height="14" rx="2"/>'),
     back: ic('<path d="M15 5 8 12l7 7"/>'),
     x: ic('<path d="M6 6l12 12M18 6 6 18"/>'),
+    book: ic('<path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5z"/><path d="M12 6.5V19"/>'),
     map: ic('<path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5v-13.5l-6 2.5z"/><path d="M9 4v13.5M15 6.5v13.5"/>'),
     plus: ic('<path d="M12 5v14M5 12h14"/>'),
     check: ic('<path d="m5 12 5 5 9-10"/>'),
@@ -954,14 +1032,145 @@ h1, h2, h3, p { margin: 0; }
     </div></div>`;
   }
 
+  // ---------- história ----------
+  // Fontes: Luísa Saad, "Fumo de negro" (EDUFBA, 2019) e Jorge Emanuel Luz de Souza, "Sonhos da diamba, controles do cotidiano" (EDUFBA/CETAD, 2015), ambos CC BY 4.0.
+  const HCAT = { est: ['Estado e lei', 'var(--acc)'], sci: ['Ciência e imprensa', 'var(--c3)'], rep: ['Repressão', 'var(--c1)'], cul: ['Cultura e resistência', 'var(--c2)'] };
+  const HTL = [
+    ['1777', 'cul', 'Uma parda e um homem “natural de Angola” são denunciados à Inquisição por fazer “calundus”, danças em que se cheirava uma erva que deixava todos “fora de si”. O historiador Luiz Mott conclui que era maconha.'],
+    ['1783', 'est', 'A Coroa portuguesa abre a Real Feitoria do Linho Cânhamo, no Rio Grande do Sul. Em 1791, mais de 1.300 escravizados trabalhavam ali produzindo fibra.'],
+    ['1830', 'rep', 'A Câmara do Rio de Janeiro proíbe vender e usar o “pito do pango”. Multa de 20$000 para quem vende, três dias de cadeia para “os escravos e mais pessoas” que fumam. É o primeiro documento conhecido contra a maconha no Brasil.'],
+    ['1888', 'est', 'Abolição da escravatura. Libertos ganham a rua, mas não a cidadania plena.'],
+    ['1890', 'est', 'O Código Penal da República pune curandeirismo, espiritismo e “magia” (arts. 156 a 158), práticas exercidas em grande parte por negros e mestiços.'],
+    ['1895', 'sci', 'Jornais anunciam os “Cigarros Indios”, de Cannabis indica, contra asma, falta de ar e insônia. A planta ainda é remédio de farmácia.'],
+    ['1915', 'sci', 'O médico José Rodrigues Dória apresenta “Os fumadores de maconha: efeitos e males do vício” num congresso em Washington. Chama o hábito de “vingança” dos escravizados contra os brancos.'],
+    ['1918', 'sci', 'O agrônomo Francisco de Assis Iglésias publica “Sobre o vício da diamba”, repetindo as teses de Dória.'],
+    ['1921', 'est', 'O Decreto 4.294 passa a controlar ópio, morfina e cocaína, as drogas da elite. A maconha ainda fica de fora.'],
+    ['1924', 'est', 'Na conferência do ópio em Genebra, o delegado brasileiro Pernambuco Filho consegue pôr a “diamba, hachiche brasileiro” entre as drogas fiscalizadas.'],
+    ['1929', 'sci', 'O jornal baiano A Tarde dedica uma página inteira à “herva louca”. A palavra “africana” passa a acompanhar a planta nas manchetes.'],
+    ['1932', 'est', 'Decreto 20.930, de 11 de janeiro: a maconha (Cannabis indica) entra na lista de substâncias proibidas. Plantar, vender ou ter passa a exigir licença sanitária.'],
+    ['1936', 'rep', 'Nasce a Comissão Nacional de Fiscalização de Entorpecentes (CNFE), dirigida por médicos. A maconha vira seu “principal problema”.'],
+    ['1937', 'est', 'Os Estados Unidos aprovam o Marihuana Tax Act, cinco anos depois do Brasil.'],
+    ['1938', 'est', 'Decreto-Lei 891: internação compulsória de usuários, destruição de plantações pela polícia e pena de 1 a 5 anos.'],
+    ['1940', 'est', 'O novo Código Penal (art. 281) incorpora o crime de entorpecentes.'],
+    ['1944', 'rep', 'Na Bahia, de 98 usuários fichados, 71 são classificados como pardos ou negros.'],
+    ['1946', 'rep', 'Convênio Interestadual da Maconha, em Salvador. Uma das 19 conclusões manda “matricular” os cultos afro-brasileiros na polícia de costumes.'],
+    ['1951', 'rep', 'Músicos cubanos negros e pardos do conjunto Mambo Dandies são presos em Salvador por maconha e submetidos a “testes psicológicos”.'],
+    ['1958', 'cul', 'Preso em Salvador, o padeiro Abigael Pereira diz ao jornal: “Os maconheiros deveriam ser livres. Não fazemos mal a ninguém.”'],
+    ['1961', 'est', 'A Convenção Única da ONU recoloca a cannabis na lista internacional de proibição, de onde tinha saído em 1931.'],
+    ['1976', 'est', 'Em plena ditadura, uma nova lei de drogas pune usuário e traficante com o mesmo rigor.'],
+    ['2006', 'est', 'A Lei 11.343 tira a prisão do usuário, mas não define a quantidade que separa uso de tráfico.', 1],
+    ['2024', 'est', 'O STF decide que portar maconha para uso pessoal não é crime e fixa como referência 40 gramas ou seis plantas fêmeas.', 1],
+  ];
+  const HCH = [
+    ['antes', 'Antes da lei', `
+      <p>A cannabis chegou ao Brasil pelo mar, nas velas e cordas de cânhamo das caravelas, e também na memória de quem foi trazido à força da África. Os nomes contam essa história: <b>diamba, liamba e riamba</b> vêm do kimbundu, língua de Angola, e “maconha” tem parentes próximos no mesmo idioma, como <i>kangonha</i>. Não por acaso, a planta também era chamada de <b>fumo de Angola</b>.</p>
+      <p>Por muito tempo ninguém se incomodou. Gilberto Freyre descreve “manchas escuras de tabaco ou maconha entre o verde-claro dos canaviais”: o tabaco era coisa dos senhores, a maconha, o “fumo de negro”, era tolerada como descanso para os escravizados. Em 1783 a própria Coroa abriu no Rio Grande do Sul uma feitoria para produzir cânhamo, tocada por mais de mil escravizados.</p>
+      <p>Havia também a fé e a cura. Em 1777, um casal foi denunciado à Inquisição por cerimônias de calundu em que se cheirava uma erva que fazia “as almas dos mortos entrarem nos vivos”. E nas farmácias, até o começo do século XX, a cannabis era remédio vendido em jornal: cigarros contra asma, extratos contra insônia, cólicas e dor.</p>`],
+    ['nao', 'O primeiro “não”', `
+      <p>Em 1830, a Câmara Municipal do Rio de Janeiro proibiu o <b>pito do pango</b>. A regra é reveladora: o vendedor pagava multa, mas “os escravos, e mais pessoas que dêle usarem” iam três dias para a cadeia. Desde o primeiro texto, punir a maconha era uma forma de vigiar a população negra. Um ditado da época resumia o preconceito: “maconha em pito faz negro sem vergonha”.</p>
+      <p>Mas uma lei nacional só viria mais de cem anos depois. O que mudou nesse meio-tempo foi o fim da escravidão. Com a Abolição, em 1888, e a República, em 1889, as elites perderam o controle direto sobre milhões de pessoas e procuraram outras formas de mantê-las “no seu lugar”.</p>
+      <p>A ciência da época ajudou. A medicina legal e o chamado racismo científico ensinavam que negros e mestiços eram propensos ao crime e à loucura. O Código Penal de 1890 passou a punir curandeiros, benzedeiras e “feitiçaria”. Candomblé, capoeira, samba e maconha entraram no mesmo saco de “atrasos” que ameaçavam o lema “ordem e progresso”.</p>`],
+    ['doria', '1915: a chama da proibição', `
+      <p>Em 27 de dezembro de 1915, o médico sergipano <b>José Rodrigues Dória</b>, professor na Bahia, ex-deputado e ex-governador de Sergipe, apresentou em Washington o texto “Os fumadores de maconha: efeitos e males do vício”. Foi o primeiro estudo brasileiro sobre a planta e virou a base de tudo o que se escreveu depois, até os anos 1960.</p>
+      <p>Dória fez três afirmações que grudaram: fumar maconha era um vício que levava à loucura e ao crime; era hábito das “camadas mais baixas”; e tinha origem africana. Para ele, a planta era a vingança de quem foi escravizado:</p>
+      <blockquote class="hq"><p>“A raça preta, selvagem e ignorante, resistente, mas intemperante, [...] inoculou também o mal nos que o afastaram da terra querida, lhe roubaram a liberdade preciosa.”</p><cite>Rodrigues Dória, 1915</cite></blockquote>
+      <p>O curioso é que os próprios relatos que ele recolheu contam outra história. Pescadores fumavam em grupo “para se sentirem mais alegres, dispostos ao trabalho”; um carregador disse que a erva aliviou suas cãibras; e o médico admite que “várias pessoas tem-na usado por muitos anos, moderadamente, sem inconvenientes palpáveis”. Riso, fome e sono, escreve Luísa Saad, “não deveriam soar tão amedrontadores”.</p>
+      <p>Mesmo assim, Dória propôs proibir o comércio e tratar como culpado quem cometesse crime sob efeito da erva. Seus seguidores repetiram o roteiro. O agrônomo Assis Iglésias fez fumaça de maconha para pombos e um cachorro: o cão ficou zonzo e, duas horas depois, estava “restabelecido completamente”. Ainda assim concluiu que o vício levava “ao crime ou ao suicídio”, e temia que a diamba passasse “das tascas e choupanas da gente rude” para os “moços elegantes”.</p>`],
+    ['lei', 'Das manchetes ao decreto', `
+      <p>Durante quase vinte anos, o alarme dos médicos não virou lei. A primeira lei de drogas, de 1921, mirou o ópio, a morfina e a cocaína, consumidos em cabarés e cafés por gente rica. A maconha, droga dos pobres, ficou de fora.</p>
+      <p>O empurrão veio de fora e de dentro ao mesmo tempo. Em 1924, na conferência do ópio em Genebra, o médico brasileiro <b>Pernambuco Filho</b> conseguiu incluir a “diamba, hachiche brasileiro” entre as drogas vigiadas. No fim dos anos 1920, os jornais começaram a falar da “herva louca” e da “planta africana que é um terrível tóxico”.</p>
+      <p>Com a Revolução de 1930, Getúlio Vargas chegou ao poder com um projeto de “homem novo”: trabalhador, saudável e disciplinado. Em <b>11 de janeiro de 1932</b>, o Decreto 20.930 pôs a maconha na lista de substâncias proibidas, ao lado do ópio, da morfina e da cocaína.</p>
+      <div class="hfact"><b>17 anos</b><span>separam o texto de Dória (1915) da proibição (1932). Para Saad, foi um caminho “com pedras colocadas estrategicamente”, para que a proibição parecesse inevitável.</span></div>
+      <p>Há um detalhe que desmonta a ideia de que o Brasil só copiou os outros. A convenção da Liga das Nações de 1931, assinada pelo Brasil, <b>não incluía a maconha</b>; ela só voltaria às listas internacionais em 1961. E os Estados Unidos só proibiram em 1937. Como resume Jorge Souza, a repressão aqui foi “um esforço consciente que adequou propostas e mecanismos às demandas de controle social internas”.</p>`],
+    ['vargas', 'A máquina de Vargas', `
+      <p>Proibir no papel não bastava. Em 1936 o governo criou a <b>Comissão Nacional de Fiscalização de Entorpecentes</b> (CNFE), formada quase toda por médicos. Ela mandava inspetores aos estados, fichava usuários e escrevia leis. Em 1938 veio o Decreto-Lei 891, a lei mais ampla até então: internação obrigatória de “toxicômanos”, proibição de tratamento em casa, destruição de plantações pela polícia e pena de um a cinco anos.</p>
+      <p>Nos anos 1940, comissões estaduais passaram a funcionar, sobretudo no Nordeste. Em 1943, o presidente da CNFE visitou a Bahia e disse ao jornal que ali o uso era “só praticado por elementos frequentadores de sessões de ‘magia negra’ e ‘macumbas’”. Em 1946, médicos e policiais de quatro estados se reuniram em Salvador no Convênio Interestadual da Maconha. Uma das conclusões pedia a <b>matrícula dos cultos afro-brasileiros</b> nas delegacias de costumes.</p>
+      <div class="hfact"><b>71 de 98</b><span>usuários fichados pela comissão da Bahia em 1944 foram classificados como pardos ou negros.</span></div>
+      <p>E aqui aparece uma contradição. Enquanto a polícia arrancava pés de maconha, o mesmo Estado importava cannabis da Alemanha e, a partir de 1939, obrigava toda farmácia a ter extrato e tintura da planta. Quando dois consertadores de caixas do porto do Rio foram presos em 1941 com 25 cigarros, um deles argumentou que químicos e farmacêuticos também “pousam as mãos em maconha”. Foi condenado a um ano. O “mal”, conclui Souza, dependia de quem usava.</p>`],
+    ['roda', 'A roda: quem fumava e como', `
+      <p>Lidos a contrapelo, os relatórios dos próprios médicos revelam uma cultura rica. Nos <b>clubes de diambistas</b> do Norte e Nordeste, homens se reuniam aos sábados, de preferência na casa do mais velho. Fumava-se na <b>maricas</b>, um cachimbo de cabaça com água que esfriava a fumaça. Os usuários sabiam o que faziam: era, nas palavras de Souza, um “eficiente mecanismo de redução de danos”.</p>
+      <p>Entre uma baforada e outra vinham as <b>loas</b>, versos em desafio, com coro e palavras de origem africana:</p>
+      <div class="hverse"><p>Ó diamba, sarambamba!<br>Quando eu fumo a diamba,<br>Fico com a cabeça tonta,<br>E com as minhas pernas zamba.<br><i>Fica zamba, mano?</i><br><b>Dizô! Dizô!</b></p><cite>Registrado por Assis Iglésias no Maranhão</cite></div>
+      <p>Os versos falavam da erva, do cotidiano e até de política. Um médico de Sergipe chamou as trovas de “uma pequena enciclopédia popular”. No Amazonas, onde a planta se chamava <i>dirijo</i>, um agricultor cantou: “Dirijo é coisa incelente / Remédio de dor de dente / Assim como Deus não mente / Dirijo não mata a gente”.</p>
+      <p>Havia também o sagrado. No candomblé, a folha é conhecida como <i>Ewé Igbó</i> e ligada a Exu; segundo pesquisadores, seu uso ficou restrito a ele por causa da repressão. Em 1935, um homem de 50 anos examinado por um psiquiatra no Recife disse: “Eu não fumo por deboche, ela me dá a luz [...] é uma grande professôra”. O médico anotou “alucinações sensoriais”.</p>`],
+    ['ruas', 'Anos 1950: o estigma nas ruas', `
+      <p>Em Salvador, os jornais dos anos 1950 falavam todo dia da “erva maldita” e da “planta diabólica”. A polícia vigiava feiras, portos e becos onde trabalhava e se divertia a população pobre: a Rua da Ajuda, a Baixa dos Sapateiros, o cais. Os fichados eram engraxates, camelôs, estivadores, alfaiates, pedreiros.</p>
+      <p>A palavra “maconheiro” virou uma acusação que dispensava prova. Em 1958, um homem preso depois de brigar com um soldado que fiscalizava um ônibus lotado, o “Paulo Satanás”, foi descrito pelo soldado como “conhecido na roda da malandragem como maconheiro”. Ninguém disse que ele tinha fumado. O rótulo bastava para explicar a violência e justificar a prisão.</p>
+      <p>Nem todos aceitaram o papel. No mesmo ano, o padeiro Abigael Pereira, 24 anos, foi preso numa garagem com a bicicleta de entregar pão na porta. Calmo, disse ao repórter:</p>
+      <blockquote class="hq"><p>“Não sou um criminoso, nem tampouco um cachaceiro. Os maconheiros deveriam ser livres. Não fazemos mal a ninguém.”</p><cite>Abigael Pereira, A Tarde, 1958</cite></blockquote>
+      <p>Também houve “bons moços” brancos de São Paulo presos com maconha em 1958, e um ex-aluno da Faculdade de Medicina lembrava de rapazes que se reuniam para fumar em Salvador. A planta nunca foi só dos pobres; o estigma, sim.</p>`],
+    ['hoje', 'Até a última ponta', `
+      <p>Em 1972, uma comissão do governo americano revisou meio século de estudos e concluiu que os perigos da maconha tinham sido grosseiramente exagerados: nenhuma prova de que causasse crime ou loucura. No Brasil, porém, a ditadura aprovou em 1976 uma lei que punia usuário e traficante do mesmo jeito.</p>
+      <p>No prefácio de Saad, o antropólogo Edward MacRae aponta a continuidade: hoje o uso deixou de ser crime, mas a fronteira entre usuário e traficante ficou vaga. Jovens de classe média costumam ser tratados como usuários; um jovem da periferia “dificilmente escapa dos rigores da lei, mesmo se portando somente um ou dois baseados”.</p>
+      <p>As duas pesquisas chegam à mesma conclusão por caminhos diferentes. A proibição da maconha no Brasil nasceu menos de uma preocupação com a planta e mais do desejo de controlar quem a usava: os descendentes de africanos, os pobres, os trabalhadores do porto e do sertão. Conhecer essa origem ajuda a entender por que o debate de hoje ainda passa por raça e classe.</p>`],
+  ];
+  const HMYTH = [
+    ['A proibição foi copiada dos Estados Unidos.', 'O Brasil proibiu em 1932; os EUA, em 1937. E a convenção da Liga das Nações de 1931 nem incluía a maconha. A lei brasileira respondeu a interesses de controle social daqui.'],
+    ['Proibiram porque a ciência provou que fazia mal.', 'Os relatos usados pelos próprios médicos falavam em riso, fome, sono e alívio de dores. Para Saad, a proibição se apoiou em “argumentos pouco sólidos e com respaldo científico praticamente inexistente”.'],
+    ['Maconha era coisa só de pobre.', 'Gente rica comprava cigarros de cannabis em farmácia, e a partir de 1939 toda farmácia era obrigada a ter extrato da planta. O que mudava era quem ia preso.'],
+    ['Era uma questão de saúde, não de raça.', 'A “origem africana” era repetida em todo texto, a polícia fichava sobretudo pardos e negros e, em 1946, propôs-se registrar os terreiros na delegacia. O prefácio oficial de 1958 falava em “eugenia da raça”.'],
+  ];
+  const HGLO = [
+    ['Diamba, liamba, riamba', 'Nomes da maconha vindos do kimbundu, língua de Angola. Davam origem a “diambista” e “diambismo”.'],
+    ['Fumo de Angola', 'Apelido que médicos usavam como prova da origem africana da planta.'],
+    ['Pito do pango', 'Cachimbo de maconha. Foi o alvo da proibição de 1830 no Rio.'],
+    ['Maricas', 'Cachimbo d’água feito de cabaça, também chamado grogoió, bomba ou boi. Esfriava a fumaça.'],
+    ['Dirijo', 'Nome da maconha na Amazônia, onde era chamada de “cocaína do caboclo” pelos jornais.'],
+    ['Clube de diambistas', 'Roda de fumo coletiva, com hierarquia, horário e cantoria.'],
+    ['Loas da maconha', 'Versos improvisados em desafio, cantados nas rodas.'],
+    ['Vícios elegantes', 'Ópio, morfina, éter e cocaína, as drogas da elite, que a medicina tratava com mais brandura.'],
+    ['CNFE', 'Comissão Nacional de Fiscalização de Entorpecentes (1936). Coordenou a repressão em todo o país.'],
+  ];
+  const HWHO = [
+    ['José Rodrigues Dória', '1859, Sergipe', 'Médico legista, professor e político. Autor do texto de 1915 que fundou o discurso contra a maconha.'],
+    ['Francisco de Assis Iglésias', 'agrônomo', 'Descreveu os clubes de diambistas no Maranhão em 1918, sem nenhum caso de violência, e ainda assim pediu “medidas enérgicas”.'],
+    ['Pernambuco Filho', 'médico', 'Delegado em Genebra (1924) e membro da CNFE. Coautor de “Vícios sociais elegantes”.'],
+    ['Décio Parreiras', 'presidente da CNFE', 'Escreveu que os maconheiros eram “ladrões em alta percentagem” e que a diamba era “o ópio dos pobres”.'],
+    ['Abigael Pereira', 'padeiro, 1958', 'Preso em Salvador, defendeu em público o direito de fumar.'],
+  ];
+  function histHTML() {
+    const f = st.hcat;
+    const tl = HTL.filter(r => !f || r[1] === f);
+    return `<div class="view" id="yv"><div class="hbar"><i style="width:${st.hprog || 0}%"></i></div><div class="stack hist">
+      <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="false">${I.search}</button></div>
+      <header class="hhero"><p class="hkick">História</p><h1 class="h1">Fumo de negro, erva maldita</h1><p class="hdek">Como a maconha, planta de remédio, trabalho e fé, virou crime no Brasil, e quem a proibição queria atingir.</p><p class="hmeta">Leitura de 12 min · Baseado em Luísa Saad (2019) e Jorge Emanuel Luz de Souza (2015)</p></header>
+      <section class="hsum"><p class="hlab">Em um minuto</p><ol>
+        <li>A maconha chegou com os navios e com os africanos escravizados. Por séculos foi tolerada, usada como remédio e em rituais.</li>
+        <li>A primeira proibição conhecida, no Rio em 1830, punia com cadeia os escravizados que fumavam o “pito do pango”.</li>
+        <li>Depois da Abolição, médicos ligados ao racismo científico transformaram o hábito em “vício africano” que levaria à loucura e ao crime.</li>
+        <li>O Brasil proibiu a maconha em 1932, antes dos Estados Unidos, e montou na Era Vargas uma máquina de fiscalização dirigida por médicos e polícia.</li>
+        <li>A repressão mirou negros, pobres e terreiros. A cultura das rodas de fumo sobreviveu nos versos, nos cachimbos e na fala de quem foi preso.</li>
+      </ol></section>
+      <nav class="htoc" aria-label="Capítulos">${HCH.map((c, i) => `<button data-hgo="h-${c[0]}"><span>${String(i + 1).padStart(2, '0')}</span>${c[1]}</button>`).join('')}<button data-hgo="h-tl"><span>+</span>Linha do tempo</button><button data-hgo="h-mitos"><span>+</span>Mitos e fontes</button></nav>
+      ${HCH.slice(0, 4).map((c, i) => chHTML(c, i)).join('')}
+      <section class="hsec" id="h-tl"><p class="hnum">Linha do tempo</p><h2 class="hh2">De 1777 a hoje</h2>
+        <div class="chips" role="group" aria-label="Filtrar">${[['', 'Tudo'], ...Object.keys(HCAT).map(k => [k, HCAT[k][0]])].map(([k, l]) => `<button class="chip" data-hcat="${k}" aria-pressed="${(f || '') === k}">${l}</button>`).join('')}</div>
+        <ol class="htl">${tl.map(r => `<li style="--hc:${HCAT[r[1]][1]}"><b>${r[0]}</b><div><small>${HCAT[r[1]][0]}${r[3] ? ' · depois dos livros' : ''}</small><p>${r[2]}</p></div></li>`).join('')}</ol></section>
+      ${HCH.slice(4).map((c, i) => chHTML(c, i + 4)).join('')}
+      <section class="hsec" id="h-mitos"><p class="hnum">Mitos e fontes</p><h2 class="hh2">O que se diz, e o que os documentos mostram</h2>
+        <div class="hmy">${HMYTH.map(m => `<details><summary><span>Mito</span>${m[0]}</summary><p>${m[1]}</p></details>`).join('')}</div></section>
+      <section class="hsec"><p class="hnum">Quem é quem</p><div class="hwho">${HWHO.map(w => `<div><b>${w[0]}</b><small>${w[1]}</small><p>${w[2]}</p></div>`).join('')}</div></section>
+      <section class="hsec"><p class="hnum">Glossário</p><dl class="hglo">${HGLO.map(g => `<div><dt>${g[0]}</dt><dd>${g[1]}</dd></div>`).join('')}</dl></section>
+      <section class="hsrc"><p class="hlab">Fontes</p>
+        <p>SAAD, Luísa. <i>“Fumo de negro”: a criminalização da maconha no pós-abolição.</i> Salvador: EDUFBA, 2019.</p>
+        <p>SOUZA, Jorge Emanuel Luz de. <i>Sonhos da diamba, controles do cotidiano: uma história da criminalização da maconha no Brasil republicano.</i> Salvador: EDUFBA/CETAD, 2015.</p>
+        <p>Os dois livros são publicados sob a licença Creative Commons BY 4.0. Este texto é um resumo; as citações entre aspas vêm das fontes reunidas pelos autores. Os itens de 2006 e 2024 da linha do tempo não estão nos livros.</p></section>
+    </div></div>`;
+  }
+  const chHTML = (c, i) => `<section class="hsec" id="h-${c[0]}"><p class="hnum">Capítulo ${String(i + 1).padStart(2, '0')}</p><h2 class="hh2">${c[1]}</h2><div class="hbody">${c[2]}</div></section>`;
+  function histScroll() {
+    const v = document.getElementById('yv'); if (!v) return;
+    v.addEventListener('scroll', () => { const p = Math.min(100, Math.max(0, v.scrollTop / Math.max(1, v.scrollHeight - v.clientHeight) * 100)); st.hprog = p; const b = v.querySelector('.hbar i'); if (b) b.style.width = p + '%'; }, { passive: true });
+  }
+
   // ---------- abas ainda não refeitas ----------
   const SOON = { bench: ['Comparar', 'A tela de comparar entra na etapa 6. Você já pode marcar strains pelo botão no canto da ficha.'] };
   const soonHTML = k => `<div class="view"><div class="soon"><div class="seed"></div><p class="h1" style="font-size:26px">${SOON[k][0]}</p><p class="sub" style="max-width:300px">${SOON[k][1]}</p>${k === 'bench' && st.cmp.length ? `<div class="chips" style="justify-content:center">${st.cmp.map(id => `<button class="chip" data-open="${id}">${esc(by[id].n)}</button>`).join('')}</div>` : ''}</div></div>`;
-  const navHTML = () => `<nav class="nav"><span class="brand nbrand">${I.mark}FenoSearch</span>${[['home', 'Início', I.home], ['disc', 'Mapa', I.map], ['bench', 'Comparar' + (st.cmp.length ? ' · ' + st.cmp.length : ''), I.cmp]].map(([k, l, i]) => `<button data-tab="${k}" aria-current="${st.tab === k}">${i}${l}</button>`).join('')}<button class="nsrch" data-tab="find" aria-current="${st.tab === 'find'}">${I.search}Pesquisar</button></nav>`;
+  const navHTML = () => `<nav class="nav"><span class="brand nbrand">${I.mark}FenoSearch</span>${[['home', 'Início', I.home], ['disc', 'Mapa', I.map], ['bench', 'Comparar' + (st.cmp.length ? ' · ' + st.cmp.length : ''), I.cmp], ['hist', 'História', I.book]].map(([k, l, i]) => `<button data-tab="${k}" aria-current="${st.tab === k}">${i}${l}</button>`).join('')}<button class="nsrch" data-tab="find" aria-current="${st.tab === 'find'}">${I.search}Pesquisar</button></nav>`;
 
   function render(keep) {
     const sy = keep && document.getElementById(keep) ? document.getElementById(keep).scrollTop : 0;
-    let h = (st.tab === 'home' ? dayHTML() : st.tab === 'find' ? homeHTML() : st.tab === 'disc' ? discHTML() : st.tab === 'bench' ? benchHTML() : soonHTML(st.tab)) + navHTML();
+    let h = (st.tab === 'home' ? dayHTML() : st.tab === 'find' ? homeHTML() : st.tab === 'disc' ? discHTML() : st.tab === 'bench' ? benchHTML() : st.tab === 'hist' ? histHTML() : soonHTML(st.tab)) + navHTML();
     if (st.search) h += searchHTML();
     if (st.sheet.length) h += sheetHTML(st.sheet[st.sheet.length - 1]);
     if (st.tree) h += treeHTML();
@@ -970,8 +1179,9 @@ h1, h2, h3, p { margin: 0; }
     app.innerHTML = h;
     if (keep && document.getElementById(keep)) document.getElementById(keep).scrollTop = sy;
     if (document.getElementById('msvg')) { mapGestures(); applyVB(st.vb || WORLD); }
+    histScroll();
   }
-  function toast(t) { st.toast = t; render(st.sheet.length ? 'sv' : st.tab === 'disc' ? 'dv' : st.tab === 'home' ? 'hv' : st.tab === 'bench' ? 'bv' : null); clearTimeout(toast.h); toast.h = setTimeout(() => { st.toast = null; const el = app.querySelector('.toast'); if (el) el.remove(); }, 2200); }
+  function toast(t) { st.toast = t; render(st.sheet.length ? 'sv' : st.tab === 'disc' ? 'dv' : st.tab === 'home' ? 'hv' : st.tab === 'bench' ? 'bv' : st.tab === 'hist' ? 'yv' : null); clearTimeout(toast.h); toast.h = setTimeout(() => { st.toast = null; const el = app.querySelector('.toast'); if (el) el.remove(); }, 2200); }
   function open(id) { st.sheet.push(id); st.recent = [id, ...st.recent.filter(x => x !== id)].slice(0, 8); store.set('recent', st.recent); st.wipe = true; render(); st.wipe = false; }
   function closeSheet() { const el = app.querySelector('.sheet'); const done = () => { st.sheet = []; render(st.search ? 'sres' : null); }; if (!el) return done(); if (el.classList.contains('out')) return; el.classList.remove('in'); void el.offsetWidth; el.classList.add('out'); setTimeout(done, 390); }
   function focusQ() { const q = document.getElementById('q'); if (q && window.matchMedia('(pointer: fine)').matches) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
@@ -982,7 +1192,9 @@ h1, h2, h3, p { margin: 0; }
     const d = t.dataset;
     if ('introDone' in d) { e.stopPropagation(); introGo(-1); return; }
     if ('introNext' in d) { introGo(st.intro >= 3 ? -1 : st.intro + 1); return; }
-    if (d.tab) { st.tab = d.tab; st.sheet = []; st.search = null; render(); return; }
+    if (d.tab) { st.tab = d.tab; st.sheet = []; st.search = null; st.hprog = 0; render(); return; }
+    if (d.hgo) { const el = document.getElementById(d.hgo); if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); return; }
+    if ('hcat' in d) { st.hcat = d.hcat || null; render('yv'); return; }
     if ('search' in d) { st.search = { q: '', f: {} }; render(); focusQ(); return; }
     if ('searchClose' in d) { st.search = null; render(); return; }
     if (d.intent) { st.search = { q: '', f: Object.assign({}, INTENT_F[d.intent]) }; render(); return; }

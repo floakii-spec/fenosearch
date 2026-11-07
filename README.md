@@ -1,6 +1,6 @@
 # FenoSearch
 
-Atlas de strains: ficha, árvore genealógica, mapa de origem e comparação.
+Atlas de strains: ficha, árvore genealógica, mapa de origem, comparação e a história da proibição no Brasil.
 
 Site estático publicado em https://fenosearch.site via Netlify. Cada push na branch `main` faz o deploy automático.
 
@@ -17,3 +17,12 @@ As 306 strains originais foram curadas à mão. As demais (`conf: "b"`) vêm de 
 com origem e breeder deixados como "Desconhecida/Desconhecido" quando a fonte não informa.
 
 Campos `thcx` e `tex` marcam strains em que a base não informa THC ou terpenos; o app mostra "não informado".
+
+## Aba História
+
+O artigo "Fumo de negro, erva maldita" (em `index.html`, constantes `HTL`, `HCH`, `HMYTH`, `HGLO`, `HWHO`) resume dois livros publicados sob CC BY 4.0:
+
+- SAAD, Luísa. *"Fumo de negro": a criminalização da maconha no pós-abolição.* Salvador: EDUFBA, 2019.
+- SOUZA, Jorge Emanuel Luz de. *Sonhos da diamba, controles do cotidiano.* Salvador: EDUFBA/CETAD, 2015.
+
+Os itens de 2006 e 2024 da linha do tempo não vêm dos livros e estão marcados como "depois dos livros".
