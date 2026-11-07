@@ -470,7 +470,7 @@ h1, h2, h3, p { margin: 0; }
     check: ic('<path d="m5 12 5 5 9-10"/>'),
     leaf: `<svg class="ph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 29V14"/><path d="M16 15c0-6 3-10 6-12 1 5-1 10-6 12z"/><path d="M16 15c0-6-3-10-6-12-1 5 1 10 6 12z"/><path d="M16 20c4-3 9-3 12-1-3 3-8 4-12 1z"/><path d="M16 20c-4-3-9-3-12-1 3 3 8 4 12 1z"/></svg>`
   };
-  const pic = (s, cls = '') => s.img ? `<img src="${s.img}" loading="lazy" decoding="async" alt="Flor de ${esc(s.n)}"${cls}>` : I.leaf;
+  const pic = (s, cls = '') => s.img ? `<img src="${s.img}" decoding="async" alt="Flor de ${esc(s.n)}"${cls}>` : I.leaf;
   const glowOf = s => s.ch === 'III' ? 'rgba(116,190,219,.45)' : s.ch === 'II' ? 'rgba(227,194,90,.45)' : 'var(--glow)';
 
   const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem('fb2:' + k)); return v == null ? d : v; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem('fb2:' + k, JSON.stringify(v)); } catch (e) {} } };
@@ -480,7 +480,7 @@ h1, h2, h3, p { margin: 0; }
 
   // ---------- abertura ----------
   const GSC = by['gsc'];
-  const big = s => s.img ? `<img src="${s.hi}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}">` : I.leaf;
+  const big = s => s.img ? `<img src="${s.hi}" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}">` : I.leaf;
   if (GSC.hi) { const pre = new Image(); pre.src = GSC.hi; }
   const STEPS = [
     () => `<span></span><span></span><div class="logo fade">${I.mark}FenoSearch</div><span></span><span class="tap fade">TOQUE PARA COMEÇAR</span>`,
@@ -516,7 +516,7 @@ h1, h2, h3, p { margin: 0; }
   function homeHTML() {
     const topS = S.slice().sort((a, b) => b.kids.length - a.kids.length).slice(0, 12);
     const fresh = S.filter(s => s.y >= 2015 && s.img).sort((a, b) => b.y - a.y).slice(0, 12);
-    const fam = FAM.map(([k, v]) => { const L = S.filter(s => s.f === k), ph = L.filter(s => s.img).sort((a, b) => b.kids.length - a.kids.length).slice(0, 3); return `<button class="fam" data-fam="${k}"><span class="pics">${ph.map(s => `<img src="${s.img}" loading="lazy" decoding="async" alt="">`).join('')}</span><b>${FSH[k]}</b><span>${FDESC[k]} · ${L.length}</span></button>`; }).join('');
+    const fam = FAM.map(([k, v]) => { const L = S.filter(s => s.f === k), ph = L.filter(s => s.img).sort((a, b) => b.kids.length - a.kids.length).slice(0, 3); return `<button class="fam" data-fam="${k}"><span class="pics">${ph.map(s => `<img src="${s.img}" decoding="async" alt="">`).join('')}</span><b>${FSH[k]}</b><span>${FDESC[k]} · ${L.length}</span></button>`; }).join('');
     return `<div class="view"><div class="stack">
       <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="${st.tab === 'find'}">${I.search}</button></div>
       <div class="sec" style="gap:16px"><p class="h1">O que você procura hoje?</p>
@@ -553,7 +553,7 @@ h1, h2, h3, p { margin: 0; }
       <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="${st.tab === 'find'}">${I.search}</button></div>
       <div class="day">
         <p class="dl">Strain do dia · ${esc(dayLabel())}</p>
-        <button class="dhero" data-open="${s.id}" style="--hg:${glowOf(s)}" aria-label="Abrir ficha de ${esc(s.n)}"><img src="${s.hi}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}"></button>
+        <button class="dhero" data-open="${s.id}" style="--hg:${glowOf(s)}" aria-label="Abrir ficha de ${esc(s.n)}"><img src="${s.hi}" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}"></button>
         <p class="nm">${esc(s.n)}</p>
         <p class="meta">${[!NOBR.includes(s.br) ? esc(s.br) : null, s.y, esc(s.or)].filter(Boolean).join(' · ')}</p>
         <div class="tags"><span class="tag">${s.ind === 100 ? 'Indica pura' : s.ind === 0 ? 'Sativa pura' : `${kind(s)} · ${s.ind}% indica`}</span><span class="tag"><i class="dot" style="--cc:${cc(s)}"></i>${chemo(s.ch)}</span></div>
@@ -578,7 +578,7 @@ h1, h2, h3, p { margin: 0; }
     return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam))
       .sort((a, b) => (q ? (norm(b.n).startsWith(q) - norm(a.n).startsWith(q)) : 0) || (b.kids.length - a.kids.length) || (!!b.img - !!a.img));
   }
-  const itemHTML = s => `<button class="item" data-open="${s.id}"><span class="th">${pic(s)}</span><span><b>${esc(s.n)}</b><span>${kind(s)} · ${s.thcx ? 'THC não informado' : `THC ${pt(s.thc[0])} a ${pt(s.thc[1])}%`} · ${esc(rep(s).ef[0].n)}</span></span><span class="cnt"><i class="dot" style="--cc:${cc(s)};display:inline-block"></i></span></button>`;
+  const itemHTML = s => `<button class="item" data-open="${s.id}"><span class="th">${pic(s, ' loading="lazy"')}</span><span><b>${esc(s.n)}</b><span>${kind(s)} · ${s.thcx ? 'THC não informado' : `THC ${pt(s.thc[0])} a ${pt(s.thc[1])}%`} · ${esc(rep(s).ef[0].n)}</span></span><span class="cnt"><i class="dot" style="--cc:${cc(s)};display:inline-block"></i></span></button>`;
   function searchHTML() {
     const f = st.search.f, R = results(), any = st.search.q || Object.keys(f).some(k => f[k]);
     const famName = f.fam && FAM.find(x => x[0] === f.fam)[1];
@@ -608,7 +608,7 @@ h1, h2, h3, p { margin: 0; }
     return `<div class="sheet${st.wipe ? ' in' : ''}" role="dialog" aria-label="Ficha de ${esc(s.n)}">
       <div class="topb"><button class="rb" data-back aria-label="Fechar">${I.back}</button><button class="rb" data-cmp="${id}" aria-pressed="${inC}" aria-label="${inC ? 'Tirar da comparação' : 'Comparar'}">${inC ? I.check : I.cmp}</button></div>
       <div class="view" id="sv"><div class="stack" style="gap:22px">
-        <div><div class="hero" style="--hg:${glowOf(s)}">${s.img ? `<img src="${s.hi}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}">` : I.leaf}</div>
+        <div><div class="hero" style="--hg:${glowOf(s)}">${s.img ? `<img src="${s.hi}" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}">` : I.leaf}</div>
           <p class="nm">${esc(s.n)}</p>
           <p class="meta">${[!NOBR.includes(s.br) ? esc(s.br) : null, s.y, esc(s.or)].filter(Boolean).join(' · ')}</p>
           <div class="tags"><span class="tag">${s.ind === 100 ? 'Indica pura' : s.ind === 0 ? 'Sativa pura' : `${kind(s)} · ${s.ind}% indica`}</span><span class="tag"><i class="dot" style="--cc:${cc(s)}"></i>${chemo(s.ch)}</span></div>
