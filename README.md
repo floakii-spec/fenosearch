@@ -13,5 +13,7 @@ Site estático publicado em https://fenosearch.site via Netlify. Cada push na br
 
 ## Dados
 
-As 306 strains originais foram curadas à mão. As demais (`conf: "b"`) vêm de bases públicas do Leafly
-(scrapes abertos no GitHub), com origem e breeder deixados como "Desconhecida/Desconhecido" quando a fonte não informa.
+As 306 strains originais foram curadas à mão. As demais (`conf: "b"`) vêm de bases públicas (coletas do Leafly e do Seedfinder no GitHub).
+com origem e breeder deixados como "Desconhecida/Desconhecido" quando a fonte não informa.
+
+Campos `thcx` e `tex` marcam strains em que a base não informa THC ou terpenos; o app mostra "não informado".
