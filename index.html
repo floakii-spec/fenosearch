@@ -271,7 +271,13 @@ h1, h2, h3, p { margin: 0; }
 .zin { animation: zin .55s ease .15s backwards; }
 .zout { opacity: 0; transition: opacity .35s ease; pointer-events: none; }
 @keyframes zin { from { opacity: 0; } }
-.sdot { cursor: pointer; }
+.sdot { cursor: pointer; transition: opacity .25s ease; }
+.sdot.hid { opacity: 0; pointer-events: none; }
+.clu { cursor: pointer; }
+.clu .b { fill: rgba(12,13,12,.88); stroke-width: 2px; }
+.clu:hover .b { fill: rgba(30,31,28,.95); }
+.clu text { font-family: var(--fB); font-weight: 700; font-size: 12px; fill: var(--fg); text-anchor: middle; pointer-events: none; }
+.fdot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
 .rdot { cursor: pointer; }
 .rdot .b { fill: rgba(226,165,74,.85); stroke: var(--bg); stroke-width: 2px; }
 .rdot:hover .b { fill: var(--acc); }
@@ -689,6 +695,9 @@ h1, h2, h3, p { margin: 0; }
   const BYC = {}; S.forEach(s => { const c = countryOf(s); if (c) (BYC[c] = BYC[c] || []).push(s); });
   Object.values(BYC).forEach(L => L.sort((a, b) => b.kids.length - a.kids.length || !!b.img - !!a.img));
   const CTRY = Object.keys(BYC).sort((a, b) => BYC[b].length - BYC[a].length);
+  const FCOL = { landraces: '#C9A46A', skunk: '#9FCB6B', haze: '#E8D36A', kush: '#B48CE0', chem: '#7FB6E8', cookies: '#EE9CC0', fruit: '#F0875A', cbd: '#5FD0C0', auto: '#B5B5B5' };
+  const FSHORT = { landraces: 'Nativas', skunk: 'Skunk', haze: 'Haze', kush: 'Kush', chem: 'Chem e OG', cookies: 'Cookies', fruit: 'Frutadas', cbd: 'CBD', auto: 'Autos' };
+  const ML = c => !BYC[c] ? [] : st.mfam ? BYC[c].filter(s => s.f === st.mfam) : BYC[c];
   function timeHTML() {
     const sem = S.filter(s => decOf(s) === null).length;
     return ERAS.map(([d, t, txt]) => {
@@ -725,36 +734,71 @@ h1, h2, h3, p { margin: 0; }
     if (REGS[sel] && (!reg || reg === 'none')) {
       return `<path class="cshape" d="${GEO2.shape[sel] || ''}" vector-effect="non-scaling-stroke"/>` + REGS[sel].map(([k, n, , anc, side]) => { const L = regList(sel, k); if (!L.length) return ''; const [cx, cy] = P(anc), r = u0 * (10 + Math.sqrt(L.length) * 1.6); return `<g class="rdot" data-reg="${k}" role="button" aria-label="${esc(n)}: ${L.length} strains" transform="translate(${cx.toFixed(2)},${cy.toFixed(2)})"><circle class="b" r="${r.toFixed(3)}" vector-effect="non-scaling-stroke"/><text class="n" dy=".36em" style="font-size:${(u0 * 15).toFixed(3)}px">${L.length}</text><text class="l" y="${(side > 0 ? r + u0 * 14 : -r - u0 * 6).toFixed(3)}" style="font-size:${(u0 * 11.5).toFixed(3)}px;stroke-width:${(u0 * 3).toFixed(3)}px">${esc(n)}</text></g>`; }).join('');
     }
-    const L = reg ? regList(sel, reg) : BYC[sel];
+    const L = reg ? regList(sel, reg) : ML(sel);
     // tamanhos em pixels de tela: o grupo recebe scale(unidades por pixel) a cada quadro
-    return `<path class="cshape" d="${GEO2.shape[sel] || ''}" vector-effect="non-scaling-stroke"/>` + L.map((s, i) => { const p = GEO2.pos[s.id]; if (!p) return ''; return `<g class="sdot" data-open="${s.id}" data-i="${i}" data-x="${p[0]}" data-y="${p[1]}" role="button" aria-label="${esc(s.n)}" transform="translate(${p[0]},${p[1]}) scale(${u0.toFixed(5)})"><circle r="12" fill="transparent"/><g class="ic"><circle class="ring" cy="-37" r="17"/><image width="30" height="30" x="-15" y="-52"/></g><circle class="b" r="4.5" style="fill:${cc(s)}"/><text y="-8">${esc(s.n)}</text></g>`; }).reverse().join('');
+    return `<path class="cshape" d="${GEO2.shape[sel] || ''}" vector-effect="non-scaling-stroke"/>` + L.map((s, i) => { const p = GEO2.pos[s.id]; if (!p) return ''; return `<g class="sdot" data-open="${s.id}" data-i="${i}" data-x="${p[0]}" data-y="${p[1]}" role="button" aria-label="${esc(s.n)}" transform="translate(${p[0]},${p[1]}) scale(${u0.toFixed(5)})"><circle r="12" fill="transparent"/><g class="ic"><circle class="ring" cy="-37" r="17"/><image width="30" height="30" x="-15" y="-52"/></g><circle class="b" r="4.5" style="fill:${FCOL[s.f] || cc(s)}"/><text y="-8">${esc(s.n)}</text></g>`; }).reverse().join('');
   }
-  const bubbles = (sel, k = 1) => CTRY.slice().reverse().map(c => { const [x, y] = P(GEO[c]), n = BYC[c].length, r = 2.6 + Math.sqrt(n) * .85; return `<g class="cdot${sel ? (c === sel ? ' gone' : ' dim') : ''}" data-ctry="${c}" role="button" aria-label="${esc(c)}: ${n} strains" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${k.toFixed(4)})"><circle r="${Math.max(r, 9)}" fill="transparent"/><circle class="b" r="${r.toFixed(1)}" vector-effect="non-scaling-stroke"/></g>`; }).join('');
-  const mapUI = (sel, reg) => sel ? (reg && reg !== 'none' ? `<button class="mback" data-regback>${I.back}${esc(sel)}</button><span class="mlab">${esc(regName(sel, reg))} · ${regList(sel, reg).length}</span>` : `<button class="mback" data-world>${I.back}Mundo</button><span class="mlab">${esc(sel)} · ${BYC[sel].length}</span>`) : '';
+  const bubbles = (sel, k = 1) => CTRY.slice().reverse().map(c => { const [x, y] = P(GEO[c]), n = ML(c).length; if (!n) return ''; const r = 2.6 + Math.sqrt(n) * .85; return `<g class="cdot${sel ? (c === sel ? ' gone' : ' dim') : ''}" data-ctry="${c}" role="button" aria-label="${esc(c)}: ${n} strains" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${k.toFixed(4)})"><circle r="${Math.max(r, 9)}" fill="transparent"/><circle class="b" r="${r.toFixed(1)}" vector-effect="non-scaling-stroke"/></g>`; }).join('');
+  const mapUI = (sel, reg) => sel ? (reg && reg !== 'none' ? `<button class="mback" data-regback>${I.back}${esc(sel)}</button><span class="mlab">${esc(regName(sel, reg))} · ${regList(sel, reg).length}</span>` : `<button class="mback" data-world>${I.back}Mundo</button><span class="mlab">${esc(sel)} · ${ML(sel).length}</span>`) : '';
   function mapRest(sel, reg) {
-    const L = sel ? (reg ? regList(sel, reg) : BYC[sel]) : null, nat = L ? L.filter(s => s.f === 'landraces').length : 0, hasR = sel && REGS[sel];
+    const L = sel ? (reg ? regList(sel, reg) : ML(sel)) : null, nat = L ? L.filter(s => s.f === 'landraces').length : 0, hasR = sel && REGS[sel];
     const title = sel ? (reg ? regName(sel, reg) : sel) : '';
-    return `<p class="legal">${!sel ? 'Cada círculo é um lugar de origem, e o tamanho mostra quantas strains vêm de lá. Toque num círculo pra dar zoom.' : hasR && (!reg || reg === 'none') ? `${esc(sel)} tem muitas strains, então elas estão agrupadas por região. Toque numa região pra ver as strains de lá.` : 'Cada ponto é uma strain, perto da região onde nasceu. Toque num ponto pra abrir a ficha.'}</p>
+    return `<p class="legal">${!sel ? 'Cada círculo é um lugar de origem, e o tamanho mostra quantas strains vêm de lá. Toque num círculo pra dar zoom.' : hasR && (!reg || reg === 'none') ? `${esc(sel)} tem muitas strains, então elas estão agrupadas por região. Toque numa região pra ver as strains de lá.` : 'Cada ponto é uma strain, com a cor da família. Onde há muitas juntas, elas viram uma bolha com o número: toque nela ou aproxime pra separar.'}</p>
       ${hasR ? `<div class="chips">${[...REGS[sel].map(r => r[0]), 'none'].map(k => `<button class="chip${k === 'none' ? ' ghostc' : ''}" data-reg="${k}" aria-pressed="${k === reg}">${esc(regName(sel, k))} <span style="opacity:.6">${regList(sel, k).length}</span></button>`).join('')}</div>` : ''}
-      <div class="chips">${CTRY.map(c => `<button class="chip" data-ctry="${c}" aria-pressed="${c === sel}">${esc(c)} <span style="opacity:.6">${BYC[c].length}</span></button>`).join('')}</div>
+      <div class="chips mfam"><button class="chip" data-mfam="" aria-pressed="${!st.mfam}">Todas</button>${FAM.map(([k]) => `<button class="chip" data-mfam="${k}" aria-pressed="${st.mfam === k}"><i class="fdot" style="background:${FCOL[k]}"></i>${FSHORT[k]}</button>`).join('')}</div>
+      <div class="chips">${CTRY.filter(c => ML(c).length).map(c => `<button class="chip" data-ctry="${c}" aria-pressed="${c === sel}">${esc(c)} <span style="opacity:.6">${ML(c).length}</span></button>`).join('')}</div>
       ${sel ? `<div class="sec"><p class="h3">${esc(title)}<small>${L.length} ${L.length === 1 ? 'strain' : 'strains'}${nat ? ` · ${nat} ${nat === 1 ? 'nativa' : 'nativas'}` : ''}</small></p><div class="row">${L.slice(0, st.ctryAll ? 999 : 16).map(s => budHTML(s, s.f === 'landraces' ? 'nativa' : s.y ? String(s.y) : kind(s))).join('')}${!st.ctryAll && L.length > 16 ? `<button class="bud more" data-ctryall><span class="im">+${L.length - 16}</span><b>Ver todas</b><small>${L.length} no total</small></button>` : ''}</div></div>` : ''}`;
   }
   function mapHTML() {
     const sel = BYC[st.ctry] ? st.ctry : null, vb = st.vb || WORLD;
-    return `<div class="mapw${sel ? ' z' : ''}"><svg id="msvg" viewBox="${vb.join(' ')}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa com a origem das strains"><path class="land" fill-rule="evenodd" d="${LAND}"/><path class="bord" d="${BORD}" vector-effect="non-scaling-stroke"/><g id="mb">${bubbles(sel, vb[2] / WORLD[2])}</g><g id="zl">${sel ? `<g>${zoomLayer(sel, st.vbT || fitBox(sel), st.reg)}</g>` : ''}</g></svg>
+    return `<div class="mapw${sel ? ' z' : ''}"><svg id="msvg" viewBox="${vb.join(' ')}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa com a origem das strains"><path class="land" fill-rule="evenodd" d="${LAND}"/><path class="bord" d="${BORD}" vector-effect="non-scaling-stroke"/><g id="mb">${bubbles(sel, vb[2] / WORLD[2])}</g><g id="zl">${sel ? `<g>${zoomLayer(sel, st.vbT || fitBox(sel), st.reg)}</g>` : ''}</g><g id="clu"></g></svg>
         <div id="mui">${mapUI(sel, st.reg)}</div><div class="mzm"><button data-mz="in" aria-label="Aproximar">+</button><button data-mz="out" aria-label="Afastar">−</button></div></div>
       <div id="mrest" class="stack" style="gap:16px">${mapRest(sel, st.reg)}</div>`;
   }
   function mapLabels(v) {
-    const el = document.getElementById('msvg'); if (!el || !st.ctry) return;
+    const el = document.getElementById('msvg'); if (!el) return;
+    const cl = el.querySelector('#clu');
+    if (!st.ctry) { if (cl) cl.innerHTML = ''; return; }
     const W = el.clientWidth, H = el.clientHeight, upp = v[2] / W, boxes = [];
     const dots = [...el.querySelectorAll('#zl > g:not(.zout) .sdot')].sort((a, b) => a.dataset.i - b.dataset.i);
+    // agrupamento: pontos muito juntos na tela viram uma bolha com o número
+    const R = 44, rad = n => Math.min(24, 11 + Math.sqrt(n) * 1.5), on = v[2] > 3.2;
+    let C = [];
+    for (const g of dots) {
+      const x = (g.dataset.x - v[0]) / upp, y = (g.dataset.y - v[1]) / upp; g._x = x; g._y = y;
+      if (!on || x < -60 || x > W + 60 || y < -60 || y > H + 60) { g._c = null; continue; }
+      let best = null, bd = R;
+      for (const c of C) { const d = Math.hypot(c.x - x, c.y - y); if (d < bd) { bd = d; best = c; } }
+      if (best) { best.m.push(g); best.x += (x - best.x) / best.m.length; best.y += (y - best.y) / best.m.length; } else C.push({ x, y, m: [g] });
+    }
+    // junta bolhas que se encostam, e pontos soltos que ficariam por baixo de uma bolha
+    for (let it = 0, ch2 = true; ch2 && it < 8; it++) {
+      ch2 = false; C.sort((a, b) => b.m.length - a.m.length);
+      for (let a = 0; a < C.length; a++) for (let b = a + 1; b < C.length; b++) {
+        const A = C[a], B = C[b]; if (!A || !B) continue;
+        const ra = A.m.length >= 3 ? rad(A.m.length) : 6, rb = B.m.length >= 3 ? rad(B.m.length) : 6;
+        if ((A.m.length >= 3 || B.m.length >= 3) && Math.hypot(A.x - B.x, A.y - B.y) < ra + rb + 4) { const n = A.m.length + B.m.length; A.x = (A.x * A.m.length + B.x * B.m.length) / n; A.y = (A.y * A.m.length + B.y * B.m.length) / n; A.m.push(...B.m); C[b] = null; ch2 = true; }
+      }
+      C = C.filter(Boolean);
+    }
+    let ch = '';
+    const hide = new Set();
+    for (const c of C) {
+      if (c.m.length < 3) continue;
+      c.m.forEach(g => hide.add(g));
+      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, ux = 0, uy = 0; const fs = {};
+      c.m.forEach(g => { const x = +g.dataset.x, y = +g.dataset.y; ux += x; uy += y; x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); const f = by[g.dataset.open].f; fs[f] = (fs[f] || 0) + 1; });
+      const top = Object.keys(fs).sort((a, b) => fs[b] - fs[a])[0], n = c.m.length;
+      ch += `<g class="clu" data-clu="${x0},${y0},${x1},${y1}" role="button" aria-label="${n} strains, toque pra aproximar" transform="translate(${(v[0] + c.x * upp).toFixed(3)},${(v[1] + c.y * upp).toFixed(3)}) scale(${upp.toFixed(5)})"><circle class="b" r="${rad(n).toFixed(1)}" style="stroke:${FCOL[st.mfam || top]}"/><text dy=".35em">${n}</text></g>`;
+    }
+    dots.forEach(g => { const hd = hide.has(g); if (hd !== g.classList.contains('hid')) g.classList.toggle('hid', hd); });
+    if (cl) cl.innerHTML = ch;
     const ppu = 1 / upp, dense = dots.length / Math.max(1, (GEO2.box[st.ctry][2] - GEO2.box[st.ctry][0]) * ppu * (GEO2.box[st.ctry][3] - GEO2.box[st.ctry][1]) * ppu / 10000);
     let shown = 0;
     for (const g of dots) {
       const x = (g.dataset.x - v[0]) / upp, y = (g.dataset.y - v[1]) / upp, s = by[g.dataset.open];
       let on = false;
-      if (x > -20 && x < W + 20 && y > -10 && y < H + 50 && shown < 60) {
+      if (!g.classList.contains('hid') && x > -20 && x < W + 20 && y > -10 && y < H + 50 && shown < 60) {
         const w = Math.max(s.n.length * 6.6, 34), bx = [x - w / 2, y - 56, x + w / 2, y + 4];
         if (boxes.every(b => bx[2] < b[0] || bx[0] > b[2] || bx[3] < b[1] || bx[1] > b[3])) { boxes.push(bx); on = true; shown++; }
       }
@@ -909,7 +953,7 @@ h1, h2, h3, p { margin: 0; }
 
   app.addEventListener('click', e => {
     if (st.dragged && e.target.closest('#msvg')) return;
-    const t = e.target.closest('button, [data-intro-next], g[data-ctry], g[data-open], g[data-reg]'); if (!t) return;
+    const t = e.target.closest('button, [data-intro-next], g[data-ctry], g[data-open], g[data-reg], g[data-clu]'); if (!t) return;
     const d = t.dataset;
     if ('introDone' in d) { e.stopPropagation(); introGo(-1); return; }
     if ('introNext' in d) { introGo(st.intro >= 3 ? -1 : st.intro + 1); return; }
@@ -928,6 +972,8 @@ h1, h2, h3, p { margin: 0; }
     if (d.tree) { openTree(d.tree); return; }
     if (d.disc) { st.disc = d.disc; render(); return; }
     if (d.era) { st.eraAll[d.era] = true; render('dv'); return; }
+    if (d.clu) { const el = document.getElementById('msvg'), [x0, y0, x1, y1] = d.clu.split(',').map(Number), ar = el.clientWidth / el.clientHeight; let w = Math.max((x1 - x0) * 1.5, (y1 - y0) * 1.5 * ar, 2.6), hh = w / ar; animVB(clampVB([(x0 + x1) / 2 - w / 2, (y0 + y1) / 2 - hh / 2, w, hh]), 550); return; }
+    if ('mfam' in d) { st.mfam = d.mfam || null; const el = document.getElementById('msvg'); if (!el) { render('dv'); return; } if (st.ctry && !ML(st.ctry).length) { st.mfam = st.mfam; } const sel = st.ctry; document.getElementById('mb').innerHTML = bubbles(sel, (st.vb || WORLD)[2] / WORLD[2]); const zl = document.getElementById('zl'); if (sel) { zl.innerHTML = `<g>${zoomLayer(sel, st.vbT || fitBox(sel), st.reg)}</g>`; } document.getElementById('mui').innerHTML = mapUI(sel, st.reg); document.getElementById('mrest').innerHTML = mapRest(sel, st.reg); applyVB(st.vb || WORLD); return; }
     if (d.ctry) { zoomTo(d.ctry); return; }
     if (d.reg) { zoomTo(st.ctry, d.reg === st.reg ? null : d.reg); return; }
     if ('regback' in d) { zoomTo(st.ctry, null); return; }
