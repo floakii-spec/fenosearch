@@ -151,6 +151,10 @@ h1, h2, h3, p { margin: 0; }
 @keyframes edge { 0% { opacity: 1; left: 100%; } 100% { opacity: 0; left: -120px; } }
 .sheet.out::after { animation: edgeOut .4s cubic-bezier(.76,0,.24,1) forwards; }
 @keyframes edgeOut { 0% { opacity: 0; left: -120px; } 30% { opacity: 1; } 100% { opacity: 1; left: calc(100% - 2px); } }
+.tbr { display: flex; gap: 10px; }
+.rb.fav[aria-pressed="true"] svg { fill: currentColor; }
+.frow .chip svg { width: 14px; height: 14px; margin-right: 5px; vertical-align: -2px; }
+.frow .chip[aria-pressed="true"] svg { fill: currentColor; }
 .topb { position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); display: flex; justify-content: space-between; z-index: 2; pointer-events: none; }
 .rb { pointer-events: auto; width: 40px; height: 40px; border-radius: 50%; background: rgba(20,22,20,.7); border: 1px solid var(--line); display: grid; place-items: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .rb svg { width: 20px; height: 20px; }
@@ -561,13 +565,14 @@ h1, h2, h3, p { margin: 0; }
     map: ic('<path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5v-13.5l-6 2.5z"/><path d="M9 4v13.5M15 6.5v13.5"/>'),
     plus: ic('<path d="M12 5v14M5 12h14"/>'),
     check: ic('<path d="m5 12 5 5 9-10"/>'),
+    heart: ic('<path d="M12 20.5s-7.5-4.6-7.5-10.4A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.5 2.5c0 5.8-7.5 10.4-7.5 10.4z"/>'),
     leaf: `<svg class="ph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 29V14"/><path d="M16 15c0-6 3-10 6-12 1 5-1 10-6 12z"/><path d="M16 15c0-6-3-10-6-12-1 5 1 10 6 12z"/><path d="M16 20c4-3 9-3 12-1-3 3-8 4-12 1z"/><path d="M16 20c-4-3-9-3-12-1 3 3 8 4 12 1z"/></svg>`
   };
   const pic = (s, cls = '') => s.img ? `<img src="${s.img}" decoding="async" alt="Flor de ${esc(s.n)}"${cls}>` : I.leaf;
   const glowOf = s => s.ch === 'III' ? 'rgba(116,190,219,.45)' : s.ch === 'II' ? 'rgba(227,194,90,.45)' : 'var(--glow)';
 
   const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem('fb2:' + k)); return v == null ? d : v; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem('fb2:' + k, JSON.stringify(v)); } catch (e) {} } };
-  const st = { tab: 'home', intro: store.get('seen', false) ? -1 : 0, search: null, sheet: [], cmp: store.get('cmp', []).filter(id => by[id]), recent: store.get('recent', []).filter(id => by[id]), toast: null, trail: [], hist: [], disc: 'tempo', eraAll: {}, reg: null, ctry: null, ctryAll: false, vb: null, vbT: null };
+  const st = { tab: 'home', intro: store.get('seen', false) ? -1 : 0, search: null, sheet: [], cmp: store.get('cmp', []).filter(id => by[id]), recent: store.get('recent', []).filter(id => by[id]), fav: store.get('fav', []).filter(id => by[id]), toast: null, trail: [], hist: [], disc: 'tempo', eraAll: {}, reg: null, ctry: null, ctryAll: false, vb: null, vbT: null };
   st.root = by[store.get('root', '')] ? store.get('root', '') : (st.recent[0] || 'gsc');
   const app = document.getElementById('app');
 
@@ -615,6 +620,7 @@ h1, h2, h3, p { margin: 0; }
       <div class="sec" style="gap:16px"><p class="h1">O que você procura hoje?</p>
         <button class="find" data-search>${I.search}<span>Nome, efeito ou aroma</span></button>
         <div class="chips">${INTENTS.map(([k, t]) => `<button class="chip" data-intent="${k}">${t}</button>`).join('')}</div></div>
+      ${st.fav.length ? `<div class="sec"><p class="h3">Suas favoritas<button class="lnk" data-favall>Ver todas (${st.fav.length})</button></p><div class="row">${st.fav.slice(0, 12).map(id => budHTML(by[id])).join('')}</div></div>` : ''}
       ${st.recent.length ? `<div class="sec"><p class="h3">Vistas por você</p><div class="row">${st.recent.map(id => budHTML(by[id])).join('')}</div></div>` : ''}
       <div class="sec"><p class="h3">As mais influentes<small>deram origem a mais strains</small></p><div class="row">${topS.map(s => budHTML(s, s.kids.length + ' descendentes')).join('')}</div></div>
       <div class="sec"><p class="h3">Por família</p><div class="fams">${fam}</div></div>
@@ -657,19 +663,21 @@ h1, h2, h3, p { margin: 0; }
         ${par.length === 2 ? `<div class="par">${par.map(p => `<button class="pc" data-open="${p.id}"><span class="im">${pic(p)}</span><b>${esc(p.n)}</b><small>${kind(p)}</small></button>`).join('<span class="x">×</span>')}</div>` : ''}</div>
       <div class="sec"><p class="h3">Curiosidades</p><ul class="facts">${facts(s).map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>
       <div class="sec"><p class="h3">Dias anteriores</p><div class="row">${prev.map(([o, x]) => budHTML(x, o === 1 ? 'ontem' : dayLabel(o).split(',')[0])).join('')}</div></div>
+      ${st.fav.length ? `<div class="sec"><p class="h3">Suas favoritas<button class="lnk" data-favall>Ver todas (${st.fav.length})</button></p><div class="row">${st.fav.slice(0, 12).map(id => budHTML(by[id])).join('')}</div></div>` : ''}
       ${st.recent.length ? `<div class="sec"><p class="h3">Vistas por você</p><div class="row">${st.recent.map(id => budHTML(by[id])).join('')}</div></div>` : ''}
       <p class="legal">Uma strain nova aparece aqui todo dia. Conteúdo informativo: efeitos são relatos de usuários, não recomendação médica.</p>
     </div></div>`;
   }
 
   // ---------- busca ----------
-  const FILTERS = [['k', 'Indica', 'Indica'], ['k', 'Sativa', 'Sativa'], ['k', 'Híbrida', 'Híbrida'], ['c', 'I', 'Mais THC'], ['c', 'II', 'Equilibrada'], ['c', 'III', 'Mais CBD'], ['d', 'fácil', 'Fácil de cultivar'], ['fl', 9, 'Até 9 semanas'], ['auto', 1, 'Automática']];
+  const FILTERS = [['fav', 1, 'Favoritas'], ['k', 'Indica', 'Indica'], ['k', 'Sativa', 'Sativa'], ['k', 'Híbrida', 'Híbrida'], ['c', 'I', 'Mais THC'], ['c', 'II', 'Equilibrada'], ['c', 'III', 'Mais CBD'], ['d', 'fácil', 'Fácil de cultivar'], ['fl', 9, 'Até 9 semanas'], ['auto', 1, 'Automática'], ['thc', 20, 'THC 20%+'], ['br', 1, 'Brasileiras'], ['ph', 1, 'Com foto'], ['ord', 'thc', 'Mais THC primeiro'], ['ord', 'fl', 'Mais rápidas primeiro']];
+  const FNUM = ['fl', 'auto', 'fav', 'thc', 'br', 'ph'];
   const INTENT_F = { relax: { k: 'Indica', c: 'I' }, energia: { k: 'Sativa', c: 'I' }, cbd: { c: 'III' }, facil: { d: 'fácil' }, rapida: { fl: 8 } };
   function results() {
     const q = norm((st.search.q || '').trim()), f = st.search.f;
     const hay = s => norm([s.n, s.br, ...mp(s).map(p => by[p].n), ...un(s), ...aromas(s), ...s.te, ...rep(s).ef.map(e => e.n), ...rep(s).us, s.or].join(' '));
-    return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam))
-      .sort((a, b) => (q ? (norm(b.n).startsWith(q) - norm(a.n).startsWith(q)) : 0) || (b.kids.length - a.kids.length) || (!!b.img - !!a.img));
+    return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam) && (!f.fav || st.fav.includes(s.id)) && (!f.thc || (!s.thcx && s.thc[1] >= f.thc)) && (!f.br || /Brasil/.test(s.or)) && (!f.ph || s.img))
+      .sort((a, b) => (f.ord === 'thc' ? ((b.thcx ? 0 : b.thc[1]) - (a.thcx ? 0 : a.thc[1])) : f.ord === 'fl' ? (a.fl[0] - b.fl[0]) || (a.fl[1] - b.fl[1]) : 0) || (q ? (norm(b.n).startsWith(q) - norm(a.n).startsWith(q)) : 0) || (b.kids.length - a.kids.length) || (!!b.img - !!a.img));
   }
   const itemHTML = s => `<button class="item" data-open="${s.id}"><span class="th">${pic(s, ' loading="lazy"')}</span><span><b>${esc(s.n)}</b><span>${kind(s)} · ${s.thcx ? 'THC não informado' : `THC ${pt(s.thc[0])} a ${pt(s.thc[1])}%`} · ${esc(rep(s).ef[0].n)}</span></span><span class="cnt"><i class="dot" style="--cc:${cc(s)};display:inline-block"></i></span></button>`;
   function searchHTML() {
@@ -677,7 +685,7 @@ h1, h2, h3, p { margin: 0; }
     const famName = f.fam && FAM.find(x => x[0] === f.fam)[1];
     return `<div class="over" role="dialog" aria-label="Buscar">
       <div class="sbar"><label class="find" for="q">${I.search}<input id="q" type="search" placeholder="${st.search.pick ? 'Escolha uma strain pra comparar' : 'Nome, efeito ou aroma'}" value="${esc(st.search.q || '')}" autocomplete="off"></label><button class="close" data-search-close>Fechar</button></div>
-      <div class="frow">${famName ? `<button class="chip" aria-pressed="true" data-f="fam" data-v="${f.fam}">${esc(famName)} ×</button>` : ''}${FILTERS.map(([k, v, l]) => `<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k] === v}">${l}</button>`).join('')}</div>
+      <div class="frow">${famName ? `<button class="chip" aria-pressed="true" data-f="fam" data-v="${f.fam}">${esc(famName)} ×</button>` : ''}${Object.keys(f).some(k => f[k]) ? '<button class="chip ghostc" data-fclear>Limpar ×</button>' : ''}${FILTERS.filter(([k]) => k !== 'fav' || st.fav.length || f.fav).map(([k, v, l]) => `<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k] === v}">${k === 'fav' ? I.heart : ''}${l}${k === 'fav' ? ` <span style="opacity:.6">${st.fav.length}</span>` : ''}</button>`).join('')}</div>
       <div class="view" id="sres" style="padding-top:0">
         ${!any && st.recent.length ? `<p class="count">Vistas por você</p><div class="res">${st.recent.map(id => itemHTML(by[id])).join('')}</div><p class="count" style="padding-top:22px">Todas as strains</p>` : `<p class="count">${R.length} ${R.length === 1 ? 'strain' : 'strains'}</p>`}
         <div class="res">${R.slice(0, 80).map(itemHTML).join('') || '<p class="empty">Nenhuma strain com esses filtros. Tente tirar algum.</p>'}</div>
@@ -699,7 +707,7 @@ h1, h2, h3, p { margin: 0; }
     else origin = `<p class="about">${s.unk ? 'Origem desconhecida. Não há registro confiável dos pais.' : `Variedade nativa de ${esc(s.or)}, sem cruzamento feito por breeder.`}</p>`;
     const lead = `Quem usa ${esc(s.n)} costuma relatar <em>${R.ef[0].n}</em> e ${R.ef[1].n}${aromas(s).length ? `, com aroma ${listJoin(aromas(s).slice(0, 2))}` : ''}.`;
     return `<div class="sheet${st.wipe ? ' in' : ''}" role="dialog" aria-label="Ficha de ${esc(s.n)}">
-      <div class="topb"><button class="rb" data-back aria-label="Fechar">${I.back}</button><button class="rb" data-cmp="${id}" aria-pressed="${inC}" aria-label="${inC ? 'Tirar da comparação' : 'Comparar'}">${inC ? I.check : I.cmp}</button></div>
+      <div class="topb"><button class="rb" data-back aria-label="Fechar">${I.back}</button><span class="tbr"><button class="rb fav" data-fav="${id}" aria-pressed="${st.fav.includes(id)}" aria-label="${st.fav.includes(id) ? 'Tirar das favoritas' : 'Salvar nas favoritas'}">${I.heart}</button><button class="rb" data-cmp="${id}" aria-pressed="${inC}" aria-label="${inC ? 'Tirar da comparação' : 'Comparar'}">${inC ? I.check : I.cmp}</button></span></div>
       <div class="view" id="sv"><div class="stack" style="gap:22px">
         <div><div class="hero" style="--hg:${glowOf(s)}">${s.img ? `<img src="${s.hi}" decoding="async" onerror="this.onerror=null;this.src='${s.img}'" alt="Flor de ${esc(s.n)}">` : I.leaf}</div>
           <p class="nm">${esc(s.n)}</p>
@@ -1197,9 +1205,11 @@ h1, h2, h3, p { margin: 0; }
     if ('hcat' in d) { st.hcat = d.hcat || null; render('yv'); return; }
     if ('search' in d) { st.search = { q: '', f: {} }; render(); focusQ(); return; }
     if ('searchClose' in d) { st.search = null; render(); return; }
+    if ('favall' in d) { st.search = { q: '', f: { fav: 1 } }; render(); return; }
     if (d.intent) { st.search = { q: '', f: Object.assign({}, INTENT_F[d.intent]) }; render(); return; }
     if (d.fam) { st.search = { q: '', f: { fam: d.fam } }; render(); return; }
-    if (d.f) { const v = d.f === 'fl' || d.f === 'auto' ? +d.v : d.v; const f = st.search.f; f[d.f] = f[d.f] === v ? null : v; if (d.f === 'auto' && f.auto) f.fl = null; if (d.f === 'fl' && f.fl) f.auto = null; render(); return; }
+    if ('fclear' in d) { st.search.f = {}; render(); return; }
+    if (d.f) { const v = FNUM.includes(d.f) ? +d.v : d.v; const f = st.search.f; f[d.f] = f[d.f] === v ? null : v; if (d.f === 'auto' && f.auto) f.fl = null; if (d.f === 'fl' && f.fl) f.auto = null; render(); return; }
     if (d.open && st.search && st.search.pick) { const id = d.open; st.search = null; if (!st.cmp.includes(id) && st.cmp.length < 3) { st.cmp.push(id); store.set('cmp', st.cmp); } render('bv'); return; }
     if (d.open) { open(d.open); return; }
     if ('cmpadd' in d) { st.search = { q: '', f: {}, pick: true }; render(); focusQ(); return; }
@@ -1226,6 +1236,7 @@ h1, h2, h3, p { margin: 0; }
     if ('tclose' in d) { closeTree(); return; }
     if (d.topen) { st.tree = null; open(d.topen); return; }
     if ('back' in d) { closeSheet(); return; }
+    if (d.fav) { const id = d.fav, i = st.fav.indexOf(id); if (i >= 0) { st.fav.splice(i, 1); toast('Tirada das favoritas'); } else { st.fav.unshift(id); toast(`${by[id].n} salva nas favoritas`); } store.set('fav', st.fav); return; }
     if (d.cmp) { const id = d.cmp, i = st.cmp.indexOf(id); if (i >= 0) { st.cmp.splice(i, 1); store.set('cmp', st.cmp); toast('Tirada da comparação'); } else if (st.cmp.length >= 3) toast('Dá pra comparar até 3 strains'); else { st.cmp.push(id); store.set('cmp', st.cmp); toast(`${by[id].n} na comparação (${st.cmp.length} de 3)`); } return; }
   });
   app.addEventListener('input', e => { if (e.target.id === 'q') { st.search.q = e.target.value; const res = results(); const box = app.querySelector('#sres'); const any = st.search.q || Object.keys(st.search.f).some(k => st.search.f[k]); box.innerHTML = `<p class="count">${res.length} ${res.length === 1 ? 'strain' : 'strains'}</p><div class="res">${res.slice(0, 80).map(itemHTML).join('') || '<p class="empty">Nenhuma strain encontrada. Tente outro nome, efeito ou aroma.</p>'}</div>`; if (!any) render(); } });
