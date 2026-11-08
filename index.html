@@ -456,6 +456,56 @@ h1, h2, h3, p { margin: 0; }
   .htl li::before { left: 77px; }
 }
 
+/* aprenda: cartões de canabinoides, terpenos, espectro e ciclo */
+#lv { padding-top: 0; }
+.lcan { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.lcan div { padding: 16px 18px; border-radius: 20px; background: var(--glass); border: 1px solid var(--line); border-left: 3px solid var(--lc); display: flex; flex-direction: column; gap: 2px; }
+.lcan b { font-family: var(--fD); font-size: 24px; letter-spacing: -.01em; color: var(--lc); }
+.lcan small { font-size: 12px; color: var(--fg3); letter-spacing: .04em; }
+.lcan p, .lchem p, .lterp p { font-size: 14.5px; line-height: 1.5; color: var(--fg2); margin-top: 6px; }
+.lchem, .lterp { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.lchem button, .lterp button { text-align: left; display: flex; flex-direction: column; gap: 2px; padding: 16px 18px; border-radius: 20px; background: var(--glass); border: 1px solid var(--line); position: relative; }
+.lchem b, .lterp b { font-size: 17px; font-weight: 600; }
+.lchem small, .lterp small { font-size: 12.5px; color: var(--fg3); }
+.lchem i, .lterp i { font-style: normal; font-size: 13px; font-weight: 600; color: var(--acc); margin-top: 8px; }
+.lpie { position: absolute; right: 18px; top: 16px; width: 34px; height: 34px; border-radius: 50%; background: conic-gradient(#E2A54A 0 var(--th), #6FC7B0 var(--th) 100%); }
+.lt1 { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); font-weight: 600; margin-bottom: 2px; }
+.lspec { position: relative; padding: 34px 0 0; display: flex; justify-content: space-between; gap: 8px; }
+.lbar { position: absolute; top: 0; left: 0; right: 0; height: 22px; border-radius: 999px; background: linear-gradient(90deg, #E2A54A, #9CC86A 50%, #B79BE0); display: flex; justify-content: space-between; align-items: center; padding: 0 12px; font-size: 11.5px; font-weight: 600; color: #0b0c0a; letter-spacing: .06em; text-transform: uppercase; }
+.lspec button { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 12px 6px; border-radius: 18px; border: 1px solid var(--line); background: var(--glass); }
+.lspec .im { width: 64px; height: 64px; display: grid; place-items: center; }
+.lspec .im img { max-height: 64px; object-fit: contain; }
+.lspec .im svg { width: 32px; height: 32px; color: var(--fg3); }
+.lspec b { font-size: 14px; font-weight: 600; line-height: 1.2; }
+.lspec small { font-size: 11.5px; color: var(--fg3); }
+.lana { width: 100%; max-width: 420px; height: auto; align-self: center; }
+.lana .lsug path { fill: #3E5A2C; }
+.lana .lstem { stroke: #3E5A2C; stroke-width: 6; stroke-linecap: round; fill: none; }
+.lana .lcal ellipse { fill: #6E9A4A; stroke: #0b0c0a; stroke-width: 1.5; }
+.lana .lpis path { stroke: #E58F6F; stroke-width: 2; fill: none; stroke-linecap: round; }
+.lana .ltri circle { fill: #F1F3EE; opacity: .85; }
+.lana .lzoom { fill: #12140f; stroke: var(--acc); stroke-width: 1.5; }
+.lana .lhead path { stroke: #CFE3C8; stroke-width: 3; stroke-linecap: round; }
+.lana .lhead circle { fill: #F4EBD2; stroke: #E2A54A; stroke-width: 1.5; }
+.lana .lline { stroke: var(--fg3); stroke-width: 1; fill: none; stroke-dasharray: 3 3; }
+.lana text { fill: var(--fg); font: 600 13px var(--fB, sans-serif); }
+.lana text.lsm { fill: var(--fg3); font-weight: 400; font-size: 11px; }
+.lcyc { display: flex; flex-direction: column; gap: 10px; }
+.lrow { display: flex; gap: 4px; }
+.lrow i { display: block; height: 12px; border-radius: 999px; background: var(--lc); min-width: 0; }
+.lleg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+.lleg div { position: relative; padding-left: 16px; display: flex; flex-direction: column; }
+.lleg div::before { content: ""; position: absolute; left: 0; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--lc); }
+.lleg b { font-size: 14px; font-weight: 600; }
+.lleg small { font-size: 12.5px; color: var(--fg3); }
+.lflow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.lflow span { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 13.5px; background: var(--glass); }
+.lflow i { font-style: normal; color: var(--acc); }
+@media (hover: hover) and (pointer: fine) { .lchem button:hover, .lterp button:hover, .lspec button:hover { border-color: rgba(255,255,255,.2); } }
+@media (min-width: 900px) {
+  .lcan, .lterp { grid-template-columns: 1fr 1fr; }
+  .lchem { grid-template-columns: 1fr 1fr 1fr; }
+}
 /* computador: coluna larga, abas no topo, faixas viram grade, ficha em painel lateral */
 @media (min-width: 900px) {
   #app { max-width: 1240px; border-inline-color: transparent; }
@@ -565,6 +615,7 @@ h1, h2, h3, p { margin: 0; }
     map: ic('<path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5v-13.5l-6 2.5z"/><path d="M9 4v13.5M15 6.5v13.5"/>'),
     plus: ic('<path d="M12 5v14M5 12h14"/>'),
     check: ic('<path d="m5 12 5 5 9-10"/>'),
+    learn: ic('<path d="M2.5 9 12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v5c0 1.4 2.5 3 5.5 3s5.5-1.6 5.5-3v-5"/><path d="M21.5 9v5.5"/>'),
     share: ic('<path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>'),
     heart: ic('<path d="M12 20.5s-7.5-4.6-7.5-10.4A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.5 2.5c0 5.8-7.5 10.4-7.5 10.4z"/>'),
     leaf: `<svg class="ph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 29V14"/><path d="M16 15c0-6 3-10 6-12 1 5-1 10-6 12z"/><path d="M16 15c0-6-3-10-6-12-1 5 1 10 6 12z"/><path d="M16 20c4-3 9-3 12-1-3 3-8 4-12 1z"/><path d="M16 20c-4-3-9-3-12-1 3 3 8 4 12 1z"/></svg>`
@@ -677,7 +728,7 @@ h1, h2, h3, p { margin: 0; }
   function results() {
     const q = norm((st.search.q || '').trim()), f = st.search.f;
     const hay = s => norm([s.n, s.br, ...mp(s).map(p => by[p].n), ...un(s), ...aromas(s), ...s.te, ...rep(s).ef.map(e => e.n), ...rep(s).us, s.or].join(' '));
-    return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam) && (!f.fav || st.fav.includes(s.id)) && (!f.thc || (!s.thcx && s.thc[1] >= f.thc)) && (!f.br || /Brasil/.test(s.or)) && (!f.ph || s.img))
+    return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam) && (!f.te || (!s.tex && s.te.includes(f.te))) && (!f.fav || st.fav.includes(s.id)) && (!f.thc || (!s.thcx && s.thc[1] >= f.thc)) && (!f.br || /Brasil/.test(s.or)) && (!f.ph || s.img))
       .sort((a, b) => (f.ord === 'thc' ? ((b.thcx ? 0 : b.thc[1]) - (a.thcx ? 0 : a.thc[1])) : f.ord === 'fl' ? (a.fl[0] - b.fl[0]) || (a.fl[1] - b.fl[1]) : 0) || (q ? (norm(b.n).startsWith(q) - norm(a.n).startsWith(q)) : 0) || (b.kids.length - a.kids.length) || (!!b.img - !!a.img));
   }
   const itemHTML = s => `<button class="item" data-open="${s.id}"><span class="th">${pic(s, ' loading="lazy"')}</span><span><b>${esc(s.n)}</b><span>${kind(s)} · ${s.thcx ? 'THC não informado' : `THC ${pt(s.thc[0])} a ${pt(s.thc[1])}%`} · ${esc(rep(s).ef[0].n)}</span></span><span class="cnt"><i class="dot" style="--cc:${cc(s)};display:inline-block"></i></span></button>`;
@@ -686,7 +737,7 @@ h1, h2, h3, p { margin: 0; }
     const famName = f.fam && FAM.find(x => x[0] === f.fam)[1];
     return `<div class="over" role="dialog" aria-label="Buscar">
       <div class="sbar"><label class="find" for="q">${I.search}<input id="q" type="search" placeholder="${st.search.pick ? 'Escolha uma strain pra comparar' : 'Nome, efeito ou aroma'}" value="${esc(st.search.q || '')}" autocomplete="off"></label><button class="close" data-search-close>Fechar</button></div>
-      <div class="frow">${famName ? `<button class="chip" aria-pressed="true" data-f="fam" data-v="${f.fam}">${esc(famName)} ×</button>` : ''}${Object.keys(f).some(k => f[k]) ? '<button class="chip ghostc" data-fclear>Limpar ×</button>' : ''}${FILTERS.filter(([k]) => k !== 'fav' || st.fav.length || f.fav).map(([k, v, l]) => `<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k] === v}">${k === 'fav' ? I.heart : ''}${l}${k === 'fav' ? ` <span style="opacity:.6">${st.fav.length}</span>` : ''}</button>`).join('')}</div>
+      <div class="frow">${f.te ? `<button class="chip" aria-pressed="true" data-f="te" data-v="${f.te}">Terpeno: ${f.te} ×</button>` : ''}${famName ? `<button class="chip" aria-pressed="true" data-f="fam" data-v="${f.fam}">${esc(famName)} ×</button>` : ''}${Object.keys(f).some(k => f[k]) ? '<button class="chip ghostc" data-fclear>Limpar ×</button>' : ''}${FILTERS.filter(([k]) => k !== 'fav' || st.fav.length || f.fav).map(([k, v, l]) => `<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${f[k] === v}">${k === 'fav' ? I.heart : ''}${l}${k === 'fav' ? ` <span style="opacity:.6">${st.fav.length}</span>` : ''}</button>`).join('')}</div>
       <div class="view" id="sres" style="padding-top:0">
         ${!any && st.recent.length ? `<p class="count">Vistas por você</p><div class="res">${st.recent.map(id => itemHTML(by[id])).join('')}</div><p class="count" style="padding-top:22px">Todas as strains</p>` : `<p class="count">${R.length} ${R.length === 1 ? 'strain' : 'strains'}</p>`}
         <div class="res">${R.slice(0, 80).map(itemHTML).join('') || '<p class="empty">Nenhuma strain com esses filtros. Tente tirar algum.</p>'}</div>
@@ -1172,14 +1223,128 @@ h1, h2, h3, p { margin: 0; }
     v.addEventListener('scroll', () => { const p = Math.min(100, Math.max(0, v.scrollTop / Math.max(1, v.scrollHeight - v.clientHeight) * 100)); st.hprog = p; const b = v.querySelector('.hbar i'); if (b) b.style.width = p + '%'; }, { passive: true });
   }
 
+  // ---------- aprenda ----------
+  const LCAN = [
+    ['THC', 'tetra-hidrocanabinol', 'O principal responsável pelo “barato”. Age nos receptores CB1 do cérebro e mexe com humor, percepção do tempo, apetite e memória de curto prazo. Foi isolado em 1964 por Raphael Mechoulam e Yehiel Gaoni, em Israel.', '#E2A54A'],
+    ['CBD', 'canabidiol', 'Não dá barato. É estudado para epilepsias graves, ansiedade e dor, e é a base da maioria dos produtos de cannabis autorizados pela Anvisa. Plantas ricas em CBD costumam ter pouco THC.', '#6FC7B0'],
+    ['CBG', 'canabigerol', 'Chamado de “mãe” dos canabinoides: a forma ácida dele, o CBGA, é a matéria-prima que a planta transforma em THC, CBD e CBC. Aparece em pouca quantidade na maioria das strains.', '#9CC86A'],
+    ['CBN', 'canabinol', 'Surge quando o THC envelhece e oxida, em flor velha ou mal guardada. Tem fama de sedativo, mas a evidência ainda é fraca.', '#B79BE0'],
+    ['THCV', 'tetra-hidrocanabivarina', 'Primo do THC, mais comum em algumas sativas africanas, como a Durban Poison. Em dose baixa parece agir de forma diferente do THC; ainda é pouco estudado.', '#E58F6F']];
+  const LCHEM = [['I', 'Mais THC', 'Quimiotipo I', 'THC bem acima do CBD. É o caso da grande maioria das strains vendidas hoje.'], ['II', 'Equilibrada', 'Quimiotipo II', 'THC e CBD em quantidades parecidas. O CBD suaviza parte da intensidade.'], ['III', 'Mais CBD', 'Quimiotipo III', 'CBD dominante e THC baixo. Pouco ou nenhum barato.']];
+  const LTERP = [
+    ['mirceno', 'Terroso, herbal', 'manga, lúpulo, capim-limão', 'O terpeno mais comum na maconha. Muita gente associa a strains “pesadas”, mas a ligação com sono não está comprovada.'],
+    ['limoneno', 'Cítrico', 'casca de limão e laranja', 'Dá o cheiro de cítricos de strains como Lemon Haze e Super Lemon Haze.'],
+    ['cariofileno', 'Apimentado', 'pimenta-do-reino, cravo, canela', 'O único terpeno conhecido que se liga a um receptor canabinoide, o CB2, ligado ao sistema imune.'],
+    ['pineno', 'Pinho', 'pinheiro, alecrim, manjericão', 'Cheiro de mato fresco e resina de árvore.'],
+    ['terpinoleno', 'Floral, fresco', 'maçã, chá, lilás', 'Menos comum, mas marca registrada de várias sativas clássicas, como Jack Herer e as Haze.'],
+    ['linalol', 'Lavanda', 'lavanda, manjerona', 'Floral e suave. Aparece em pouca quantidade, mas muda bem o perfil do aroma.'],
+    ['humuleno', 'Amadeirado', 'lúpulo, sálvia, coentro', 'Seco e amadeirado, muito presente na cerveja.'],
+    ['ocimeno', 'Doce', 'hortelã, manjericão, orquídea', 'Doce e herbal, comum em strains frutadas.']];
+  const LCYC = [['Germinação', '3 a 10 dias', 1, '#9CC86A'], ['Vegetativo', '3 a 8 semanas', 5, '#6FC7B0'], ['Floração', '7 a 14 semanas', 10, '#E2A54A'], ['Secagem e cura', '2 a 8 semanas', 4, '#B79BE0']];
+  const LGLO = [
+    ['Landrace', 'Variedade nativa, adaptada por gerações a um lugar, sem cruzamento feito por breeder. Manga Rosa, Afghani e Thai são exemplos.'],
+    ['Fenótipo', 'Como a planta é de fato: cheiro, cor, tamanho, efeito. Sementes do mesmo pacote podem dar fenótipos diferentes.'],
+    ['Genótipo', 'O conjunto de genes da planta. O fenótipo é o genótipo somado ao ambiente.'],
+    ['F1', 'Primeira geração de um cruzamento entre duas linhagens diferentes. Costuma ser vigorosa e uniforme.'],
+    ['IBL', 'Inbred line: linhagem cruzada entre si por muitas gerações até ficar estável e previsível.'],
+    ['Retrocruzamento (BX)', 'Cruzar a filha de volta com um dos pais para reforçar uma característica. BX1, BX2… indicam quantas vezes.'],
+    ['S1', 'Semente feita de uma planta com ela mesma (autopolinização). Usada para preservar clones famosos.'],
+    ['Feminizada', 'Semente que dá só plantas fêmeas, as que produzem flor. É feita forçando uma fêmea a produzir pólen.'],
+    ['Regular', 'Semente comum: em média metade dá macho, metade fêmea. Breeders preferem, porque precisam dos machos.'],
+    ['Autoflorescente', 'Planta que floresce pela idade, não pela luz, graças a genes de Cannabis ruderalis. Vai da semente à colheita em 8 a 12 semanas.'],
+    ['Fotoperiódica', 'Planta que só floresce quando a noite fica longa, perto de 12 horas de escuro. Por isso o cultivo interno usa 12/12.'],
+    ['Clone-only', 'Strain que só existe em mudas (clones) de uma planta-mãe, sem semente estável. A OG Kush e a Gorilla Glue começaram assim.'],
+    ['Hermafrodita', 'Fêmea que solta pólen, normalmente por estresse. Poliniza as outras e enche as flores de semente.'],
+    ['Cola', 'O cacho principal de flores no topo de um galho.'],
+    ['Descarboxilação', 'O calor que transforma THCA em THC. Sem aquecer, a flor crua quase não dá efeito.'],
+    ['Cura', 'Deixar a flor seca descansar em pote fechado por semanas. Melhora aroma e suavidade.'],
+    ['Kief', 'Pó de tricomas soltos da flor. Prensado, vira haxixe.'],
+    ['Breeder', 'Quem cruza plantas e cria strains novas.'],
+    ['Seedbank', 'Banco de sementes: empresa que produz e vende as sementes de seus breeders.']];
+  const LMYTH = [
+    ['Indica dá sono e sativa dá energia', 'É uma simplificação. Estudos genéticos e químicos (Sawler et al., 2015; Smith et al., 2022) mostram que o rótulo indica ou sativa no pacote prevê mal a química da flor. O que pesa no efeito é a combinação de canabinoides e terpenos, a dose e a pessoa.'],
+    ['Quanto mais THC, melhor', 'Não necessariamente. Mais THC aumenta a intensidade e também o risco de ansiedade, taquicardia e paranoia. Aroma, terpenos e dose contam tanto quanto o número.'],
+    ['CBD “corta” o efeito do THC', 'Em parte. O CBD pode suavizar alguns efeitos do THC, mas os estudos têm resultados mistos e a proporção importa.'],
+    ['É natural, então não tem risco', 'Tem. Parte de quem usa com frequência desenvolve dependência (as estimativas variam de 1 em 10 a 3 em 10). O risco de psicose é maior em quem tem predisposição e em quem começa na adolescência.'],
+    ['O “efeito comitiva” está provado', 'A ideia de que canabinoides e terpenos agem melhor juntos (Ben-Shabat e Mechoulam, 1998) é plausível e popular, mas ainda tem pouca prova direta em humanos.']];
+  const LFICHA = [['% indica', 'Quanto da genética vem de indica, segundo o breeder. 0% é sativa pura, 100% é indica pura.'], ['Mais THC, Equilibrada, Mais CBD', 'O quimiotipo: qual canabinoide domina.'], ['THC', 'A faixa informada pelo breeder ou por bancos de dados. “Não informado” quer dizer que não achamos fonte, e o valor da ficha é uma estimativa.'], ['Floração', 'Semanas de floração depois que a planta muda para 12/12. Não conta o vegetativo.'], ['Cultivo', 'Dificuldade aproximada: fácil, moderada ou difícil.'], ['Efeitos', 'O perfil típico do tipo da strain (indica, sativa, híbrida ou com CBD), não uma medição dela.'], ['De onde vem', 'Os pais. Toque em “Ver árvore” para ver a família toda até as variedades nativas.']];
+  const LCH = [['can', 'Canabinoides'], ['terp', 'Terpenos e aromas'], ['tipo', 'Indica, sativa e híbrida'], ['planta', 'A planta por dentro'], ['ciclo', 'Da semente à colheita'], ['gen', 'Genética e sementes'], ['mitos', 'Mitos'], ['ficha', 'Como ler uma ficha'], ['glo', 'Glossário']];
+  const anatomy = () => `<svg class="lana" viewBox="0 0 340 300" role="img" aria-label="Desenho de uma flor de maconha com cálices, pistilos, folhas de açúcar e tricomas indicados">
+    <g class="lsug"><path d="M120 250c-30-30-52-40-82-36 20 16 44 30 82 36z"/><path d="M128 210c-40-14-62-8-86 8 26 6 52 6 86-8z"/><path d="M150 250c22-30 44-40 72-38-18 18-40 30-72 38z"/></g>
+    <path class="lstem" d="M138 290V200"/>
+    <g class="lcal">${[[138,70,15],[124,92,16],[152,92,16],[116,118,18],[140,114,18],[162,120,17],[112,146,19],[136,142,20],[162,148,19],[118,174,19],[142,172,20],[164,178,17],[128,200,18],[150,202,17]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r * .8}" ry="${r}"/>`).join('')}</g>
+    <g class="lpis">${[[138,55,-8],[120,78,-30],[158,80,25],[104,108,-40],[176,112,35],[100,140,-45],[180,146,40],[104,170,-40],[180,176,38],[138,96,-5],[144,128,10],[130,156,-12]].map(([x, y, a]) => `<path d="M${x} ${y}q${Math.sin(a * Math.PI / 180) * 10} -8 ${Math.sin(a * Math.PI / 180) * 18} -16"/>`).join('')}</g>
+    <g class="ltri">${Array.from({ length: 60 }, (_, i) => { const a = i * 2.39996, r = 8 + (i % 13) * 4.6; return `<circle cx="${(138 + Math.cos(a) * r * .7).toFixed(1)}" cy="${(132 + Math.sin(a) * r * 1.25).toFixed(1)}" r="1.3"/>`; }).join('')}</g>
+    <circle class="lzoom" cx="270" cy="96" r="52"/>
+    <g class="lhead"><path d="M262 140v-38M278 140v-30M248 140v-24"/><circle cx="262" cy="96" r="9"/><circle cx="278" cy="104" r="8"/><circle cx="248" cy="112" r="7"/></g>
+    <path class="lline" d="M176 112l42-14"/>
+    <g class="llab"><text x="270" y="166" text-anchor="middle">Tricomas</text><text x="270" y="180" text-anchor="middle" class="lsm">onde fica a resina</text>
+      <text x="8" y="40">Pistilos</text><path class="lline" d="M54 44l52 30"/>
+      <text x="196" y="226">Cálices</text><path class="lline" d="M194 222l-26-24"/>
+      <text x="8" y="282">Folhas de açúcar</text><path class="lline" d="M60 270l16-30"/></g></svg>`;
+  function learnHTML() {
+    const tc = t => S.filter(s => !s.tex && s.te.includes(t)).length;
+    const ex = [['thai', 'Sativa pura'], ['white-widow', 'Híbrida'], ['afghani', 'Indica pura']].filter(([i]) => by[i]);
+    const tot = LCYC.reduce((a, c) => a + c[2], 0);
+    return `<div class="view" id="lv"><div class="stack hist">
+      <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="false">${I.search}</button></div>
+      <header class="hhero"><p class="hkick">Aprenda</p><h1 class="h1">A planta, sem mistério</h1><p class="hdek">O que é THC e CBD, de onde vem o cheiro, o que quer dizer indica e sativa, e como ler uma ficha do FenoSearch.</p><p class="hmeta">Leitura de 8 min · Toque nos botões para ver as strains de cada tema</p></header>
+      <nav class="htoc" aria-label="Temas">${LCH.map((c, i) => `<button data-hgo="l-${c[0]}"><span>${String(i + 1).padStart(2, '0')}</span>${c[1]}</button>`).join('')}</nav>
+      <section class="hsec" id="l-can"><p class="hnum">01 · Canabinoides</p><h2 class="hh2">Os compostos que dão o efeito</h2>
+        <div class="hbody"><p>A maconha produz mais de cem <b>canabinoides</b>, substâncias que conversam com o <b>sistema endocanabinoide</b>, uma rede de receptores que todo mundo tem no corpo. O receptor <b>CB1</b> fica mais no cérebro; o <b>CB2</b>, no sistema imune. O próprio corpo fabrica moléculas parecidas, como a anandamida, descoberta em 1992.</p>
+        <p>Na planta viva, quase tudo está na forma ácida (THCA, CBDA). Só com calor, ao fumar, vaporizar ou cozinhar, ela vira THC e CBD ativos. É a <b>descarboxilação</b>.</p></div>
+        <div class="lcan">${LCAN.map(c => `<div style="--lc:${c[3]}"><b>${c[0]}</b><small>${c[1]}</small><p>${c[2]}</p></div>`).join('')}</div>
+        <p class="hlab" style="margin-top:6px">Os três quimiotipos</p>
+        <div class="lchem">${LCHEM.map(c => `<button data-lchem="${c[0]}"><span class="lpie" style="--th:${c[0] === 'I' ? 88 : c[0] === 'II' ? 50 : 12}%"></span><b>${c[1]}</b><small>${c[2]}</small><p>${c[3]}</p><i>Ver ${S.filter(s => c[0] === "III" ? s.ch !== "I" : s.ch === c[0]).length} strains</i></button>`).join('')}</div></section>
+      <section class="hsec" id="l-terp"><p class="hnum">02 · Terpenos</p><h2 class="hh2">De onde vem o cheiro</h2>
+        <div class="hbody"><p>Os <b>terpenos</b> são os óleos aromáticos da planta, os mesmos que dão cheiro à casca do limão, à lavanda e à pimenta. Eles definem o aroma e o sabor de cada strain. Se mudam o efeito, e quanto, ainda é tema de pesquisa.</p></div>
+        <div class="lterp">${LTERP.map(t => `<button data-lterp="${t[0]}"><span class="lt1">${TERP[t[0]] ? TERP[t[0]].join(' · ') : ''}</span><b>${t[0][0].toUpperCase() + t[0].slice(1)}</b><small>Também em ${t[2]}</small><p>${t[3]}</p><i>Ver ${tc(t[0])} strains</i></button>`).join('')}</div></section>
+      <section class="hsec" id="l-tipo"><p class="hnum">03 · Tipos</p><h2 class="hh2">Indica, sativa e híbrida</h2>
+        <div class="hbody"><p>Os nomes são antigos. Lineu batizou a <i>Cannabis sativa</i> em 1753, e Lamarck descreveu a <i>Cannabis indica</i> em 1785, a partir de plantas da Índia. Hoje os nomes descrevem mais o jeito da planta do que o efeito.</p>
+        <p><b>Sativas</b> crescem altas, de folhas finas, e demoram para florescer; vêm de regiões quentes perto do Equador, como o Nordeste brasileiro, a Tailândia e a Colômbia. <b>Indicas</b> são baixas, de folha larga e floração curta; vêm de montanhas secas como o Hindu Kush. A maioria das strains de hoje é <b>híbrida</b>.</p>
+        <p>A terceira, <i>Cannabis ruderalis</i>, da Rússia e da Ásia Central, é pequena e floresce pela idade. É ela que dá às automáticas a pressa para florescer.</p></div>
+        <div class="lspec"><div class="lbar"><span>Sativa</span><span>Indica</span></div>${ex.map(([i, l]) => `<button data-open="${i}" style="--x:${by[i].ind}%"><span class="im">${pic(by[i])}</span><b>${esc(by[i].n)}</b><small>${l} · ${by[i].ind}% indica</small></button>`).join('')}</div>
+        <div class="hfact"><b>${Math.round(S.filter(s => kind(s) === 'Híbrida').length / S.length * 100)}%</b><span>das ${S.length} strains do FenoSearch são híbridas. Na ficha, a porcentagem mostra quanto da genética é indica.</span></div></section>
+      <section class="hsec" id="l-planta"><p class="hnum">04 · A planta</p><h2 class="hh2">O que tem numa flor</h2>
+        <div class="hbody"><p>O que se usa é a flor da planta <b>fêmea</b>. A planta macho dá pólen, e uma fêmea polinizada para de investir em resina e enche de sementes. Por isso quem cultiva separa os machos.</p></div>
+        ${anatomy()}
+        <dl class="hglo"><div><dt>Cálices</dt><dd>As pequenas “cápsulas” que formam a flor. É ali que a semente cresceria.</dd></div><div><dt>Pistilos</dt><dd>Os fiozinhos que saem dos cálices. Nascem brancos e escurecem para laranja ou rosa com a maturação; a Manga Rosa ganhou o nome por eles.</dd></div><div><dt>Tricomas</dt><dd>Glândulas de resina, como cogumelos minúsculos. É onde se concentram canabinoides e terpenos. Mudam de transparentes para leitosos e âmbar, e muita gente colhe olhando essa cor.</dd></div><div><dt>Folhas de açúcar</dt><dd>As folhinhas que saem do meio da flor, cobertas de tricomas.</dd></div></dl></section>
+      <section class="hsec" id="l-ciclo"><p class="hnum">05 · Ciclo</p><h2 class="hh2">Da semente à colheita</h2>
+        <div class="lcyc"><p class="hlab">Fotoperiódica</p><div class="lrow">${LCYC.map(c => `<i style="flex:${c[2]};--lc:${c[3]}"></i>`).join('')}</div>
+        <div class="lleg">${LCYC.map(c => `<div style="--lc:${c[3]}"><b>${c[0]}</b><small>${c[1]}</small></div>`).join('')}</div>
+        <p class="hlab" style="margin-top:8px">Automática</p><div class="lrow"><i style="flex:${tot * .5};--lc:#E58F6F"></i><i style="flex:4;--lc:#B79BE0"></i><span style="flex:${tot * .5 - 4}"></span></div>
+        <div class="lleg"><div style="--lc:#E58F6F"><b>Semente à colheita</b><small>8 a 12 semanas, floresce sozinha</small></div><div style="--lc:#B79BE0"><b>Secagem e cura</b><small>2 a 8 semanas</small></div></div></div>
+        <div class="hbody"><p>A planta <b>fotoperiódica</b> cresce enquanto os dias são longos e só floresce quando a noite passa de umas 12 horas. Ao ar livre, isso acontece no fim do verão; dentro de casa, o cultivador muda a luz para 12 horas ligada e 12 desligada. A floração mostrada nas fichas conta a partir dessa virada.</p>
+        <p>A <b>automática</b> ignora a luz: floresce pela idade, herança da ruderalis. É mais rápida e menor, e costuma render menos.</p>
+        <p>No Brasil, cultivar ainda depende de autorização judicial ou de associação autorizada. Este guia é informativo.</p></div></section>
+      <section class="hsec" id="l-gen"><p class="hnum">06 · Genética</p><h2 class="hh2">Como nasce uma strain</h2>
+        <div class="hbody"><p>Toda strain começa de <b>variedades nativas</b>, as landraces. Um <b>breeder</b> cruza duas plantas, planta as sementes, escolhe os melhores <b>fenótipos</b> e repete por gerações até a linhagem ficar estável. Depois um <b>seedbank</b> produz e vende as sementes.</p>
+        <p>Muitas strains famosas começaram como <b>clone-only</b>: uma única planta especial, passada de mão em mão em mudas. A árvore genealógica de cada ficha mostra esse caminho até as nativas.</p></div>
+        <div class="lflow">${['Landraces', 'Cruzamento', 'Seleção de fenótipos', 'Linhagem estável', 'Seedbank'].map((t, i) => `<span>${t}</span>${i < 4 ? '<i>→</i>' : ''}`).join('')}</div>
+        <div class="btns"><button class="btn" data-fam="landraces">Ver as nativas</button><button class="btn" data-tree="${by['gsc'] ? 'gsc' : S[0].id}">Exemplo de árvore</button></div></section>
+      <section class="hsec" id="l-mitos"><p class="hnum">07 · Mitos</p><h2 class="hh2">O que se diz, e o que se sabe</h2>
+        <div class="hmy">${LMYTH.map(m => `<details><summary><span>Mito</span>${m[0]}</summary><p>${m[1]}</p></details>`).join('')}</div></section>
+      <section class="hsec" id="l-ficha"><p class="hnum">08 · Ficha</p><h2 class="hh2">Como ler uma ficha do FenoSearch</h2>
+        <div class="hwho">${LFICHA.map(f => `<div><b>${f[0]}</b><p>${f[1]}</p></div>`).join('')}</div></section>
+      <section class="hsec" id="l-glo"><p class="hnum">09 · Glossário</p><h2 class="hh2">Palavras que aparecem por aí</h2>
+        <dl class="hglo">${LGLO.map(g => `<div><dt>${g[0]}</dt><dd>${g[1]}</dd></div>`).join('')}</dl></section>
+      <section class="hsrc"><p class="hlab">Fontes</p>
+        <p>Gaoni, Y.; Mechoulam, R. Isolation, structure and partial synthesis of an active constituent of hashish. <i>J. Am. Chem. Soc.</i>, 1964.</p>
+        <p>Devane, W. et al. Isolation and structure of a brain constituent that binds to the cannabinoid receptor. <i>Science</i>, 1992.</p>
+        <p>Gertsch, J. et al. Beta-caryophyllene is a dietary cannabinoid. <i>PNAS</i>, 2008.</p>
+        <p>Sawler, J. et al. The genetic structure of marijuana and hemp. <i>PLOS ONE</i>, 2015. Smith, C. et al. The phytochemical diversity of commercial Cannabis in the United States. <i>Nature Plants</i>, 2022.</p>
+        <p>Russo, E. Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects. <i>Br. J. Pharmacol.</i>, 2011.</p>
+        <p>Conteúdo informativo, não é orientação médica nem incentivo ao uso.</p></section>
+    </div></div>`;
+  }
   // ---------- abas ainda não refeitas ----------
   const SOON = { bench: ['Comparar', 'A tela de comparar entra na etapa 6. Você já pode marcar strains pelo botão no canto da ficha.'] };
   const soonHTML = k => `<div class="view"><div class="soon"><div class="seed"></div><p class="h1" style="font-size:26px">${SOON[k][0]}</p><p class="sub" style="max-width:300px">${SOON[k][1]}</p>${k === 'bench' && st.cmp.length ? `<div class="chips" style="justify-content:center">${st.cmp.map(id => `<button class="chip" data-open="${id}">${esc(by[id].n)}</button>`).join('')}</div>` : ''}</div></div>`;
-  const navHTML = () => `<nav class="nav"><span class="brand nbrand">${I.mark}FenoSearch</span>${[['home', 'Início', I.home], ['disc', 'Mapa', I.map], ['bench', 'Comparar' + (st.cmp.length ? ' · ' + st.cmp.length : ''), I.cmp], ['hist', 'História', I.book]].map(([k, l, i]) => `<button data-tab="${k}" aria-current="${st.tab === k}">${i}${l}</button>`).join('')}<button class="nsrch" data-tab="find" aria-current="${st.tab === 'find'}">${I.search}Pesquisar</button></nav>`;
+  const navHTML = () => `<nav class="nav"><span class="brand nbrand">${I.mark}FenoSearch</span>${[['home', 'Início', I.home], ['disc', 'Mapa', I.map], ['bench', 'Comparar' + (st.cmp.length ? ' · ' + st.cmp.length : ''), I.cmp], ['hist', 'História', I.book], ['learn', 'Aprenda', I.learn]].map(([k, l, i]) => `<button data-tab="${k}" aria-current="${st.tab === k}">${i}${l}</button>`).join('')}<button class="nsrch" data-tab="find" aria-current="${st.tab === 'find'}">${I.search}Pesquisar</button></nav>`;
 
   function render(keep) {
     const sy = keep && document.getElementById(keep) ? document.getElementById(keep).scrollTop : 0;
-    let h = (st.tab === 'home' ? dayHTML() : st.tab === 'find' ? homeHTML() : st.tab === 'disc' ? discHTML() : st.tab === 'bench' ? benchHTML() : st.tab === 'hist' ? histHTML() : soonHTML(st.tab)) + navHTML();
+    let h = (st.tab === 'home' ? dayHTML() : st.tab === 'find' ? homeHTML() : st.tab === 'disc' ? discHTML() : st.tab === 'bench' ? benchHTML() : st.tab === 'hist' ? histHTML() : st.tab === 'learn' ? learnHTML() : soonHTML(st.tab)) + navHTML();
     if (st.search) h += searchHTML();
     if (st.sheet.length) h += sheetHTML(st.sheet[st.sheet.length - 1]);
     if (st.tree) h += treeHTML();
@@ -1190,7 +1355,7 @@ h1, h2, h3, p { margin: 0; }
     if (document.getElementById('msvg')) { mapGestures(); applyVB(st.vb || WORLD); }
     histScroll();
   }
-  function toast(t) { st.toast = t; render(st.sheet.length ? 'sv' : st.tab === 'disc' ? 'dv' : st.tab === 'home' ? 'hv' : st.tab === 'bench' ? 'bv' : st.tab === 'hist' ? 'yv' : null); clearTimeout(toast.h); toast.h = setTimeout(() => { st.toast = null; const el = app.querySelector('.toast'); if (el) el.remove(); }, 2200); }
+  function toast(t) { st.toast = t; render(st.sheet.length ? 'sv' : st.tab === 'disc' ? 'dv' : st.tab === 'home' ? 'hv' : st.tab === 'bench' ? 'bv' : st.tab === 'hist' ? 'yv' : st.tab === 'learn' ? 'lv' : null); clearTimeout(toast.h); toast.h = setTimeout(() => { st.toast = null; const el = app.querySelector('.toast'); if (el) el.remove(); }, 2200); }
   const setHash = id => { try { history.replaceState(null, '', id ? '#' + id : location.pathname + location.search); } catch (e) {} };
   function open(id) { st.sheet.push(id); setHash(id); st.recent = [id, ...st.recent.filter(x => x !== id)].slice(0, 8); store.set('recent', st.recent); st.wipe = true; render(); st.wipe = false; }
   function closeSheet() { const el = app.querySelector('.sheet'); const done = () => { st.sheet = []; setHash(''); render(st.search ? 'sres' : null); }; if (!el) return done(); if (el.classList.contains('out')) return; el.classList.remove('in'); void el.offsetWidth; el.classList.add('out'); setTimeout(done, 390); }
@@ -1209,6 +1374,8 @@ h1, h2, h3, p { margin: 0; }
     if ('searchClose' in d) { st.search = null; render(); return; }
     if ('favall' in d) { st.search = { q: '', f: { fav: 1 } }; render(); return; }
     if (d.intent) { st.search = { q: '', f: Object.assign({}, INTENT_F[d.intent]) }; render(); return; }
+    if (d.lterp) { st.search = { q: '', f: { te: d.lterp } }; render(); return; }
+    if (d.lchem) { st.search = { q: '', f: { c: d.lchem } }; render(); return; }
     if (d.fam) { st.search = { q: '', f: { fam: d.fam } }; render(); return; }
     if ('fclear' in d) { st.search.f = {}; render(); return; }
     if (d.f) { const v = FNUM.includes(d.f) ? +d.v : d.v; const f = st.search.f; f[d.f] = f[d.f] === v ? null : v; if (d.f === 'auto' && f.auto) f.fl = null; if (d.f === 'fl' && f.fl) f.auto = null; render(); return; }

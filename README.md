@@ -30,3 +30,7 @@ Os itens de 2006 e 2024 da linha do tempo não vêm dos livros e estão marcados
 ## Links de compartilhar
 
 Cada strain tem um link próprio, `fenosearch.site/s/<id>`, que mostra nome, resumo e foto na prévia do WhatsApp e abre a ficha no app. As páginas ficam em `s/` e são geradas por `node mkshare.js`; rode de novo sempre que mudar `strains.js`.
+
+## Aba Aprenda
+
+Guia curto da planta: canabinoides e quimiotipos, terpenos (com botão que filtra as strains pelo terpeno), indica x sativa, anatomia da flor, ciclo da semente à colheita, genética, mitos, como ler uma ficha e glossário. Fontes listadas no fim da aba.
