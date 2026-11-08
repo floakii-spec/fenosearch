@@ -26,3 +26,7 @@ O artigo "Fumo de negro, erva maldita" (em `index.html`, constantes `HTL`, `HCH`
 - SOUZA, Jorge Emanuel Luz de. *Sonhos da diamba, controles do cotidiano.* Salvador: EDUFBA/CETAD, 2015.
 
 Os itens de 2006 e 2024 da linha do tempo não vêm dos livros e estão marcados como "depois dos livros".
+
+## Links de compartilhar
+
+Cada strain tem um link próprio, `fenosearch.site/s/<id>`, que mostra nome, resumo e foto na prévia do WhatsApp e abre a ficha no app. As páginas ficam em `s/` e são geradas por `node mkshare.js`; rode de novo sempre que mudar `strains.js`.
