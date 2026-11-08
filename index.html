@@ -1225,50 +1225,50 @@ h1, h2, h3, p { margin: 0; }
 
   // ---------- aprenda ----------
   const LCAN = [
-    ['THC', 'tetra-hidrocanabinol', 'O principal responsável pelo “barato”. Age nos receptores CB1 do cérebro e mexe com humor, percepção do tempo, apetite e memória de curto prazo. Foi isolado em 1964 por Raphael Mechoulam e Yehiel Gaoni, em Israel.', '#E2A54A'],
-    ['CBD', 'canabidiol', 'Não dá barato. É estudado para epilepsias graves, ansiedade e dor, e é a base da maioria dos produtos de cannabis autorizados pela Anvisa. Plantas ricas em CBD costumam ter pouco THC.', '#6FC7B0'],
-    ['CBG', 'canabigerol', 'Chamado de “mãe” dos canabinoides: a forma ácida dele, o CBGA, é a matéria-prima que a planta transforma em THC, CBD e CBC. Aparece em pouca quantidade na maioria das strains.', '#9CC86A'],
-    ['CBN', 'canabinol', 'Surge quando o THC envelhece e oxida, em flor velha ou mal guardada. Tem fama de sedativo, mas a evidência ainda é fraca.', '#B79BE0'],
-    ['THCV', 'tetra-hidrocanabivarina', 'Primo do THC, mais comum em algumas sativas africanas, como a Durban Poison. Em dose baixa parece agir de forma diferente do THC; ainda é pouco estudado.', '#E58F6F']];
-  const LCHEM = [['I', 'Mais THC', 'Quimiotipo I', 'THC bem acima do CBD. É o caso da grande maioria das strains vendidas hoje.'], ['II', 'Equilibrada', 'Quimiotipo II', 'THC e CBD em quantidades parecidas. O CBD suaviza parte da intensidade.'], ['III', 'Mais CBD', 'Quimiotipo III', 'CBD dominante e THC baixo. Pouco ou nenhum barato.']];
+    ['THC', 'tetra-hidrocanabinol', 'Principal canabinoide psicoativo. Agonista parcial do receptor CB1, no sistema nervoso central; altera humor, percepção temporal, apetite e memória de curto prazo. Isolado e caracterizado em 1964 por Yehiel Gaoni e Raphael Mechoulam.', '#E2A54A'],
+    ['CBD', 'canabidiol', 'Não intoxicante. Modula o sistema endocanabinoide de forma indireta e tem eficácia estabelecida em epilepsias refratárias (síndromes de Dravet e Lennox-Gastaut). Princípio ativo da maioria dos produtos regulados pela Anvisa (RDC 327/2019).', '#6FC7B0'],
+    ['CBG', 'canabigerol', 'Precursor biossintético: o CBGA é convertido pelas sintases em THCA, CBDA e CBCA. Por isso ocorre em baixa concentração na flor madura da maioria dos cultivares.', '#9CC86A'],
+    ['CBN', 'canabinol', 'Produto da oxidação do THC, acumulado em material envelhecido ou mal armazenado. Afinidade fraca por CB1; o efeito sedativo atribuído a ele carece de evidência clínica.', '#B79BE0'],
+    ['THCV', 'tetra-hidrocanabivarina', 'Análogo propílico do THC, mais frequente em landraces africanas, como a Durban Poison. Em doses baixas atua como antagonista de CB1. Ainda pouco estudado em humanos.', '#E58F6F']];
+  const LCHEM = [['I', 'Mais THC', 'Quimiotipo I', 'Razão THC:CBD bem acima de 1. Predomina no mercado atual.'], ['II', 'Equilibrada', 'Quimiotipo II', 'THC e CBD em proporções próximas, perto de 1:1.'], ['III', 'Mais CBD', 'Quimiotipo III', 'CBD dominante e THC baixo, com psicoatividade reduzida.']];
   const LTERP = [
-    ['mirceno', 'Terroso, herbal', 'manga, lúpulo, capim-limão', 'O terpeno mais comum na maconha. Muita gente associa a strains “pesadas”, mas a ligação com sono não está comprovada.'],
-    ['limoneno', 'Cítrico', 'casca de limão e laranja', 'Dá o cheiro de cítricos de strains como Lemon Haze e Super Lemon Haze.'],
-    ['cariofileno', 'Apimentado', 'pimenta-do-reino, cravo, canela', 'O único terpeno conhecido que se liga a um receptor canabinoide, o CB2, ligado ao sistema imune.'],
-    ['pineno', 'Pinho', 'pinheiro, alecrim, manjericão', 'Cheiro de mato fresco e resina de árvore.'],
-    ['terpinoleno', 'Floral, fresco', 'maçã, chá, lilás', 'Menos comum, mas marca registrada de várias sativas clássicas, como Jack Herer e as Haze.'],
-    ['linalol', 'Lavanda', 'lavanda, manjerona', 'Floral e suave. Aparece em pouca quantidade, mas muda bem o perfil do aroma.'],
-    ['humuleno', 'Amadeirado', 'lúpulo, sálvia, coentro', 'Seco e amadeirado, muito presente na cerveja.'],
-    ['ocimeno', 'Doce', 'hortelã, manjericão, orquídea', 'Doce e herbal, comum em strains frutadas.']];
+    ['mirceno', 'Terroso, herbal', 'manga, lúpulo, capim-limão', 'Monoterpeno mais abundante na cannabis. A associação popular com sedação não tem comprovação clínica.'],
+    ['limoneno', 'Cítrico', 'casca de limão e laranja', 'Monoterpeno responsável pelas notas cítricas de cultivares como Lemon Haze e Super Lemon Haze.'],
+    ['cariofileno', 'Apimentado', 'pimenta-do-reino, cravo, canela', 'Sesquiterpeno. O beta-cariofileno é agonista seletivo do receptor CB2 (Gertsch et al., 2008).'],
+    ['pineno', 'Pinho', 'pinheiro, alecrim, manjericão', 'Monoterpeno de notas resinosas; ocorre nas formas alfa e beta.'],
+    ['terpinoleno', 'Floral, fresco', 'maçã, chá, lilás', 'Menos frequente, mas dominante no perfil de sativas clássicas, como Jack Herer e as linhagens Haze.'],
+    ['linalol', 'Lavanda', 'lavanda, manjerona', 'Monoterpenoide floral. Presente em baixa concentração, com impacto relevante no aroma.'],
+    ['humuleno', 'Amadeirado', 'lúpulo, sálvia, coentro', 'Sesquiterpeno amadeirado, também característico do lúpulo.'],
+    ['ocimeno', 'Doce', 'hortelã, manjericão, orquídea', 'Monoterpeno de notas doces e herbais, frequente em cultivares frutados.']];
   const LCYC = [['Germinação', '3 a 10 dias', 1, '#9CC86A'], ['Vegetativo', '3 a 8 semanas', 5, '#6FC7B0'], ['Floração', '7 a 14 semanas', 10, '#E2A54A'], ['Secagem e cura', '2 a 8 semanas', 4, '#B79BE0']];
   const LGLO = [
-    ['Landrace', 'Variedade nativa, adaptada por gerações a um lugar, sem cruzamento feito por breeder. Manga Rosa, Afghani e Thai são exemplos.'],
-    ['Fenótipo', 'Como a planta é de fato: cheiro, cor, tamanho, efeito. Sementes do mesmo pacote podem dar fenótipos diferentes.'],
-    ['Genótipo', 'O conjunto de genes da planta. O fenótipo é o genótipo somado ao ambiente.'],
-    ['F1', 'Primeira geração de um cruzamento entre duas linhagens diferentes. Costuma ser vigorosa e uniforme.'],
-    ['IBL', 'Inbred line: linhagem cruzada entre si por muitas gerações até ficar estável e previsível.'],
-    ['Retrocruzamento (BX)', 'Cruzar a filha de volta com um dos pais para reforçar uma característica. BX1, BX2… indicam quantas vezes.'],
-    ['S1', 'Semente feita de uma planta com ela mesma (autopolinização). Usada para preservar clones famosos.'],
-    ['Feminizada', 'Semente que dá só plantas fêmeas, as que produzem flor. É feita forçando uma fêmea a produzir pólen.'],
-    ['Regular', 'Semente comum: em média metade dá macho, metade fêmea. Breeders preferem, porque precisam dos machos.'],
-    ['Autoflorescente', 'Planta que floresce pela idade, não pela luz, graças a genes de Cannabis ruderalis. Vai da semente à colheita em 8 a 12 semanas.'],
-    ['Fotoperiódica', 'Planta que só floresce quando a noite fica longa, perto de 12 horas de escuro. Por isso o cultivo interno usa 12/12.'],
-    ['Clone-only', 'Strain que só existe em mudas (clones) de uma planta-mãe, sem semente estável. A OG Kush e a Gorilla Glue começaram assim.'],
-    ['Hermafrodita', 'Fêmea que solta pólen, normalmente por estresse. Poliniza as outras e enche as flores de semente.'],
-    ['Cola', 'O cacho principal de flores no topo de um galho.'],
-    ['Descarboxilação', 'O calor que transforma THCA em THC. Sem aquecer, a flor crua quase não dá efeito.'],
-    ['Cura', 'Deixar a flor seca descansar em pote fechado por semanas. Melhora aroma e suavidade.'],
-    ['Kief', 'Pó de tricomas soltos da flor. Prensado, vira haxixe.'],
-    ['Breeder', 'Quem cruza plantas e cria strains novas.'],
-    ['Seedbank', 'Banco de sementes: empresa que produz e vende as sementes de seus breeders.']];
+    ['Landrace', 'Variedade local, adaptada por seleção natural e tradicional a uma região, sem melhoramento formal. Ex.: Manga Rosa, Afghani, Thai.'],
+    ['Fenótipo', 'Conjunto de características observáveis (aroma, morfologia, perfil químico). Sementes do mesmo lote podem expressar fenótipos distintos.'],
+    ['Genótipo', 'Constituição genética da planta. Fenótipo = genótipo + ambiente.'],
+    ['F1', 'Primeira geração filial do cruzamento entre duas linhagens. Tende a apresentar vigor híbrido e uniformidade.'],
+    ['IBL', 'Inbred line: linhagem endogâmica, estabilizada por várias gerações de cruzamentos internos.'],
+    ['Retrocruzamento (BX)', 'Cruzamento da progênie com um dos parentais para fixar características. BX1, BX2… indicam o número de ciclos.'],
+    ['S1', 'Progênie obtida por autofecundação de uma única planta. Usada para preservar genéticas clone-only.'],
+    ['Feminizada', 'Semente que gera apenas plantas femininas. Obtida induzindo pólen em uma fêmea, com tiossulfato de prata (STS) ou prata coloidal.'],
+    ['Regular', 'Semente sem seleção de sexo, com proporção aproximada de 1:1 entre machos e fêmeas. Necessária para o melhoramento.'],
+    ['Autoflorescente', 'Floração independente do fotoperíodo, herdada de Cannabis ruderalis. Ciclo completo de 8 a 12 semanas.'],
+    ['Fotoperiódica', 'Planta de dia curto: a floração é induzida por noites de cerca de 12 horas ou mais. Em cultivo indoor, regime 12/12.'],
+    ['Clone-only', 'Genética mantida apenas por propagação vegetativa de uma planta-mãe, sem linhagem de sementes estável. Ex.: as primeiras OG Kush e Gorilla Glue.'],
+    ['Hermafrodita', 'Planta monoica que desenvolve flores masculinas, geralmente por estresse ou predisposição genética, e pode polinizar o cultivo.'],
+    ['Cola', 'Inflorescência terminal de um ramo.'],
+    ['Descarboxilação', 'Remoção do grupo carboxila por calor, que converte THCA em THC e CBDA em CBD. Sem ela, a flor in natura tem baixa atividade psicoativa.'],
+    ['Cura', 'Armazenamento da flor seca em recipiente vedado, com umidade controlada, por semanas. Preserva terpenos e melhora a combustão.'],
+    ['Kief', 'Tricomas glandulares separados da flor por peneiramento. Prensado, origina o haxixe.'],
+    ['Breeder', 'Melhorista: quem realiza cruzamentos e seleção para desenvolver cultivares.'],
+    ['Seedbank', 'Empresa que produz e comercializa sementes de linhagens próprias ou de breeders parceiros.']];
   const LMYTH = [
-    ['Indica dá sono e sativa dá energia', 'É uma simplificação. Estudos genéticos e químicos (Sawler et al., 2015; Smith et al., 2022) mostram que o rótulo indica ou sativa no pacote prevê mal a química da flor. O que pesa no efeito é a combinação de canabinoides e terpenos, a dose e a pessoa.'],
-    ['Quanto mais THC, melhor', 'Não necessariamente. Mais THC aumenta a intensidade e também o risco de ansiedade, taquicardia e paranoia. Aroma, terpenos e dose contam tanto quanto o número.'],
-    ['CBD “corta” o efeito do THC', 'Em parte. O CBD pode suavizar alguns efeitos do THC, mas os estudos têm resultados mistos e a proporção importa.'],
-    ['É natural, então não tem risco', 'Tem. Parte de quem usa com frequência desenvolve dependência (as estimativas variam de 1 em 10 a 3 em 10). O risco de psicose é maior em quem tem predisposição e em quem começa na adolescência.'],
-    ['O “efeito comitiva” está provado', 'A ideia de que canabinoides e terpenos agem melhor juntos (Ben-Shabat e Mechoulam, 1998) é plausível e popular, mas ainda tem pouca prova direta em humanos.']];
-  const LFICHA = [['% indica', 'Quanto da genética vem de indica, segundo o breeder. 0% é sativa pura, 100% é indica pura.'], ['Mais THC, Equilibrada, Mais CBD', 'O quimiotipo: qual canabinoide domina.'], ['THC', 'A faixa informada pelo breeder ou por bancos de dados. “Não informado” quer dizer que não achamos fonte, e o valor da ficha é uma estimativa.'], ['Floração', 'Semanas de floração depois que a planta muda para 12/12. Não conta o vegetativo.'], ['Cultivo', 'Dificuldade aproximada: fácil, moderada ou difícil.'], ['Efeitos', 'O perfil típico do tipo da strain (indica, sativa, híbrida ou com CBD), não uma medição dela.'], ['De onde vem', 'Os pais. Toque em “Ver árvore” para ver a família toda até as variedades nativas.']];
-  const LCH = [['can', 'Canabinoides'], ['terp', 'Terpenos e aromas'], ['tipo', 'Indica, sativa e híbrida'], ['planta', 'A planta por dentro'], ['ciclo', 'Da semente à colheita'], ['gen', 'Genética e sementes'], ['mitos', 'Mitos'], ['ficha', 'Como ler uma ficha'], ['glo', 'Glossário']];
+    ['Indica dá sono e sativa dá energia', 'Simplificação. Estudos genéticos e químicos (Sawler et al., 2015; Smith et al., 2022) mostram que o rótulo indica ou sativa prevê mal o perfil químico. O efeito depende da composição de canabinoides e terpenos, da dose e do usuário.'],
+    ['Quanto mais THC, melhor', 'Não necessariamente. Concentrações maiores aumentam a intensidade e o risco de ansiedade, taquicardia e sintomas psicóticos transitórios. Perfil de terpenos e dose são igualmente relevantes.'],
+    ['CBD “corta” o efeito do THC', 'Parcialmente. O CBD pode atenuar alguns efeitos do THC, mas os resultados dos estudos são heterogêneos e dependem da proporção.'],
+    ['É natural, então não tem risco', 'Há riscos. Parte dos usuários frequentes desenvolve transtorno por uso de cannabis (estimativas entre 10% e 30%). O risco de psicose é maior em pessoas predispostas e com início do uso na adolescência.'],
+    ['O efeito entourage está comprovado', 'A hipótese de sinergia entre canabinoides e terpenos (Ben-Shabat e Mechoulam, 1998) é plausível, mas tem pouca evidência clínica direta.']];
+  const LFICHA = [['% indica', 'Proporção de genética indica declarada pelo breeder. 0% = sativa pura; 100% = indica pura.'], ['Mais THC, Equilibrada, Mais CBD', 'Quimiotipo, definido pelo canabinoide dominante.'], ['THC', 'Faixa declarada pelo breeder ou por bases de dados. “Não informado” indica ausência de fonte; o valor exibido é estimado.'], ['Floração', 'Semanas de floração a partir da indução (12/12). Não inclui a fase vegetativa.'], ['Cultivo', 'Grau de dificuldade estimado: fácil, moderada ou difícil.'], ['Efeitos', 'Perfil típico da categoria (indica, sativa, híbrida ou rica em CBD), não uma medição do cultivar.'], ['De onde vem', 'Parentais do cruzamento. “Ver árvore” mostra a genealogia até as landraces.']];
+  const LCH = [['can', 'Canabinoides'], ['terp', 'Terpenos'], ['tipo', 'Indica, sativa e híbrida'], ['planta', 'Anatomia'], ['ciclo', 'Ciclo de cultivo'], ['gen', 'Genética'], ['mitos', 'Crenças e evidências'], ['ficha', 'Leitura da ficha'], ['glo', 'Glossário']];
   const anatomy = () => `<svg class="lana" viewBox="0 0 340 300" role="img" aria-label="Desenho de uma flor de maconha com cálices, pistilos, folhas de açúcar e tricomas indicados">
     <g class="lsug"><path d="M120 250c-30-30-52-40-82-36 20 16 44 30 82 36z"/><path d="M128 210c-40-14-62-8-86 8 26 6 52 6 86-8z"/><path d="M150 250c22-30 44-40 72-38-18 18-40 30-72 38z"/></g>
     <path class="lstem" d="M138 290V200"/>
@@ -1278,7 +1278,7 @@ h1, h2, h3, p { margin: 0; }
     <circle class="lzoom" cx="270" cy="96" r="52"/>
     <g class="lhead"><path d="M262 140v-38M278 140v-30M248 140v-24"/><circle cx="262" cy="96" r="9"/><circle cx="278" cy="104" r="8"/><circle cx="248" cy="112" r="7"/></g>
     <path class="lline" d="M176 112l42-14"/>
-    <g class="llab"><text x="270" y="166" text-anchor="middle">Tricomas</text><text x="270" y="180" text-anchor="middle" class="lsm">onde fica a resina</text>
+    <g class="llab"><text x="270" y="166" text-anchor="middle">Tricomas</text><text x="270" y="180" text-anchor="middle" class="lsm">glândulas de resina</text>
       <text x="8" y="40">Pistilos</text><path class="lline" d="M54 44l52 30"/>
       <text x="196" y="226">Cálices</text><path class="lline" d="M194 222l-26-24"/>
       <text x="8" y="282">Folhas de açúcar</text><path class="lline" d="M60 270l16-30"/></g></svg>`;
@@ -1288,45 +1288,45 @@ h1, h2, h3, p { margin: 0; }
     const tot = LCYC.reduce((a, c) => a + c[2], 0);
     return `<div class="view" id="lv"><div class="stack hist">
       <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="false">${I.search}</button></div>
-      <header class="hhero"><p class="hkick">Aprenda</p><h1 class="h1">A planta, sem mistério</h1><p class="hdek">O que é THC e CBD, de onde vem o cheiro, o que quer dizer indica e sativa, e como ler uma ficha do FenoSearch.</p><p class="hmeta">Leitura de 8 min · Toque nos botões para ver as strains de cada tema</p></header>
+      <header class="hhero"><p class="hkick">Aprenda</p><h1 class="h1">Guia da planta</h1><p class="hdek">Canabinoides, terpenos, classificação botânica, anatomia, ciclo de cultivo e genética, com referência às strains do catálogo.</p><p class="hmeta">Leitura de 8 min · Os cartões abrem as strains relacionadas</p></header>
       <nav class="htoc" aria-label="Temas">${LCH.map((c, i) => `<button data-hgo="l-${c[0]}"><span>${String(i + 1).padStart(2, '0')}</span>${c[1]}</button>`).join('')}</nav>
-      <section class="hsec" id="l-can"><p class="hnum">01 · Canabinoides</p><h2 class="hh2">Os compostos que dão o efeito</h2>
-        <div class="hbody"><p>A maconha produz mais de cem <b>canabinoides</b>, substâncias que conversam com o <b>sistema endocanabinoide</b>, uma rede de receptores que todo mundo tem no corpo. O receptor <b>CB1</b> fica mais no cérebro; o <b>CB2</b>, no sistema imune. O próprio corpo fabrica moléculas parecidas, como a anandamida, descoberta em 1992.</p>
-        <p>Na planta viva, quase tudo está na forma ácida (THCA, CBDA). Só com calor, ao fumar, vaporizar ou cozinhar, ela vira THC e CBD ativos. É a <b>descarboxilação</b>.</p></div>
+      <section class="hsec" id="l-can"><p class="hnum">01 · Canabinoides</p><h2 class="hh2">Compostos ativos</h2>
+        <div class="hbody"><p>A cannabis produz mais de cem <b>fitocanabinoides</b>, compostos que atuam sobre o <b>sistema endocanabinoide</b>. Os receptores <b>CB1</b> se concentram no sistema nervoso central; os <b>CB2</b>, sobretudo no sistema imune. O organismo produz ligantes próprios, os endocanabinoides, como a anandamida, identificada em 1992.</p>
+        <p>Na planta, os canabinoides estão majoritariamente na forma ácida (THCA, CBDA). A conversão nas formas neutras ativas, THC e CBD, ocorre por aquecimento: a <b>descarboxilação</b>.</p></div>
         <div class="lcan">${LCAN.map(c => `<div style="--lc:${c[3]}"><b>${c[0]}</b><small>${c[1]}</small><p>${c[2]}</p></div>`).join('')}</div>
         <p class="hlab" style="margin-top:6px">Os três quimiotipos</p>
         <div class="lchem">${LCHEM.map(c => `<button data-lchem="${c[0]}"><span class="lpie" style="--th:${c[0] === 'I' ? 88 : c[0] === 'II' ? 50 : 12}%"></span><b>${c[1]}</b><small>${c[2]}</small><p>${c[3]}</p><i>Ver ${S.filter(s => c[0] === "III" ? s.ch !== "I" : s.ch === c[0]).length} strains</i></button>`).join('')}</div></section>
-      <section class="hsec" id="l-terp"><p class="hnum">02 · Terpenos</p><h2 class="hh2">De onde vem o cheiro</h2>
-        <div class="hbody"><p>Os <b>terpenos</b> são os óleos aromáticos da planta, os mesmos que dão cheiro à casca do limão, à lavanda e à pimenta. Eles definem o aroma e o sabor de cada strain. Se mudam o efeito, e quanto, ainda é tema de pesquisa.</p></div>
-        <div class="lterp">${LTERP.map(t => `<button data-lterp="${t[0]}"><span class="lt1">${TERP[t[0]] ? TERP[t[0]].join(' · ') : ''}</span><b>${t[0][0].toUpperCase() + t[0].slice(1)}</b><small>Também em ${t[2]}</small><p>${t[3]}</p><i>Ver ${tc(t[0])} strains</i></button>`).join('')}</div></section>
+      <section class="hsec" id="l-terp"><p class="hnum">02 · Terpenos</p><h2 class="hh2">Perfil aromático</h2>
+        <div class="hbody"><p>Os <b>terpenos</b> são compostos voláteis produzidos nos tricomas, os mesmos presentes em cítricos, lavanda e pimenta. Definem o perfil aromático de cada cultivar. Sua contribuição para o efeito ainda está em investigação.</p></div>
+        <div class="lterp">${LTERP.map(t => `<button data-lterp="${t[0]}"><span class="lt1">${TERP[t[0]] ? TERP[t[0]].join(' · ') : ''}</span><b>${t[0][0].toUpperCase() + t[0].slice(1)}</b><small>Também presente em: ${t[2]}</small><p>${t[3]}</p><i>Ver ${tc(t[0])} strains</i></button>`).join('')}</div></section>
       <section class="hsec" id="l-tipo"><p class="hnum">03 · Tipos</p><h2 class="hh2">Indica, sativa e híbrida</h2>
-        <div class="hbody"><p>Os nomes são antigos. Lineu batizou a <i>Cannabis sativa</i> em 1753, e Lamarck descreveu a <i>Cannabis indica</i> em 1785, a partir de plantas da Índia. Hoje os nomes descrevem mais o jeito da planta do que o efeito.</p>
-        <p><b>Sativas</b> crescem altas, de folhas finas, e demoram para florescer; vêm de regiões quentes perto do Equador, como o Nordeste brasileiro, a Tailândia e a Colômbia. <b>Indicas</b> são baixas, de folha larga e floração curta; vêm de montanhas secas como o Hindu Kush. A maioria das strains de hoje é <b>híbrida</b>.</p>
-        <p>A terceira, <i>Cannabis ruderalis</i>, da Rússia e da Ásia Central, é pequena e floresce pela idade. É ela que dá às automáticas a pressa para florescer.</p></div>
+        <div class="hbody"><p>Lineu descreveu a <i>Cannabis sativa</i> em 1753; Lamarck, a <i>Cannabis indica</i> em 1785, a partir de exemplares da Índia. Hoje os termos descrevem sobretudo morfologia e origem, não efeito.</p>
+        <p><b>Sativas</b>: porte alto, folíolos estreitos e floração longa; originárias de regiões tropicais, como o Nordeste brasileiro, a Tailândia e a Colômbia. <b>Indicas</b>: porte baixo, folíolos largos e floração curta; originárias de regiões montanhosas e secas, como o Hindu Kush. A maior parte dos cultivares atuais é <b>híbrida</b>.</p>
+        <p><i>Cannabis ruderalis</i>, da Rússia e da Ásia Central, tem porte reduzido e floração independente do fotoperíodo, característica transmitida às variedades automáticas.</p></div>
         <div class="lspec"><div class="lbar"><span>Sativa</span><span>Indica</span></div>${ex.map(([i, l]) => `<button data-open="${i}" style="--x:${by[i].ind}%"><span class="im">${pic(by[i])}</span><b>${esc(by[i].n)}</b><small>${l} · ${by[i].ind}% indica</small></button>`).join('')}</div>
-        <div class="hfact"><b>${Math.round(S.filter(s => kind(s) === 'Híbrida').length / S.length * 100)}%</b><span>das ${S.length} strains do FenoSearch são híbridas. Na ficha, a porcentagem mostra quanto da genética é indica.</span></div></section>
-      <section class="hsec" id="l-planta"><p class="hnum">04 · A planta</p><h2 class="hh2">O que tem numa flor</h2>
-        <div class="hbody"><p>O que se usa é a flor da planta <b>fêmea</b>. A planta macho dá pólen, e uma fêmea polinizada para de investir em resina e enche de sementes. Por isso quem cultiva separa os machos.</p></div>
+        <div class="hfact"><b>${Math.round(S.filter(s => kind(s) === 'Híbrida').length / S.length * 100)}%</b><span>dos ${S.length} cultivares do catálogo são híbridos. Na ficha, a porcentagem indica a proporção de genética indica.</span></div></section>
+      <section class="hsec" id="l-planta"><p class="hnum">04 · A planta</p><h2 class="hh2">Anatomia da inflorescência</h2>
+        <div class="hbody"><p>A cannabis é <b>dioica</b>: há plantas masculinas e femininas. O material de interesse é a inflorescência feminina não polinizada (sinsemilla). A polinização desvia recursos para a produção de sementes e reduz a de resina.</p></div>
         ${anatomy()}
-        <dl class="hglo"><div><dt>Cálices</dt><dd>As pequenas “cápsulas” que formam a flor. É ali que a semente cresceria.</dd></div><div><dt>Pistilos</dt><dd>Os fiozinhos que saem dos cálices. Nascem brancos e escurecem para laranja ou rosa com a maturação; a Manga Rosa ganhou o nome por eles.</dd></div><div><dt>Tricomas</dt><dd>Glândulas de resina, como cogumelos minúsculos. É onde se concentram canabinoides e terpenos. Mudam de transparentes para leitosos e âmbar, e muita gente colhe olhando essa cor.</dd></div><div><dt>Folhas de açúcar</dt><dd>As folhinhas que saem do meio da flor, cobertas de tricomas.</dd></div></dl></section>
+        <dl class="hglo"><div><dt>Cálices</dt><dd>Estruturas que envolvem o óvulo e formam a inflorescência; concentram tricomas.</dd></div><div><dt>Pistilos</dt><dd>Estigmas que captam o pólen. Brancos no início, oxidam para laranja ou rosa com a maturação; daí o nome Manga Rosa.</dd></div><div><dt>Tricomas</dt><dd>Glândulas de resina (capitado-pedunculadas) onde são sintetizados canabinoides e terpenos. A mudança de translúcido para leitoso e âmbar é usada como indicador do ponto de colheita.</dd></div><div><dt>Folhas de açúcar</dt><dd>Pequenas folhas que emergem da inflorescência, recobertas de tricomas.</dd></div></dl></section>
       <section class="hsec" id="l-ciclo"><p class="hnum">05 · Ciclo</p><h2 class="hh2">Da semente à colheita</h2>
         <div class="lcyc"><p class="hlab">Fotoperiódica</p><div class="lrow">${LCYC.map(c => `<i style="flex:${c[2]};--lc:${c[3]}"></i>`).join('')}</div>
         <div class="lleg">${LCYC.map(c => `<div style="--lc:${c[3]}"><b>${c[0]}</b><small>${c[1]}</small></div>`).join('')}</div>
         <p class="hlab" style="margin-top:8px">Automática</p><div class="lrow"><i style="flex:${tot * .5};--lc:#E58F6F"></i><i style="flex:4;--lc:#B79BE0"></i><span style="flex:${tot * .5 - 4}"></span></div>
-        <div class="lleg"><div style="--lc:#E58F6F"><b>Semente à colheita</b><small>8 a 12 semanas, floresce sozinha</small></div><div style="--lc:#B79BE0"><b>Secagem e cura</b><small>2 a 8 semanas</small></div></div></div>
-        <div class="hbody"><p>A planta <b>fotoperiódica</b> cresce enquanto os dias são longos e só floresce quando a noite passa de umas 12 horas. Ao ar livre, isso acontece no fim do verão; dentro de casa, o cultivador muda a luz para 12 horas ligada e 12 desligada. A floração mostrada nas fichas conta a partir dessa virada.</p>
-        <p>A <b>automática</b> ignora a luz: floresce pela idade, herança da ruderalis. É mais rápida e menor, e costuma render menos.</p>
-        <p>No Brasil, cultivar ainda depende de autorização judicial ou de associação autorizada. Este guia é informativo.</p></div></section>
-      <section class="hsec" id="l-gen"><p class="hnum">06 · Genética</p><h2 class="hh2">Como nasce uma strain</h2>
-        <div class="hbody"><p>Toda strain começa de <b>variedades nativas</b>, as landraces. Um <b>breeder</b> cruza duas plantas, planta as sementes, escolhe os melhores <b>fenótipos</b> e repete por gerações até a linhagem ficar estável. Depois um <b>seedbank</b> produz e vende as sementes.</p>
-        <p>Muitas strains famosas começaram como <b>clone-only</b>: uma única planta especial, passada de mão em mão em mudas. A árvore genealógica de cada ficha mostra esse caminho até as nativas.</p></div>
+        <div class="lleg"><div style="--lc:#E58F6F"><b>Semente à colheita</b><small>8 a 12 semanas, sem indução</small></div><div style="--lc:#B79BE0"><b>Secagem e cura</b><small>2 a 8 semanas</small></div></div></div>
+        <div class="hbody"><p>Variedades <b>fotoperiódicas</b> permanecem em fase vegetativa sob dias longos e entram em floração quando o período de escuro chega a cerca de 12 horas. Ao ar livre, isso ocorre no fim do verão; em cultivo indoor, o fotoperíodo é ajustado para 12/12. O tempo de floração das fichas é contado a partir dessa indução.</p>
+        <p>Variedades <b>automáticas</b> florescem por idade, independentemente do fotoperíodo, característica herdada da ruderalis. Têm ciclo mais curto, porte menor e, em geral, menor rendimento.</p>
+        <p>No Brasil, o cultivo depende de autorização judicial ou de associação autorizada. Conteúdo informativo.</p></div></section>
+      <section class="hsec" id="l-gen"><p class="hnum">06 · Genética</p><h2 class="hh2">Melhoramento genético</h2>
+        <div class="hbody"><p>Os cultivares derivam de <b>landraces</b>. O <b>breeder</b> realiza o cruzamento, seleciona <b>fenótipos</b> na progênie e repete o processo por gerações até estabilizar a linhagem. O <b>seedbank</b> produz e comercializa as sementes.</p>
+        <p>Muitos cultivares conhecidos surgiram como <b>clone-only</b>: um único fenótipo mantido por propagação vegetativa. A árvore genealógica de cada ficha traça a linhagem até as landraces.</p></div>
         <div class="lflow">${['Landraces', 'Cruzamento', 'Seleção de fenótipos', 'Linhagem estável', 'Seedbank'].map((t, i) => `<span>${t}</span>${i < 4 ? '<i>→</i>' : ''}`).join('')}</div>
-        <div class="btns"><button class="btn" data-fam="landraces">Ver as nativas</button><button class="btn" data-tree="${by['gsc'] ? 'gsc' : S[0].id}">Exemplo de árvore</button></div></section>
-      <section class="hsec" id="l-mitos"><p class="hnum">07 · Mitos</p><h2 class="hh2">O que se diz, e o que se sabe</h2>
-        <div class="hmy">${LMYTH.map(m => `<details><summary><span>Mito</span>${m[0]}</summary><p>${m[1]}</p></details>`).join('')}</div></section>
-      <section class="hsec" id="l-ficha"><p class="hnum">08 · Ficha</p><h2 class="hh2">Como ler uma ficha do FenoSearch</h2>
+        <div class="btns"><button class="btn" data-fam="landraces">Ver landraces</button><button class="btn" data-tree="${by['gsc'] ? 'gsc' : S[0].id}">Exemplo de árvore</button></div></section>
+      <section class="hsec" id="l-mitos"><p class="hnum">07 · Evidências</p><h2 class="hh2">Crenças comuns e evidências</h2>
+        <div class="hmy">${LMYTH.map(m => `<details><summary><span>Afirmação</span>${m[0]}</summary><p>${m[1]}</p></details>`).join('')}</div></section>
+      <section class="hsec" id="l-ficha"><p class="hnum">08 · Ficha</p><h2 class="hh2">Leitura da ficha</h2>
         <div class="hwho">${LFICHA.map(f => `<div><b>${f[0]}</b><p>${f[1]}</p></div>`).join('')}</div></section>
-      <section class="hsec" id="l-glo"><p class="hnum">09 · Glossário</p><h2 class="hh2">Palavras que aparecem por aí</h2>
+      <section class="hsec" id="l-glo"><p class="hnum">09 · Glossário</p><h2 class="hh2">Termos técnicos</h2>
         <dl class="hglo">${LGLO.map(g => `<div><dt>${g[0]}</dt><dd>${g[1]}</dd></div>`).join('')}</dl></section>
       <section class="hsrc"><p class="hlab">Fontes</p>
         <p>Gaoni, Y.; Mechoulam, R. Isolation, structure and partial synthesis of an active constituent of hashish. <i>J. Am. Chem. Soc.</i>, 1964.</p>
