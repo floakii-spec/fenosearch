@@ -381,6 +381,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* história: leitura longa, coluna estreita, timeline filtrável */
 #yv { padding-top: 0; }
+.hside { display: none; }
 .hbar { position: sticky; top: 0; z-index: 3; height: 3px; margin-inline: -20px; background: transparent; }
 .hbar i { display: block; height: 100%; width: 0; background: var(--acc); box-shadow: 0 0 10px var(--glow); }
 .hist { padding-top: 14px; gap: 40px; }
@@ -446,7 +447,22 @@ h1, h2, h3, p { margin: 0; }
 @media (hover: hover) and (pointer: fine) { .htoc button:hover, .hmy details:hover { border-color: rgba(255,255,255,.2); } }
 @media (min-width: 900px) {
   .hist { max-width: 720px; margin-inline: auto; gap: 52px; }
-  .hbar { margin-inline: -32px; }
+}
+@media (min-width: 1100px) {
+  .hwrap { display: grid; grid-template-columns: 230px minmax(0, 860px); column-gap: 72px; justify-content: center; align-items: start; }
+  .hwrap .hist { max-width: none; margin: 0; }
+  .hwrap .htoc { display: none; }
+  .hside { display: flex; flex-direction: column; gap: 2px; position: sticky; top: 30px; padding-top: 22px; max-height: calc(100vh - 140px); overflow-y: auto; scrollbar-width: none; }
+  .hside .hlab { margin-bottom: 10px; }
+  .hside button { display: flex; gap: 10px; align-items: baseline; text-align: left; padding: 9px 12px; border-radius: 12px; font-size: 14px; line-height: 1.3; color: var(--fg2); border-left: 2px solid transparent; transition: color .15s, background .15s; }
+  .hside button span { font-family: var(--fD); font-size: 12px; font-weight: 600; color: var(--fg3); flex: none; min-width: 18px; }
+  .hside button:hover { color: var(--fg); background: var(--glass); }
+  .hside button.on { color: var(--fg); background: var(--glass); border-left-color: var(--acc); border-radius: 0 12px 12px 0; }
+  .hside button.on span { color: var(--acc); }
+  .hhero .h1 { font-size: 60px; }
+  .hdek { max-width: 46ch; }
+  .hwrap .lcan { grid-template-columns: 1fr 1fr 1fr; }
+  .hbar { margin-inline: calc(-1 * max(32px, 4vw)); }
   .hhero .h1 { font-size: 54px; }
   .hdek { font-size: 20px; }
   .htoc { grid-template-columns: 1fr 1fr 1fr; }
@@ -1205,7 +1221,7 @@ h1, h2, h3, p { margin: 0; }
   function histHTML() {
     const f = st.hcat;
     const tl = HTL.filter(r => !f || r[1] === f);
-    return `<div class="view" id="yv"><div class="hbar"><i style="width:${st.hprog || 0}%"></i></div><div class="stack hist">
+    return `<div class="view" id="yv"><div class="hbar"><i style="width:${st.hprog || 0}%"></i></div><div class="hwrap">${sideHTML('História', [...HCH.map((c, i) => ['h-' + c[0], String(i + 1).padStart(2, '0'), c[1]]), ['h-tl', '+', 'Linha do tempo'], ['h-mitos', '+', 'Mitos e fontes']])}<div class="stack hist">
       <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="false">${I.search}</button></div>
       <header class="hhero"><p class="hkick">História</p><h1 class="h1">Fumo de negro, erva maldita</h1><p class="hdek">Como a maconha, planta de remédio, trabalho e fé, virou crime no Brasil, e quem a proibição queria atingir.</p><p class="hmeta">Leitura de 12 min · Baseado em Luísa Saad (2019) e Jorge Emanuel Luz de Souza (2015)</p></header>
       <section class="hsum"><p class="hlab">Em um minuto</p><ol>
@@ -1229,12 +1245,16 @@ h1, h2, h3, p { margin: 0; }
         <p>SAAD, Luísa. <i>“Fumo de negro”: a criminalização da maconha no pós-abolição.</i> Salvador: EDUFBA, 2019.</p>
         <p>SOUZA, Jorge Emanuel Luz de. <i>Sonhos da diamba, controles do cotidiano: uma história da criminalização da maconha no Brasil republicano.</i> Salvador: EDUFBA/CETAD, 2015.</p>
         <p>Os dois livros são publicados sob a licença Creative Commons BY 4.0. Este texto é um resumo; as citações entre aspas vêm das fontes reunidas pelos autores. Os itens de 2006 e 2024 da linha do tempo não estão nos livros.</p></section>
-    </div></div>`;
+    </div></div></div>`;
   }
   const chHTML = (c, i) => `<section class="hsec" id="h-${c[0]}"><p class="hnum">Capítulo ${String(i + 1).padStart(2, '0')}</p><h2 class="hh2">${c[1]}</h2><div class="hbody">${c[2]}</div></section>`;
+  const sideHTML = (t, items) => `<aside class="hside" aria-label="Índice"><p class="hlab">${t}</p>${items.map(([id, n, l]) => `<button data-hgo="${id}"><span>${n}</span>${l}</button>`).join('')}</aside>`;
   function histScroll() {
-    const v = document.getElementById('yv'); if (!v) return;
-    v.addEventListener('scroll', () => { const p = Math.min(100, Math.max(0, v.scrollTop / Math.max(1, v.scrollHeight - v.clientHeight) * 100)); st.hprog = p; const b = v.querySelector('.hbar i'); if (b) b.style.width = p + '%'; }, { passive: true });
+    const v = document.getElementById('yv') || document.getElementById('lv'); if (!v) return;
+    const key = v.id === 'yv' ? 'hprog' : 'lprog';
+    const spy = () => { const bs = [...v.querySelectorAll('.hside button')]; if (!bs.length || !bs[0].offsetParent) return; const top = v.getBoundingClientRect().top + 120; let cur = null; for (const b of bs) { const s = document.getElementById(b.dataset.hgo); if (s && s.getBoundingClientRect().top <= top) cur = b; } bs.forEach(b => b.classList.toggle('on', b === cur)); };
+    v.addEventListener('scroll', () => { const p = Math.min(100, Math.max(0, v.scrollTop / Math.max(1, v.scrollHeight - v.clientHeight) * 100)); st[key] = p; const b = v.querySelector('.hbar i'); if (b) b.style.width = p + '%'; spy(); }, { passive: true });
+    spy();
   }
 
   // ---------- aprenda ----------
@@ -1300,7 +1320,7 @@ h1, h2, h3, p { margin: 0; }
     const tc = t => S.filter(s => !s.tex && s.te.includes(t)).length;
     const ex = [['thai', 'Sativa pura'], ['white-widow', 'Híbrida'], ['afghani', 'Indica pura']].filter(([i]) => by[i]);
     const tot = LCYC.reduce((a, c) => a + c[2], 0);
-    return `<div class="view" id="lv"><div class="stack hist">
+    return `<div class="view" id="lv"><div class="hbar"><i style="width:${st.lprog || 0}%"></i></div><div class="hwrap">${sideHTML('Aprenda', LCH.map((c, i) => ['l-' + c[0], String(i + 1).padStart(2, '0'), c[1]]))}<div class="stack hist">
       <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="false">${I.search}</button></div>
       <header class="hhero"><p class="hkick">Aprenda</p><h1 class="h1">Guia da planta</h1><p class="hdek">Canabinoides, terpenos, classificação botânica, anatomia, ciclo de cultivo e genética, com referência às strains do catálogo.</p><p class="hmeta">Leitura de 8 min · Os cartões abrem as strains relacionadas</p></header>
       <nav class="htoc" aria-label="Temas">${LCH.map((c, i) => `<button data-hgo="l-${c[0]}"><span>${String(i + 1).padStart(2, '0')}</span>${c[1]}</button>`).join('')}</nav>
@@ -1349,7 +1369,7 @@ h1, h2, h3, p { margin: 0; }
         <p>Sawler, J. et al. The genetic structure of marijuana and hemp. <i>PLOS ONE</i>, 2015. Smith, C. et al. The phytochemical diversity of commercial Cannabis in the United States. <i>Nature Plants</i>, 2022.</p>
         <p>Russo, E. Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects. <i>Br. J. Pharmacol.</i>, 2011.</p>
         <p>Conteúdo informativo, não é orientação médica nem incentivo ao uso.</p></section>
-    </div></div>`;
+    </div></div></div>`;
   }
   // ---------- abas ainda não refeitas ----------
   const SOON = { bench: ['Comparar', 'A tela de comparar entra na etapa 6. Você já pode marcar strains pelo botão no canto da ficha.'] };
