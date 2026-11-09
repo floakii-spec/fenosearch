@@ -319,6 +319,32 @@ h1, h2, h3, p { margin: 0; }
 .mapw::-webkit-scrollbar { display: none; }
 .mapw > svg { display: block; width: 100%; height: 100%; }
 .mapw .land { fill: rgba(255,255,255,.08); }
+.rzc path { fill: var(--acc); stroke: rgba(226,165,74,.55); stroke-width: .6px; cursor: pointer; transition: fill-opacity .3s ease, opacity .3s ease; }
+.rzc:hover path { stroke: var(--acc); stroke-width: 1.2px; }
+.rzc.dim { opacity: .45; }
+.rzc.sel path { stroke: var(--fg); stroke-width: 1.6px; }
+.arc { fill: none; stroke: #F4D7A0; stroke-opacity: .35; stroke-linecap: round; stroke-dasharray: 3 5; animation: arcflow 1.6s linear infinite; pointer-events: none; transition: stroke-opacity .3s ease; }
+.arc.dim { stroke-opacity: .06; animation: none; }
+.arc.out { stroke: #F4D7A0; stroke-opacity: .95; }
+.arc.in { stroke: #7FD6C2; stroke-opacity: .9; }
+@keyframes arcflow { to { stroke-dashoffset: -16; } }
+@media (prefers-reduced-motion: reduce) { .arc { animation: none; stroke-dasharray: none; } }
+.rlab { cursor: pointer; }
+.rlab text { font-family: var(--fB); font-size: 11px; font-weight: 700; fill: var(--fg); text-anchor: middle; paint-order: stroke; stroke: rgba(5,6,5,.85); stroke-width: 3px; }
+.rlab.sel text { fill: var(--acc); font-size: 13px; }
+.sdot { cursor: pointer; }
+.sdot .b { stroke: var(--bg); stroke-width: 1.2px; }
+.sdot:hover .b { stroke: var(--fg); }
+.rzrank { display: grid; grid-template-columns: 1fr; gap: 4px; }
+.rzrank button { display: grid; grid-template-columns: 22px minmax(0, 9em) minmax(0, 1fr) 46px; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; text-align: left; }
+.rzrank button:hover { background: var(--glass); }
+.rzrank .rn { font-size: 12px; color: var(--fg3); font-weight: 600; }
+.rzrank b { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rb2 { height: 8px; border-radius: 4px; background: var(--glass2); overflow: hidden; }
+.rb2 i { display: block; height: 100%; background: var(--acc); border-radius: 4px; }
+.rzrank small { font-size: 13px; color: var(--fg2); text-align: right; font-variant-numeric: tabular-nums; }
+.rzbig { font-family: var(--fD); font-size: 44px; font-weight: 600; line-height: 1; color: var(--acc); letter-spacing: -.02em; }
+@media (min-width: 900px) { .rzrank { grid-template-columns: 1fr 1fr; column-gap: 24px; } }
 .cdot { cursor: pointer; }
 .cdot .b { fill: rgba(226,165,74,.28); stroke: var(--acc); stroke-width: 1px; }
 .cdot.on .b { fill: var(--acc); }
@@ -968,18 +994,19 @@ h1, h2, h3, p { margin: 0; }
   }
   function zoomLayer(sel, tb, reg) {
     const shape = `<path class="cshape" d="${GEO2.shape[sel] || ''}" vector-effect="non-scaling-stroke"/>`;
-    if (!REGS[sel]) return shape;
+    if (!REGS[sel]) return shape + ctryDots(sel);
     return shape + REGS[sel].slice().sort((a, b) => regList(sel, b[0]).length - regList(sel, a[0]).length).map(([k, n, , anc, side]) => { const N = regList(sel, k).length; if (!N) return ''; const [cx, cy] = P(anc), r = Math.min(24, 8 + Math.sqrt(N) * .75); return `<g class="rdot${reg === k ? ' sel' : reg && reg !== 'none' ? ' dim' : ''}" data-reg="${k}" role="button" aria-label="${esc(n)}: ${N} strains" data-n="${N}" data-x="${cx.toFixed(2)}" data-y="${cy.toFixed(2)}" transform="translate(${cx.toFixed(2)},${cy.toFixed(2)}) scale(${(tb[2] / (st.mapW || 350)).toFixed(5)})"><circle class="b" r="${r.toFixed(1)}"/><text class="n" dy=".36em">${N}</text><text class="l" y="${(side > 0 ? r + 13 : -r - 6).toFixed(1)}">${esc(n)}</text></g>`; }).join('');
   }
   function sbLayer() {
     return SBK.filter(k => SB[k].length > 2).slice().reverse().map(k => { const N = SBL(k).length; if (!N) return ''; const [x, y] = P([SB[k][2], SB[k][3]]), r = 4 + Math.sqrt(N) * 1.25; return `<g class="sbp${st.sb === k ? ' sel' : st.sb ? ' dim' : ''}" data-sb="${k}" data-n="${N}" data-x="${x.toFixed(2)}" data-y="${y.toFixed(2)}" role="button" aria-label="${esc(SB[k][0])}: ${N} strains" transform="translate(${x.toFixed(2)},${y.toFixed(2)}) scale(${((st.vb || WORLD)[2] / (st.mapW || 350)).toFixed(5)})"><circle r="${Math.max(r, 11).toFixed(1)}" fill="transparent"/><circle class="b" r="${r.toFixed(1)}"/><text y="${(-r - 5).toFixed(1)}">${esc(SB[k][0])}</text></g>`; }).join('');
   }
-  const bubbles = (sel, k = 1) => st.mmode === 'sb' ? '' : CTRY.slice().reverse().map(c => { const [x, y] = P(GEO[c]), n = ML(c).length; if (!n) return ''; const r = 2.6 + Math.sqrt(n) * .85; return `<g class="cdot${sel ? (c === sel ? ' gone' : ' dim') : ''}" data-ctry="${c}" role="button" aria-label="${esc(c)}: ${n} strains" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${k.toFixed(4)})"><circle r="${Math.max(r, 9)}" fill="transparent"/><circle class="b" r="${r.toFixed(1)}" vector-effect="non-scaling-stroke"/></g>`; }).join('');
-  const mapUI = (sel, reg) => st.mmode === 'sb' ? (st.sb ? `<button class="mback" data-sbback>${I.back}Seedbanks</button><span class="mlab">${esc(SB[st.sb][0])} · ${SBL(st.sb).length}</span>` : '') : sel ? (reg && reg !== 'none' ? `<button class="mback" data-regback>${I.back}${esc(sel)}</button><span class="mlab">${esc(regName(sel, reg))} · ${regList(sel, reg).length}</span>` : `<button class="mback" data-world>${I.back}Mundo</button><span class="mlab">${esc(sel)} · ${ML(sel).length}</span>`) : '';
+  const bubbles = (sel, k = 1) => MM() !== 'or' ? '' : CTRY.slice().reverse().map(c => { const [x, y] = P(GEO[c]), n = ML(c).length; if (!n) return ''; const r = 2.4 + Math.log2(n + 1) * 1.15; return `<g class="cdot${sel ? (c === sel ? ' gone' : ' dim') : ''}" data-ctry="${c}" role="button" aria-label="${esc(c)}: ${n} strains" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${k.toFixed(4)})"><circle r="${Math.max(r, 9)}" fill="transparent"/><circle class="b" r="${r.toFixed(1)}" vector-effect="non-scaling-stroke"/></g>`; }).join('');
+  const mapUI = (sel, reg) => MM() === 'rz' ? (st.rz ? `<button class="mback" data-rzback>${I.back}Mundo</button><span class="mlab">${esc(st.rz)} · ${pctS(rzData().carry[st.rz].length)} do catálogo</span>` : '<span class="mlab">% do catálogo com genética de cada lugar</span>') : st.mmode === 'sb' ? (st.sb ? `<button class="mback" data-sbback>${I.back}Seedbanks</button><span class="mlab">${esc(SB[st.sb][0])} · ${SBL(st.sb).length}</span>` : '') : sel ? (reg && reg !== 'none' ? `<button class="mback" data-regback>${I.back}${esc(sel)}</button><span class="mlab">${esc(regName(sel, reg))} · ${regList(sel, reg).length}</span>` : `<button class="mback" data-world>${I.back}Mundo</button><span class="mlab">${esc(sel)} · ${ML(sel).length}</span>`) : '';
   const famChips = () => `<div class="chips mfam"><button class="chip" data-mfam="" aria-pressed="${!st.mfam}">Todas</button>${FAM.map(([k]) => `<button class="chip" data-mfam="${k}" aria-pressed="${st.mfam === k}"><i class="fdot" style="background:${FCOL[k]}"></i>${FSHORT[k]}</button>`).join('')}</div>`;
   const listSec = (title, sub, L) => `<div class="sec"><p class="h3">${title}<small>${sub}</small></p>${L.length ? `<div class="row">${L.slice(0, st.ctryAll ? 9999 : 16).map(s => budHTML(s, s.f === 'landraces' ? 'nativa' : s.y ? String(s.y) : kind(s))).join('')}${!st.ctryAll && L.length > 16 ? `<button class="bud more" data-ctryall><span class="im">+${L.length - 16}</span><b>Ver todas</b><small>${L.length} no total</small></button>` : ''}</div>` : '<p class="sub">Nenhuma strain dessa família aqui.</p>'}</div>`;
   const nStr = n => `${n} ${n === 1 ? 'strain' : 'strains'}`;
   function mapRest(sel, reg) {
+    if (MM() === 'rz') return rzRest();
     if (st.mmode === 'sb') {
       const k = st.sb, top = SBK.filter(x => SBL(x).length), M = st.sbAll ? top.length : 24;
       return `<p class="legal">${k ? `${esc(SB[k][1] || 'Local não informado')}.` : 'Cada pino é um seedbank, na cidade ou região onde ele fica, e o tamanho mostra quantas strains dele estão no FenoSearch. Toque num pino ou num nome pra ver o catálogo.'}</p>
@@ -989,15 +1016,15 @@ h1, h2, h3, p { margin: 0; }
     }
     const L = sel ? (reg ? regList(sel, reg) : ML(sel)) : null, nat = L ? L.filter(s => s.f === 'landraces').length : 0, hasR = sel && REGS[sel];
     const title = sel ? (reg ? regName(sel, reg) : sel) : '';
-    return `<p class="legal">${!sel ? 'Cada círculo é um lugar de origem, e o tamanho mostra quantas strains vêm de lá. Toque num círculo pra ver as strains.' : hasR && (!reg || reg === 'none') ? `Toque num estado pra ver só as strains de lá.` : ''}</p>
+    return `<p class="legal">${!sel ? `Cada círculo é o país onde a strain foi criada ou coletada, e o tamanho mostra quantas vêm de lá. Toque num círculo pra ver as strains no mapa. ${rzData().none} strains não têm país registrado; veja a aba Raízes.` : hasR && (!reg || reg === 'none') ? `Toque num estado pra ver só as strains de lá.` : ''}</p>
       ${famChips()}
       ${hasR ? `<div class="chips">${[...REGS[sel].map(r => r[0]), 'none'].filter(k => regList(sel, k).length).map(k => `<button class="chip${k === 'none' ? ' ghostc' : ''}" data-reg="${k}" aria-pressed="${k === reg}">${esc(regName(sel, k))} <span style="opacity:.6">${regList(sel, k).length}</span></button>`).join('')}</div>` : ''}
       ${!sel ? `<div class="chips">${CTRY.filter(c => ML(c).length).map(c => `<button class="chip" data-ctry="${c}">${esc(c)} <span style="opacity:.6">${ML(c).length}</span></button>`).join('')}</div>` : ''}
       ${sel ? listSec(esc(title), `${nStr(L.length)}${nat ? ` · ${nat} ${nat === 1 ? 'nativa' : 'nativas'}` : ''}`, L) : ''}`;
   }
   function mapHTML() {
-    const sel = st.mmode !== 'sb' && BYC[st.ctry] ? st.ctry : null, vb = st.vb || WORLD;
-    return `<div class="seg" role="tablist"><button data-mmode="or" aria-pressed="${st.mmode !== 'sb'}">Origem</button><button data-mmode="sb" aria-pressed="${st.mmode === 'sb'}">Seedbanks</button></div><div class="mapw${sel ? ' z' : ''}"><svg id="msvg" viewBox="${vb.join(' ')}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa com a origem das strains"><path class="land" fill-rule="evenodd" d="${LAND}"/><path class="bord" d="${BORD}" vector-effect="non-scaling-stroke"/><g id="mb">${bubbles(sel, vb[2] / WORLD[2])}</g><g id="zl">${sel && st.mmode !== 'sb' ? `<g>${zoomLayer(sel, st.vbT || fitBox(sel), st.reg)}</g>` : ''}</g><g id="sbl">${st.mmode === 'sb' ? sbLayer() : ''}</g></svg>
+    const sel = MM() === 'or' && BYC[st.ctry] ? st.ctry : null, vb = st.vb || WORLD;
+    return `<div class="seg" role="tablist"><button data-mmode="rz" aria-pressed="${MM() === 'rz'}">Raízes</button><button data-mmode="or" aria-pressed="${MM() === 'or'}">Origem</button><button data-mmode="sb" aria-pressed="${MM() === 'sb'}">Seedbanks</button></div><div class="mapw${sel ? ' z' : ''}"><svg id="msvg" viewBox="${vb.join(' ')}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa com a origem das strains"><path class="land" fill-rule="evenodd" d="${LAND}"/><path class="bord" d="${BORD}" vector-effect="non-scaling-stroke"/><g id="rzl">${MM() === 'rz' ? rzLayer() : ''}</g><g id="mb">${bubbles(sel, vb[2] / WORLD[2])}</g><g id="zl">${sel ? `<g>${zoomLayer(sel, st.vbT || fitBox(sel), st.reg)}</g>` : ''}</g><g id="sbl">${st.mmode === 'sb' ? sbLayer() : ''}</g></svg>
         <div id="mui">${mapUI(sel, st.reg)}</div><div class="mzm"><button data-mz="in" aria-label="Aproximar">+</button><button data-mz="out" aria-label="Afastar">−</button></div></div>
       <div id="mrest" class="stack" style="gap:16px">${mapRest(sel, st.reg)}</div>`;
   }
@@ -1020,9 +1047,9 @@ h1, h2, h3, p { margin: 0; }
   function applyVB(v) {
     const el = document.getElementById('msvg'); if (!el) return;
     el.setAttribute('viewBox', v.join(' ')); st.vb = v;
-    const sk = v[2] / WORLD[2], upp = v[2] / (el.clientWidth || 350);
+    const sk = v[2] / WORLD[2], upp = Math.max(v[2] / (el.clientWidth || 350), v[3] / (el.clientHeight || 150));
     el.querySelectorAll('#mb .cdot').forEach(g => g.setAttribute('transform', `translate(${g.dataset.x},${g.dataset.y}) scale(${sk.toFixed(4)})`));
-    el.querySelectorAll('.rdot, .sbp').forEach(g => g.setAttribute('transform', `translate(${g.dataset.x},${g.dataset.y}) scale(${upp.toFixed(5)})`));
+    el.querySelectorAll('.rdot, .sbp, .rlab, .sdot').forEach(g => g.setAttribute('transform', `translate(${g.dataset.x},${g.dataset.y}) scale(${upp.toFixed(5)})`));
     cancelAnimationFrame(applyVB.lr); applyVB.lr = requestAnimationFrame(() => mapLabels(st.vb));
   }
   function sbGo(k) {
@@ -1096,11 +1123,68 @@ h1, h2, h3, p { margin: 0; }
     };
     zoomTo.raf = requestAnimationFrame(step);
   }
+  // ---------- raízes: quanto do catálogo carrega genética de cada lugar, e por onde ela passou ----------
+  const MM = () => st.mmode || 'rz';
+  let RZ = null;
+  function rzData() {
+    if (RZ) return RZ;
+    const carry = {}, edges = {};
+    for (const s of S) {
+      const cs = countryOf(s), seen = new Set(cs ? [cs] : []);
+      for (const a of ancOf(s.id)) { const c = countryOf(by[a]); if (c) seen.add(c); }
+      seen.forEach(c => (carry[c] = carry[c] || []).push(s));
+      if (!cs) continue;
+      for (const p of mp(s)) { const cp = countryOf(by[p]); if (cp && cp !== cs) { const k = cp + '>' + cs; edges[k] = (edges[k] || 0) + 1; } }
+    }
+    const rank = Object.keys(carry).sort((a, b) => carry[b].length - carry[a].length);
+    const E = Object.entries(edges).map(([k, n]) => { const [a, b] = k.split('>'); return { a, b, n }; }).sort((x, y) => y.n - x.n);
+    Object.values(carry).forEach(L => L.sort((x, y) => y.kids.length - x.kids.length || !!y.img - !!x.img));
+    return (RZ = { carry, rank, E, max: carry[rank[0]].length, none: S.filter(s => !countryOf(s)).length });
+  }
+  const ART = { 'EUA': 'dos', 'Holanda': 'da', 'Espanha': 'da', 'África do Sul': 'da', 'Tailândia': 'da', 'Colômbia': 'da', 'Inglaterra': 'da', 'Jamaica': 'da', 'Tanzânia': 'da', 'Índia': 'da', 'Nigéria': 'da', 'Caxemira': 'da', 'Ásia Central': 'da', 'RD Congo': 'da', 'Mianmar': 'de', 'Essuatíni': 'de' };
+  const deP = c => (ART[c] || 'do') + ' ' + c;
+  const pctS = n => { const p = n / S.length * 100; return p >= 10 ? Math.round(p) + '%' : p.toFixed(1).replace('.', ',') + '%'; };
+  function arcD(a, b) {
+    const [x1, y1] = P(GEO[a]), [x2, y2] = P(GEO[b]), dx = x2 - x1, dy = y2 - y1, d = Math.hypot(dx, dy) || 1, k = Math.min(.32, 6 / d + .18);
+    const cx = (x1 + x2) / 2 - dy * k, cy = (y1 + y2) / 2 + dx * k;
+    return `M${x1.toFixed(1)},${y1.toFixed(1)}Q${cx.toFixed(1)},${cy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+  }
+  function rzLayer() {
+    const R = rzData(), sel = st.rz;
+    const shapes = R.rank.filter(c => GEO2.shape[c]).map(c => { const t = Math.pow(R.carry[c].length / R.max, .55); return `<g class="rzc${sel ? (c === sel ? ' sel' : ' dim') : ''}" data-rz="${c}" role="button" aria-label="${esc(c)}: genética em ${R.carry[c].length} strains"><path d="${GEO2.shape[c]}" style="fill-opacity:${(.1 + t * .62).toFixed(3)}" vector-effect="non-scaling-stroke"/></g>`; }).join('');
+    const lm = Math.log2(R.E[0].n), arcs = R.E.filter(e => sel ? e.a === sel || e.b === sel || e.n >= 4 : e.n >= 3).slice().reverse().map(e => { const on = sel && (e.a === sel || e.b === sel), t = Math.log2(e.n) / lm; return `<path class="arc${sel ? (on ? (e.a === sel ? ' out' : ' in') : ' dim') : ''}" d="${arcD(e.a, e.b)}" style="stroke-width:${(.8 + t * 2.6).toFixed(2)}px${sel ? '' : `;stroke-opacity:${(.18 + t * .6).toFixed(2)}`}" vector-effect="non-scaling-stroke"><title>${esc(e.a)} → ${esc(e.b)}: ${e.n}</title></path>`; }).join('');
+    const placed = [], labs = R.rank.filter(c => R.carry[c].length / S.length >= .04 || c === sel).sort((a, b) => (b === sel) - (a === sel)).filter(c => { const [x, y] = P(GEO[c]); if (placed.some(([u, v]) => Math.hypot(u - x, v - y) < 16)) return false; placed.push([x, y]); return true; }).map(c => { const [x, y] = P(GEO[c]); return `<g class="rlab${c === sel ? ' sel' : ''}" data-rz="${c}" data-x="${x.toFixed(2)}" data-y="${y.toFixed(2)}" transform="translate(${x.toFixed(2)},${y.toFixed(2)})"><text y="4">${pctS(R.carry[c].length)}</text></g>`; }).join('');
+    return `<g class="rzs">${shapes}</g><g class="arcs">${arcs}</g><g class="rlabs">${labs}</g>`;
+  }
+  function rzRest() {
+    const R = rzData(), c = st.rz;
+    if (!c) return `<p class="legal">Cada país fica mais forte quanto mais strains do catálogo carregam genética de lá, somando toda a árvore genealógica. As linhas mostram por onde a genética passou: do país de um parental para o país onde a filha foi criada. Toque num país.</p>
+      <div class="rzrank">${R.rank.slice(0, 14).map((k, i) => `<button data-rz="${k}"><span class="rn">${i + 1}</span><b>${esc(k)}</b><span class="rb2"><i style="width:${(R.carry[k].length / R.max * 100).toFixed(1)}%"></i></span><small>${pctS(R.carry[k].length)}</small></button>`).join('')}</div>
+      <p class="legal">${R.none} strains não têm país de origem registrado, mas entram aqui pelo país dos seus ancestrais.</p>`;
+    const L = R.carry[c], nat = (BYC[c] || []).filter(s => s.f === 'landraces' || !mp(s).length), out = R.E.filter(e => e.a === c), inn = R.E.filter(e => e.b === c);
+    const desc = L.filter(s => countryOf(s) !== c).slice(0, 16);
+    const reach = new Set(L.map(countryOf).filter(x => x && x !== c));
+    return `<div class="card rzcard"><p class="hlab">Raízes · ${esc(c)}</p><p class="rzbig">${pctS(L.length)}</p><p class="sub">do catálogo tem genética ${esc(deP(c))}: ${L.length} de ${S.length} strains, criadas em ${reach.size + ((BYC[c] || []).length ? 1 : 0)} ${reach.size ? 'países' : 'país'}.</p>
+      ${out.length ? `<p class="kv" style="margin:0"><i class="fdot" style="background:#F4D7A0"></i> Levou genética para <span style="opacity:.6">(linhas douradas)</span></p><div class="chips">${out.slice(0, 10).map(e => `<button class="chip" data-rz="${e.b}">${esc(e.b)} <span style="opacity:.6">${e.n}</span></button>`).join('')}</div>` : ''}
+      ${inn.length ? `<p class="kv" style="margin:0"><i class="fdot" style="background:#7FD6C2"></i> Recebeu genética de <span style="opacity:.6">(linhas verdes)</span></p><div class="chips">${inn.slice(0, 10).map(e => `<button class="chip" data-rz="${e.a}">${esc(e.a)} <span style="opacity:.6">${e.n}</span></button>`).join('')}</div>` : ''}
+      <div class="btns"><button class="btn" data-rzorig="${c}">Ver as ${(BYC[c] || []).length} criadas aqui no mapa</button></div></div>
+      ${nat.length ? listSec('Raízes nativas', `${nat.length} ${nat.length === 1 ? 'variedade' : 'variedades'} sem parentais registrados`, nat) : ''}
+      ${desc.length ? listSec('Descendentes pelo mundo', 'as mais influentes com genética daqui', desc) : ''}`;
+  }
+  function rzGo(c) {
+    st.rz = c; st.ctryAll = false;
+    const el = document.getElementById('msvg'); if (!el) { render('dv'); return; }
+    document.getElementById('rzl').innerHTML = rzLayer(); document.getElementById('mui').innerHTML = mapUI(null, null); document.getElementById('mrest').innerHTML = rzRest();
+    applyVB(st.vb || WORLD);
+  }
+  function ctryDots(sel) {
+    return ML(sel).map(s => { const p = GEO2.pos[s.id]; if (!p) return ''; return `<g class="sdot" data-open="${s.id}" data-x="${p[0]}" data-y="${p[1]}" transform="translate(${p[0]},${p[1]})"><circle r="9" fill="transparent"/><circle class="b" r="3.6" style="fill:${FCOL[s.f]}"/><title>${esc(s.n)}</title></g>`; }).join('');
+  }
   function discHTML() {
     const m = st.disc;
     return `<div class="view" id="dv"><div class="stack">
       <div class="topbar"><div class="brand">${I.mark}FenoSearch</div><button class="rb srch" data-tab="find" aria-label="Pesquisar" aria-current="${st.tab === 'find'}">${I.search}</button></div>
-      <div class="sec" style="gap:6px"><p class="h1">Mapa</p><p class="sub">${st.mmode === 'sb' ? 'Onde ficam os seedbanks e o que cada um criou.' : 'De onde vem cada strain, por país e estado.'}</p></div>
+      <div class="sec" style="gap:6px"><p class="h1">Mapa</p><p class="sub">${MM() === 'sb' ? 'Onde ficam os seedbanks e o que cada um criou.' : MM() === 'rz' ? 'De onde vem a genética do catálogo, e por onde ela viajou.' : 'Onde cada strain foi criada, por país e estado.'}</p></div>
       ${mapHTML()}
     </div></div>`;
   }
@@ -1484,7 +1568,7 @@ h1, h2, h3, p { margin: 0; }
 
   app.addEventListener('click', e => {
     if (st.dragged && e.target.closest('#msvg')) return;
-    const t = e.target.closest('button, [data-intro-next], g[data-ctry], g[data-open], g[data-reg], g[data-sb]'); if (!t) return;
+    const t = e.target.closest('button, [data-intro-next], g[data-ctry], g[data-open], g[data-reg], g[data-sb], g[data-rz]'); if (!t) return;
     const d = t.dataset;
     if ('introDone' in d) { e.stopPropagation(); introGo(-1); return; }
     if ('introNext' in d) { introGo(st.intro >= 3 ? -1 : st.intro + 1); return; }
@@ -1511,7 +1595,10 @@ h1, h2, h3, p { margin: 0; }
     if (d.tree) { openTree(d.tree); return; }
     if (d.disc) { st.disc = d.disc; render(); return; }
     if (d.era) { st.eraAll[d.era] = true; render('dv'); return; }
-    if (d.mmode) { if (d.mmode !== (st.mmode || 'or')) { st.mmode = d.mmode; st.ctry = null; st.reg = null; st.sb = null; st.vb = null; st.vbT = null; st.ctryAll = false; st.sbAll = false; zoomTo.last = null; render('dv'); } return; }
+    if (d.rz) { rzGo(d.rz === st.rz ? null : d.rz); return; }
+    if ('rzback' in d) { rzGo(null); return; }
+    if (d.rzorig) { st.mmode = 'or'; st.rz = null; st.ctry = null; st.reg = null; st.vb = null; st.vbT = null; zoomTo.last = null; render('dv'); setTimeout(() => zoomTo(d.rzorig), 60); return; }
+    if (d.mmode) { if (d.mmode !== MM()) { st.mmode = d.mmode; st.rz = null; st.ctry = null; st.reg = null; st.sb = null; st.vb = null; st.vbT = null; st.ctryAll = false; st.sbAll = false; zoomTo.last = null; render('dv'); } return; }
     if (d.sb) { sbGo(d.sb === st.sb ? null : d.sb); return; }
     if ('sbback' in d) { sbGo(null); return; }
     if ('sball' in d) { st.sbAll = true; document.getElementById('mrest').innerHTML = mapRest(); return; }
