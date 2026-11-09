@@ -712,10 +712,19 @@ html.solock, html.solock body { overflow: hidden; }
 .sotext ul { padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
 #soc .btns, #sohome .btn { margin-top: 2px; }
 #sohome .socard { background: var(--surface); }
+.buy { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--glass); }
+.buyl { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+.buyl:last-child { border-bottom: 0; }
+.buyl:hover { background: var(--glass2); }
+.buyl span { min-width: 0; }
+.buyl b { display: block; font-weight: 600; font-size: 15px; }
+.buyl small { display: block; font-size: 13px; color: var(--fg2); }
+.buyl svg { width: 18px; height: 18px; color: var(--acc); flex: none; }
 </style>
 
 <div id="app"></div>
 <script src="strains.js"></script>
+<script src="buy.js"></script>
 <script>
 (() => {
   const S = window.STRAINS;
@@ -773,6 +782,7 @@ html.solock, html.solock body { overflow: hidden; }
     disc: ic('<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>'),
     cmp: ic('<rect x="3" y="5" width="7" height="14" rx="2"/><rect x="14" y="5" width="7" height="14" rx="2"/>'),
     back: ic('<path d="M15 5 8 12l7 7"/>'),
+    ext: ic('<path d="M14 5h5v5M19 5l-8 8M18 14v5H5V6h5"/>'),
     x: ic('<path d="M6 6l12 12M18 6 6 18"/>'),
     book: ic('<path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5z"/><path d="M12 6.5V19"/>'),
     map: ic('<path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5v-13.5l-6 2.5z"/><path d="M9 4v13.5M15 6.5v13.5"/>'),
@@ -824,7 +834,7 @@ html.solock, html.solock body { overflow: hidden; }
   // ---------- início ----------
   const FSH = { landraces: 'Nativas', skunk: 'Skunk e holandesas', haze: 'Haze', kush: 'Kush', chem: 'Chem, OG e Diesel', cookies: 'Cookies', fruit: 'Frutadas', cbd: 'CBD', auto: 'Automáticas' };
   const FDESC = { landraces: 'As variedades nativas, raízes de tudo', skunk: 'Clássicas holandesas', haze: 'Sativas cítricas e energéticas', kush: 'Indicas afegãs, densas', chem: 'Aroma forte de combustível', cookies: 'Doces, da Califórnia', fruit: 'Frutadas e roxas', cbd: 'Ricas em CBD', auto: 'Florescem sozinhas' };
-  const INTENTS = [['relax', 'Relaxar e dormir'], ['energia', 'Energia e foco'], ['cbd', 'Com CBD'], ['facil', 'Fácil de cultivar'], ['rapida', 'Floração rápida']];
+  const INTENTS = [['relax', 'Relaxar e dormir'], ['energia', 'Energia e foco'], ['cbd', 'Com CBD'], ['facil', 'Fácil de cultivar'], ['rapida', 'Floração rápida'], ['venda', 'À venda no Brasil']];
   const budHTML = (s, sub) => `<button class="bud" data-open="${s.id}" style="--g:${s.ch === 'I' ? 'var(--glow2)' : glowOf(s)}"><span class="im">${pic(s)}</span><b>${esc(s.n)}</b><small><i class="dot" style="--cc:${cc(s)}"></i>${sub || kind(s)}</small></button>`;
   function homeHTML() {
     const topS = S.slice().sort((a, b) => b.kids.length - a.kids.length).slice(0, 12);
@@ -887,13 +897,13 @@ html.solock, html.solock body { overflow: hidden; }
   }
 
   // ---------- busca ----------
-  const FILTERS = [['fav', 1, 'Favoritas'], ['k', 'Indica', 'Indica'], ['k', 'Sativa', 'Sativa'], ['k', 'Híbrida', 'Híbrida'], ['c', 'I', 'Mais THC'], ['c', 'II', 'Equilibrada'], ['c', 'III', 'Mais CBD'], ['d', 'fácil', 'Fácil de cultivar'], ['fl', 9, 'Até 9 semanas'], ['auto', 1, 'Automática'], ['thc', 20, 'THC 20%+'], ['br', 1, 'Brasileiras'], ['ph', 1, 'Com foto'], ['ord', 'thc', 'Mais THC primeiro'], ['ord', 'fl', 'Mais rápidas primeiro']];
-  const FNUM = ['fl', 'auto', 'fav', 'thc', 'br', 'ph'];
-  const INTENT_F = { relax: { k: 'Indica', c: 'I' }, energia: { k: 'Sativa', c: 'I' }, cbd: { c: 'III' }, facil: { d: 'fácil' }, rapida: { fl: 8 } };
+  const FILTERS = [['fav', 1, 'Favoritas'], ['k', 'Indica', 'Indica'], ['k', 'Sativa', 'Sativa'], ['k', 'Híbrida', 'Híbrida'], ['c', 'I', 'Mais THC'], ['c', 'II', 'Equilibrada'], ['c', 'III', 'Mais CBD'], ['d', 'fácil', 'Fácil de cultivar'], ['fl', 9, 'Até 9 semanas'], ['auto', 1, 'Automática'], ['thc', 20, 'THC 20%+'], ['br', 1, 'Brasileiras'], ['ph', 1, 'Com foto'], ['buy', 1, 'À venda no Brasil'], ['ord', 'thc', 'Mais THC primeiro'], ['ord', 'fl', 'Mais rápidas primeiro']];
+  const FNUM = ['fl', 'auto', 'fav', 'thc', 'br', 'ph', 'buy'];
+  const INTENT_F = { relax: { k: 'Indica', c: 'I' }, energia: { k: 'Sativa', c: 'I' }, cbd: { c: 'III' }, facil: { d: 'fácil' }, rapida: { fl: 8 }, venda: { buy: 1 } };
   function results() {
     const q = norm((st.search.q || '').trim()), f = st.search.f;
     const hay = s => norm([s.n, s.br, ...mp(s).map(p => by[p].n), ...un(s), ...aromas(s), ...s.te, ...rep(s).ef.map(e => e.n), ...rep(s).us, s.or].join(' '));
-    return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam) && (!f.te || (!s.tex && s.te.includes(f.te))) && (!f.fav || st.fav.includes(s.id)) && (!f.thc || (!s.thcx && s.thc[1] >= f.thc)) && (!f.br || /Brasil/.test(s.or)) && (!f.ph || s.img))
+    return S.filter(s => (!q || hay(s).includes(q)) && (!f.k || kind(s) === f.k) && (!f.c || (f.c === 'III' ? s.ch !== 'I' : s.ch === f.c)) && (!f.d || s.d === f.d) && (!f.fl || (s.f !== 'auto' && s.fl[1] <= f.fl)) && (!f.auto || s.f === 'auto') && (!f.fam || s.f === f.fam) && (!f.te || (!s.tex && s.te.includes(f.te))) && (!f.fav || st.fav.includes(s.id)) && (!f.thc || (!s.thcx && s.thc[1] >= f.thc)) && (!f.br || /Brasil/.test(s.or)) && (!f.ph || s.img) && (!f.buy || BUY[s.id]))
       .sort((a, b) => (f.ord === 'thc' ? ((b.thcx ? 0 : b.thc[1]) - (a.thcx ? 0 : a.thc[1])) : f.ord === 'fl' ? (a.fl[0] - b.fl[0]) || (a.fl[1] - b.fl[1]) : 0) || (q ? (norm(b.n).startsWith(q) - norm(a.n).startsWith(q)) : 0) || (b.kids.length - a.kids.length) || (!!b.img - !!a.img));
   }
   const itemHTML = s => `<button class="item" data-open="${s.id}"><span class="th">${pic(s, ' loading="lazy"')}</span><span><b>${esc(s.n)}</b><span>${kind(s)} · ${s.thcx ? 'THC não informado' : `THC ${pt(s.thc[0])} a ${pt(s.thc[1])}%`} · ${esc(rep(s).ef[0].n)}</span></span><span class="cnt"><i class="dot" style="--cc:${cc(s)};display:inline-block"></i></span></button>`;
@@ -943,9 +953,21 @@ html.solock, html.solock body { overflow: hidden; }
         <div class="sec"><p class="h3">Parecidas com ${esc(s.n)}</p><div class="row">${similar(s).map(o => budHTML(o)).join('')}</div></div>
         <div class="sec"><p class="h3">Sobre</p><p class="about">${esc(aboutText(s))}</p></div>
         ${window.FS ? FS.slot(id) : ''}
-        <div class="card" style="gap:6px"><p class="h3" style="font-size:15px">Onde comprar</p><p class="sub">Em breve: seedbanks brasileiros com esta genética.</p></div>
+        ${buyHTML(s)}
         <p class="legal">Nº de catálogo ${s.no}. Dados preliminares, que variam por fenótipo, cultivo e laboratório.${s.img ? ' Foto: Leafly.' : ''}</p>
       </div></div></div>`;
+  }
+
+  // ---------- onde comprar ----------
+  const BUY = window.BUY || {};
+  const SHOPS = { seedclub: ['Seed Club', 'seedclub.com.br'], dentista: ['Dentista Seeds', 'dentistaseeds.com'], donaflorinda: ['Dona Florinda', 'donaflorindashop.com'], maconhaseeds: ['Maconha Seeds Bank', 'maconhaseedsbank.com'] };
+  function buyHTML(s) {
+    const L = BUY[s.id] || [];
+    if (!L.length) return `<div class="card" style="gap:6px"><p class="h3" style="font-size:15px">Onde comprar</p><p class="sub">Nenhuma das lojas brasileiras que acompanhamos vende ${esc(s.n)} no momento.</p></div>`;
+    const n = new Set(L.map(x => x[0])).size;
+    return `<div class="sec"><p class="h3">Onde comprar<small>${n} ${n === 1 ? 'loja' : 'lojas'} no Brasil</small></p>
+      <div class="buy">${L.map(([k, u, lab]) => `<a class="buyl" href="${esc(u)}" target="_blank" rel="noopener nofollow"><span><b>${esc(SHOPS[k] ? SHOPS[k][0] : k)}</b><small>${esc(lab || SHOPS[k][1])}</small></span>${I.ext}</a>`).join('')}</div>
+      <p class="legal">Links pra lojas brasileiras que vendem sementes como item de colecionismo. Estoque e preço mudam; confira na loja. Verifique a legislação vigente antes de qualquer cultivo.</p></div>`;
   }
 
   // ---------- árvore (pop-up) ----------
