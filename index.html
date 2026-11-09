@@ -349,6 +349,36 @@ h1, h2, h3, p { margin: 0; }
 .cslot.empty .im svg { width: 26px; height: 26px; color: var(--acc); }
 .cx { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(0,0,0,.4); color: var(--fg2); z-index: 1; }
 .cx svg { width: 14px; height: 14px; }
+.kin, .xcross { gap: 14px; }
+.kpair { display: flex; flex-direction: column; gap: 6px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.kpair:last-of-type { border-bottom: 0; padding-bottom: 0; }
+.khead { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.khead b { font-size: 15px; font-weight: 600; min-width: 0; }
+.kr { flex: none; width: 90px; height: 6px; border-radius: 3px; background: var(--glass2); overflow: hidden; }
+.kr i { display: block; height: 100%; width: var(--r); background: var(--acc); border-radius: 3px; }
+.kshort { font-family: var(--fD); font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
+.kshort small { display: inline-block; font-family: var(--fB); font-size: 13px; line-height: 1.4; font-weight: 400; color: var(--fg2); letter-spacing: 0; }
+.xpar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 6px; }
+.xpar button, .xkid { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; min-width: 0; }
+.xpar .im { width: 64px; height: 64px; display: grid; place-items: center; }
+.xpar .im img { max-height: 64px; object-fit: contain; }
+.xpar .im svg { width: 32px; height: 32px; color: var(--fg3); }
+.xkid .im { border-radius: 50%; border: 1px dashed rgba(226,165,74,.55); }
+.xkid .im svg { color: var(--acc); }
+.xpar b { font-size: 13px; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
+.xkid b { color: var(--acc); }
+.xpar small { font-size: 11px; color: var(--fg3); }
+.xpar .x { color: var(--fg3); font-size: 18px; }
+.xgrid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.xgrid > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.xgrid small { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); font-weight: 600; }
+.xgrid b { font-size: 14.5px; font-weight: 600; }
+.xo { color: var(--fg3); font-weight: 400; font-size: 12.5px; }
+.xbar { display: flex; gap: 4px; }
+.xseg { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.xseg i { height: 10px; border-radius: 5px; background: var(--cc); }
+.xseg small { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--fg2); white-space: nowrap; }
+@media (min-width: 900px) { .xgrid { grid-template-columns: 1fr 1fr; } .xgrid .xwide { grid-column: 1 / -1; } #bv .xpar { max-width: 560px; } }
 .ctab { display: flex; flex-direction: column; }
 .crow { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .cl { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--fg3); display: flex; justify-content: space-between; gap: 8px; }
@@ -1079,6 +1109,65 @@ h1, h2, h3, p { margin: 0; }
   function ancOf(id) { const seen = new Set(), q = [...mp(by[id])]; while (q.length) { const x = q.shift(); if (seen.has(x)) continue; seen.add(x); q.push(...mp(by[x])); } return seen; }
   const PRESETS = [['og-kush', 'gsc'], ['blue-dream', 'sour-diesel'], ['northern-lights', 'white-widow'], ['cannatonic', 'charlotte-s-web'], ['gelato', 'wedding-cake']];
   function rangeBar(r, lo, hi, best) { const a = Math.max(0, (r[0] - lo) / (hi - lo)) * 100, b = Math.min(1, (r[1] - lo) / (hi - lo)) * 100; return `<span class="rbar${best ? ' best' : ''}"><i style="left:${a.toFixed(1)}%;width:${Math.max(4, b - a).toFixed(1)}%"></i></span>`; }
+  function ancDepth(id) { const d = new Map([[id, 0]]), q = [id]; while (q.length) { const x = q.shift(); for (const p of mp(by[x])) if (!d.has(p)) { d.set(p, d.get(x) + 1); q.push(p); } } return d; }
+  function kinship(a, b) {
+    const da = ancDepth(a.id), db = ancDepth(b.id);
+    if (da.has(b.id)) { const k = da.get(b.id); return { r: Math.pow(.5, k), lab: k === 1 ? `${b.n} é um dos parentais de ${a.n}` : k === 2 ? `${b.n} é avó de ${a.n}` : `${b.n} é ancestral de ${a.n}, ${k} gerações acima`, short: k === 1 ? 'Parental e progênie' : k === 2 ? 'Avó e neta' : 'Ancestral direto', path: [], k }; }
+    if (db.has(a.id)) { const k = db.get(a.id); return { r: Math.pow(.5, k), lab: k === 1 ? `${a.n} é um dos parentais de ${b.n}` : k === 2 ? `${a.n} é avó de ${b.n}` : `${a.n} é ancestral de ${b.n}, ${k} gerações acima`, short: k === 1 ? 'Parental e progênie' : k === 2 ? 'Avó e neta' : 'Ancestral direto', path: [], k }; }
+    const common = [...da.keys()].filter(x => db.has(x));
+    if (!common.length) return { r: 0, short: 'Sem parentesco registrado', lab: `Nenhum ancestral em comum na árvore do FenoSearch.`, path: [] };
+    const cs = new Set(common), anc = new Map(common.map(c => [c, ancOf(c)]));
+    const mrca = common.filter(c => !common.some(o => o !== c && anc.get(o).has(c)));
+    const r = Math.min(1, mrca.reduce((t, c) => t + Math.pow(.5, da.get(c) + db.get(c)), 0));
+    mrca.sort((x, y) => (da.get(x) + db.get(x)) - (da.get(y) + db.get(y)));
+    const c0 = mrca[0], d1 = da.get(c0), d2 = db.get(c0);
+    const both = mrca.filter(c => da.get(c) === 1 && db.get(c) === 1).length;
+    let short;
+    if (d1 === 1 && d2 === 1) short = both >= 2 ? 'Irmãs' : 'Meio-irmãs';
+    else if (Math.min(d1, d2) === 1 && Math.max(d1, d2) === 2) short = 'Tia e sobrinha';
+    else if (d1 === 2 && d2 === 2) short = 'Primas';
+    else short = 'Parentes distantes';
+    const nm = c => esc(by[c].n);
+    const lab = short === 'Irmãs' ? `Têm os mesmos parentais: ${listJoin(mrca.slice(0, 2).map(nm))}.` : short === 'Meio-irmãs' ? `Compartilham um parental: ${nm(c0)}.` : `O ancestral comum mais próximo é ${nm(c0)}, a ${d1} ${d1 === 1 ? 'geração' : 'gerações'} de ${esc(a.n)} e ${d2} de ${esc(b.n)}.`;
+    return { r, short, lab, path: mrca.slice(0, 8), k: d1 + d2 };
+  }
+  // quimiotipo herdado como locus único codominante (BT/BD): I = BT/BT, II = BT/BD, III = BD/BD
+  const CHX = { 'I|I': [[100, 'I']], 'III|III': [[100, 'III']], 'I|III': [[100, 'II']], 'I|II': [[50, 'I'], [50, 'II']], 'II|III': [[50, 'II'], [50, 'III']], 'II|II': [[25, 'I'], [50, 'II'], [25, 'III']] };
+  const chOrd = { I: 0, II: 1, III: 2 };
+  function cross(a, b) {
+    const ind = Math.round((a.ind + b.ind) / 2);
+    const thc = a.thcx || b.thcx ? null : [Math.min(a.thc[0], b.thc[0]), Math.max(a.thc[1], b.thc[1]), Math.round((a.thc[0] + a.thc[1] + b.thc[0] + b.thc[1]) / 4)];
+    const pair = [a.ch, b.ch].sort((x, y) => chOrd[x] - chOrd[y]).join('|'), ch = CHX[pair] || [[100, a.ch]];
+    const autoBoth = a.f === 'auto' && b.f === 'auto', autoOne = (a.f === 'auto') !== (b.f === 'auto');
+    const fl = [Math.min(a.fl[0], b.fl[0]), Math.max(a.fl[1], b.fl[1])];
+    const ta = a.tex ? [] : a.te, tb = b.tex ? [] : b.te;
+    const te = [...new Set([...ta.filter(t => tb.includes(t)), ...ta.slice(0, 2), ...tb.slice(0, 2)])].slice(0, 4).map(t => [t, ta.includes(t) && tb.includes(t) ? 'dos dois' : ta.includes(t) ? esc(a.n) : esc(b.n)]);
+    const ex = S.filter(s => { const m = mp(s); return m.includes(a.id) && m.includes(b.id); });
+    const w1 = a.n.split(/\s+/)[0], w2 = b.n.split(/\s+/).slice(-1)[0];
+    const name = norm(w1) === norm(w2) ? `${a.n} × ${b.n}` : `${w1} ${w2}`;
+    return { ind, thc, ch, autoBoth, autoOne, fl, te, ex, name };
+  }
+  function kinHTML(L) {
+    const pairs = L.length === 3 ? [[0, 1], [0, 2], [1, 2]] : [[0, 1]];
+    return `<div class="card kin"><p class="hlab">Parentesco</p>${pairs.map(([i, j]) => { const a = L[i], b = L[j], K = kinship(a, b); return `<div class="kpair"><div class="khead"><b>${esc(a.n)} e ${esc(b.n)}</b><span class="kr" style="--r:${Math.round(K.r * 100)}%"><i></i></span></div><p class="kshort">${K.short}${K.r ? ` <small>· cerca de ${K.r >= .1 ? Math.round(K.r * 100) : (K.r * 100).toFixed(1).replace('.', ',')}% de genética em comum</small>` : ''}</p><p class="sub">${K.lab}</p>${K.path.length ? `<div class="chips">${K.path.map(c => `<button class="chip" data-open="${c}">${esc(by[c].n)}</button>`).join('')}</div>` : ''}</div>`; }).join('')}
+      <p class="kv" style="margin:0">Estimativa pela árvore genealógica (coeficiente de parentesco). Cada strain é tratada como uma linhagem, não como uma planta só.</p></div>`;
+  }
+  function crossHTML(L) {
+    const n = L.length, pi = n === 3 ? (st.xpair || [0, 1]) : [0, 1], a = L[pi[0]], b = L[pi[1]], X = cross(a, b);
+    const chips = n === 3 ? `<div class="chips">${[[0, 1], [0, 2], [1, 2]].map(p => `<button class="chip" data-xpair="${p.join(',')}" aria-pressed="${p[0] === pi[0] && p[1] === pi[1]}">${esc(L[p[0]].n)} × ${esc(L[p[1]].n)}</button>`).join('')}</div>` : '';
+    const ch = X.ch.map(([p, c]) => `<span class="xseg" style="flex:${p};--cc:var(--c${c === 'I' ? 1 : c === 'II' ? 2 : 3})"><i></i><small>${p}% ${chemo(c)}</small></span>`).join('');
+    return `<div class="card xcross"><p class="hlab">Cruzamento simulado</p>${chips}
+      <div class="xpar"><button data-open="${a.id}"><span class="im">${pic(a)}</span><b>${esc(a.n)}</b></button><span class="x">×</span><button data-open="${b.id}"><span class="im">${pic(b)}</span><b>${esc(b.n)}</b></button><span class="x">=</span><div class="xkid"><span class="im">${I.leaf}</span><b>${esc(X.name)}</b><small>F1 hipotética</small></div></div>
+      <div class="xgrid">
+        <div><small>Tipo esperado</small><b>${X.ind >= 70 ? 'Indica dominante' : X.ind <= 30 ? 'Sativa dominante' : 'Híbrida'} · ~${X.ind}% indica</b><span class="mini"><i style="width:${X.ind}%"></i></span></div>
+        <div><small>THC</small><b>${X.thc ? `${pt(X.thc[0])} a ${pt(X.thc[1])}%, média ~${X.thc[2]}%` : 'Sem dado de um dos parentais'}</b></div>
+        <div><small>${X.autoBoth ? 'Ciclo' : 'Floração'}</small><b>${X.autoOne ? 'Fotoperiódica' : `${X.fl[0]} a ${X.fl[1]} semanas`}</b>${X.autoOne ? '<span class="kv" style="margin:0">A floração automática é recessiva: a F1 de uma auto com uma fotoperiódica sai fotoperiódica. As autos reaparecem na F2.</span>' : ''}</div>
+        <div><small>Terpenos prováveis</small><b>${X.te.length ? X.te.map(([t, o]) => `${t} <span class="xo">(${o})</span>`).join(', ') : 'Sem dado de terpenos'}</b></div>
+        <div class="xwide"><small>Quimiotipo da progênie</small><div class="xbar">${ch}</div></div>
+      </div>
+      ${X.ex.length ? `<p class="sub">Esse cruzamento já existe no catálogo:</p><div class="chips">${X.ex.slice(0, 8).map(s => `<button class="chip" data-open="${s.id}">${esc(s.n)}</button>`).join('')}</div>` : '<p class="sub">Nenhuma strain do catálogo vem exatamente desse cruzamento.</p>'}
+      <p class="kv" style="margin:0">Projeção para a primeira geração. Sementes F1 variam bastante de planta para planta; os valores mostram a faixa e a tendência média. O quimiotipo segue o modelo de um gene só (de Meijer et al., 2003).</p></div>`;
+  }
   function benchHTML() {
     const L = st.cmp.map(id => by[id]).filter(Boolean), n = L.length;
     const slot = s => s ? `<div class="cslot" style="--g:${glowOf(s)}"><button class="cx" data-cmprm="${s.id}" aria-label="Tirar ${esc(s.n)}">${I.x}</button><button class="cim" data-open="${s.id}"><span class="im">${pic(s)}</span><b>${esc(s.n)}</b><small>${kind(s)}</small></button></div>` : `<button class="cslot empty" data-cmpadd><span class="im">${I.plus}</span><b>Adicionar</b><small>strain</small></button>`;
@@ -1105,11 +1194,9 @@ h1, h2, h3, p { margin: 0; }
         ${row('Aroma', L.map(s => cell(aromas(s).map(a => `<span class="ef${commonA.includes(a) ? ' top' : ''}">${a}</span>`).join('') || '<small>sem dado</small>')))}
         ${row('Origem', L.map(s => cell(`<b>${esc(s.or.split(/,\s*depois/)[0].split(',').pop().trim())}</b><small>${[s.y, !NOBR.includes(s.br) ? esc(s.br) : null].filter(Boolean).join(' · ') || 'nativa'}</small>`)))}
       </div>
-      <div class="card"><p class="h3" style="font-size:16px">O que elas têm em comum</p>
-        ${direct.length ? `<p class="sub">${listJoin(direct.map(d => esc(d.n)))} ${direct.length === 1 ? 'é ancestral' : 'são ancestrais'} de outra strain desta comparação.</p>` : ''}
-        ${common.length ? `<p class="sub">${common.length === 1 ? 'Um ancestral em comum' : `${common.length} ancestrais em comum`}:</p><div class="chips">${common.slice(0, 10).map(a => `<button class="chip" data-open="${a.id}">${esc(a.n)}</button>`).join('')}</div>` : (direct.length ? '' : '<p class="sub">Nenhum ancestral registrado em comum. São linhagens independentes.</p>')}
-        ${commonA.length ? `<p class="sub">Aroma em comum: ${listJoin(commonA)}.</p>` : sameTe ? `<p class="sub">O terpeno principal é o mesmo nas ${n}: ${sameTe}.</p>` : ''}
-        <div class="btns" style="margin-top:4px"><button class="btn" data-tree="${L[0].id}">Árvore de ${esc(L[0].n)}</button><button class="btn" data-cmpclear>Limpar tudo</button></div></div>`;
+      ${crossHTML(L)}
+      ${kinHTML(L)}
+      <div class="btns" style="margin-top:4px"><button class="btn" data-tree="${L[0].id}">Árvore de ${esc(L[0].n)}</button><button class="btn" data-cmpclear>Limpar tudo</button></div>`;
     } else {
       body = `<div class="sec"><p class="h3">Comparações populares</p><div class="pres">${PRESETS.filter(p => p.every(id => by[id])).map(p => `<button class="pre" data-preset="${p.join(',')}"><span class="pics">${p.map(id => pic(by[id])).join('')}</span><b>${p.map(id => esc(by[id].n)).join(' × ')}</b></button>`).join('')}</div></div>`;
     }
@@ -1416,8 +1503,10 @@ h1, h2, h3, p { margin: 0; }
     if (d.open && st.search && st.search.pick) { const id = d.open; st.search = null; if (!st.cmp.includes(id) && st.cmp.length < 3) { st.cmp.push(id); store.set('cmp', st.cmp); } render('bv'); return; }
     if (d.open) { open(d.open); return; }
     if ('cmpadd' in d) { st.search = { q: '', f: {}, pick: true }; render(); focusQ(); return; }
+    if (d.cmprm) { st.xpair = null; }
     if (d.cmprm) { st.cmp = st.cmp.filter(x => x !== d.cmprm); store.set('cmp', st.cmp); render('bv'); return; }
     if ('cmpclear' in d) { st.cmp = []; store.set('cmp', st.cmp); render(); return; }
+    if (d.xpair) { st.xpair = d.xpair.split(',').map(Number); render('bv'); return; }
     if (d.preset) { st.cmp = d.preset.split(','); store.set('cmp', st.cmp); render(); return; }
     if (d.tree) { openTree(d.tree); return; }
     if (d.disc) { st.disc = d.disc; render(); return; }
