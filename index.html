@@ -634,6 +634,84 @@ h1, h2, h3, p { margin: 0; }
   #hv .day .btns { justify-content: flex-start; }
   .over { left: 50%; transform: translateX(-50%); width: min(820px, 100%); border-inline: 1px solid var(--line); }
 }
+/* comunidade */
+html.solock, html.solock body { overflow: hidden; }
+.som { position: fixed; inset: 0; z-index: 80; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; opacity: 0; transform: translateY(16px); transition: opacity .24s ease, transform .24s ease; }
+.som.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .som { transition: none; transform: none; } }
+.sotop { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(10px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); background: var(--bg); border-bottom: 1px solid var(--line); }
+.sotop p { font-weight: 600; font-size: 16px; }
+.sowrap { max-width: 720px; margin: 0 auto; padding: 20px max(16px, env(safe-area-inset-right, 0px)) calc(48px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 18px; }
+.som .nm { text-align: left; }
+.solist { display: flex; flex-direction: column; gap: 12px; }
+.socard { background: var(--glass); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px 8px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.socard.hid { opacity: .55; }
+.sohead { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; text-align: left; width: 100%; }
+.someta { min-width: 0; font-size: 14.5px; }
+.someta b { font-weight: 600; }
+.someta small { display: block; font-size: 12.5px; color: var(--fg2); margin-top: 2px; }
+.sostars { color: var(--acc); font-size: 14px; letter-spacing: 1px; white-space: nowrap; }
+.sostars i { font-style: normal; color: var(--fg3); }
+.sobody { font-size: 15px; line-height: 1.5; white-space: pre-line; overflow-wrap: anywhere; }
+.sobody.clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.sogrow { font-size: 13px; color: var(--fg2); }
+.sotags { display: flex; flex-wrap: wrap; gap: 6px; }
+.sotags span { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: var(--glass2); }
+.sotags .adv { color: var(--c1); }
+.sotags .aro { color: var(--fg2); }
+.sofoot { display: flex; gap: 4px; margin-left: -8px; }
+.sofoot button { display: inline-flex; align-items: center; gap: 6px; padding: 8px; border-radius: 10px; color: var(--fg2); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.sofoot button:hover { color: var(--fg); }
+.sofoot button[aria-pressed="true"] { color: var(--acc); }
+.sofoot button[aria-pressed="true"] svg { fill: currentColor; }
+.sosum { gap: 12px; }
+.soform { display: flex; flex-direction: column; gap: 16px; }
+.sofl { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; color: var(--fg2); }
+.sofl small { font-size: 12px; color: var(--fg3); }
+.soform input[type=email], .soform input[type=number], .soform input[name=nick], .soform textarea, .soform select { width: 100%; background: var(--glass); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; color: var(--fg); font: 400 16px/1.4 var(--fB); }
+.soform textarea { resize: vertical; min-height: 64px; }
+.soform :is(input, textarea, select):focus-visible { outline: 2px solid var(--acc); outline-offset: 1px; }
+.sofs { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.sofs legend { font-size: 13.5px; color: var(--fg2); margin-bottom: 8px; padding: 0; }
+.sochips, .soradio { display: flex; flex-wrap: wrap; gap: 8px; }
+.sochips .chip, .soradio .chip { position: relative; cursor: pointer; padding: 7px 13px; font-size: 13.5px; }
+.sochips input, .soradio input, .soform .seg input, .sorate input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.sochips .chip:has(input:checked), .soradio .chip:has(input:checked) { background: var(--acc); color: var(--accInk); border-color: transparent; font-weight: 600; }
+.sochips .advc:has(input:checked) { background: var(--c1); }
+.sochips .chip:has(input:focus-visible), .soradio .chip:has(input:focus-visible) { outline: 2px solid var(--fg); outline-offset: 2px; }
+.soform .seg label { position: relative; cursor: pointer; }
+.soform .seg span { display: block; padding: 10px 18px; border-radius: 999px; font: 600 14px/1 var(--fB); color: var(--fg2); }
+.soform .seg input:checked + span { background: var(--acc); color: var(--accInk); }
+.sorate { display: flex; gap: 2px; flex-direction: row-reverse; justify-content: flex-end; }
+.sorate label { position: relative; cursor: pointer; }
+.sorate span { font-size: 34px; line-height: 1; color: var(--fg3); padding: 2px 4px; display: block; }
+.sorate label:has(input:checked) span, .sorate label:has(input:checked) ~ label span, .sorate label:hover span, .sorate label:hover ~ label span { color: var(--acc); }
+.sorate:has(label:hover) label:not(:hover):not(:has(~ label:hover)) span { color: var(--fg3); }
+.sorate label:has(input:focus-visible) span { outline: 2px solid var(--fg); border-radius: 6px; }
+.sogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.soyield { display: grid; grid-template-columns: minmax(0, 1fr) 110px; gap: 6px; }
+.socheck { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--fg2); }
+.socheck input { margin-top: 3px; accent-color: var(--acc); width: 18px; height: 18px; flex: none; }
+.socount { align-self: flex-end; }
+.socoms { display: flex; flex-direction: column; }
+.socom { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; font-size: 14.5px; }
+.socom.hid { opacity: .55; }
+.socom p:first-child { display: flex; gap: 8px; align-items: baseline; }
+.socom small { font-size: 12px; color: var(--fg3); }
+.socom p:nth-child(2) { white-space: pre-line; overflow-wrap: anywhere; }
+.soact .lnk { font-size: 12.5px; color: var(--fg3); }
+.soprof { display: flex; gap: 14px; align-items: center; }
+.soav { width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: var(--accInk); display: grid; place-items: center; font: 600 24px/1 var(--fD); flex: none; }
+.sostrain { grid-template-columns: 56px minmax(0, 1fr); text-align: left; }
+.sostrain b { color: var(--fg); }
+.sostrain .im { width: 56px; height: 56px; border-radius: 16px; background: var(--surface); display: grid; place-items: center; overflow: hidden; }
+.sostrain .im img { max-width: 46px; max-height: 50px; }
+.sostrain .im svg { width: 26px; height: 26px; color: var(--fg3); }
+.sotext { display: flex; flex-direction: column; gap: 10px; color: var(--fg2); font-size: 15px; line-height: 1.55; }
+.sotext h4 { color: var(--fg); font-size: 15.5px; font-weight: 600; margin-top: 8px; }
+.sotext ul { padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+#soc .btns, #sohome .btn { margin-top: 2px; }
+#sohome .socard { background: var(--surface); }
 </style>
 
 <div id="app"></div>
@@ -796,6 +874,7 @@ h1, h2, h3, p { margin: 0; }
         <div class="btns" style="margin-top:18px"><button class="btn" data-tree="${s.id}">Ver árvore</button><button class="btn fill" data-open="${s.id}">Ver ficha</button></div>
       </div>
       <div class="hcol"><div class="card"><p class="lead">Quem usa ${esc(s.n)} costuma relatar <em>${R.ef[0].n}</em> e ${R.ef[1].n}${aromas(s).length ? `, com aroma ${listJoin(aromas(s).slice(0, 2))}` : ''}.</p></div>
+      ${window.FS ? FS.home() : ''}
       <div class="sec"><p class="h3">A história</p><p class="about">${esc(aboutText(s))}</p>
         ${par.length === 2 ? `<div class="par">${par.map(p => `<button class="pc" data-open="${p.id}"><span class="im">${pic(p)}</span><b>${esc(p.n)}</b><small>${kind(p)}</small></button>`).join('<span class="x">×</span>')}</div>` : ''}</div>
       <div class="sec"><p class="h3">Curiosidades</p><ul class="facts">${facts(s).map(t => `<li>${esc(t)}</li>`).join('')}</ul></div></div>
@@ -863,6 +942,7 @@ h1, h2, h3, p { margin: 0; }
         <div class="sec"><p class="h3">Cultivo</p><dl class="list card" style="gap:0;padding-block:6px"><div><dt>Altura</dt><dd>${G.alt}</dd></div><div><dt>Rendimento interno</dt><dd>${G.rend}</dd></div><div><dt>Ambiente</dt><dd>${G.amb}</dd></div><div><dt>Dificuldade</dt><dd>${s.d[0].toUpperCase() + s.d.slice(1)}</dd></div></dl></div>
         <div class="sec"><p class="h3">Parecidas com ${esc(s.n)}</p><div class="row">${similar(s).map(o => budHTML(o)).join('')}</div></div>
         <div class="sec"><p class="h3">Sobre</p><p class="about">${esc(aboutText(s))}</p></div>
+        ${window.FS ? FS.slot(id) : ''}
         <div class="card" style="gap:6px"><p class="h3" style="font-size:15px">Onde comprar</p><p class="sub">Em breve: seedbanks brasileiros com esta genética.</p></div>
         <p class="legal">Nº de catálogo ${s.no}. Dados preliminares, que variam por fenótipo, cultivo e laboratório.${s.img ? ' Foto: Leafly.' : ''}</p>
       </div></div></div>`;
@@ -1625,8 +1705,10 @@ h1, h2, h3, p { margin: 0; }
   if (by[hashId()]) { st.intro = -1; st.sheet = [hashId()]; }
   window.addEventListener('hashchange', () => { const id = hashId(); if (by[id] && st.sheet[st.sheet.length - 1] !== id) open(id); });
   render();
+  window.FB = { by, esc, I, pic, open, toast, refresh: () => render(st.sheet.length ? 'sv' : st.tab === 'home' ? 'hv' : null) };
 })();
 </script>
+<script src="social.js"></script>
 
 </body>
 </html>
