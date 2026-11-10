@@ -170,7 +170,7 @@ h1, h2, h3, p { margin: 0; }
 .lead { font-family: var(--fD); font-size: 22px; font-weight: 500; line-height: 1.25; letter-spacing: -.01em; }
 .lead em { font-style: normal; color: var(--acc); }
 .bars { display: flex; flex-direction: column; gap: 10px; }
-.bar { display: grid; grid-template-columns: 110px 1fr 40px; gap: 12px; align-items: center; font-size: 14px; }
+.bar { display: grid; grid-template-columns: 110px 1fr 44px; gap: 12px; align-items: center; font-size: 14px; }
 .bar .tr { height: 6px; border-radius: 3px; background: var(--glass2); overflow: hidden; }
 .bar .tr i { display: block; height: 100%; border-radius: 3px; background: var(--acc); }
 .bar .v { font-size: 13px; color: var(--fg2); text-align: right; font-variant-numeric: tabular-nums; }
@@ -850,7 +850,7 @@ html.solock, html.solock body { overflow: hidden; }
       <div class="sec"><p class="h3">As mais influentes<small>deram origem a mais strains</small></p><div class="row">${topS.map(s => budHTML(s, s.kids.length + ' descendentes')).join('')}</div></div>
       <div class="sec"><p class="h3">Por família</p><div class="fams">${fam}</div></div>
       <div class="sec"><p class="h3">Lançadas recentemente</p><div class="row">${fresh.map(s => budHTML(s, String(s.y))).join('')}</div></div>
-      <p class="legal">Conteúdo informativo. Efeitos e usos são relatos de usuários, não recomendação médica. Os dados variam por fenótipo, cultivo e laboratório. A legislação brasileira sobre cannabis está em mudança; informe-se antes de adquirir qualquer material.</p>
+      <p class="legal">Conteúdo informativo. Efeitos e usos são estimados pelo perfil genético e químico, não recomendação médica. Os dados variam por fenótipo, cultivo e laboratório. A legislação brasileira sobre cannabis está em mudança; informe-se antes de adquirir qualquer material.</p>
     </div></div>`;
   }
 
@@ -883,7 +883,7 @@ html.solock, html.solock body { overflow: hidden; }
         <div class="tags"><span class="tag">${s.ind === 100 ? 'Indica pura' : s.ind === 0 ? 'Sativa pura' : `${kind(s)} · ${s.ind}% indica`}</span><span class="tag"><i class="dot" style="--cc:${cc(s)}"></i>${chemo(s.ch)}</span></div>
         <div class="btns" style="margin-top:18px"><button class="btn" data-tree="${s.id}">Ver árvore</button><button class="btn fill" data-open="${s.id}">Ver ficha</button></div>
       </div>
-      <div class="hcol"><div class="card"><p class="lead">Quem usa ${esc(s.n)} costuma relatar <em>${R.ef[0].n}</em> e ${R.ef[1].n}${aromas(s).length ? `, com aroma ${listJoin(aromas(s).slice(0, 2))}` : ''}.</p></div>
+      <div class="hcol"><div class="card"><p class="lead">O perfil genético de ${esc(s.n)} aponta para <em>${R.ef[0].n}</em> e ${R.ef[1].n}${aromas(s).length ? `, com aroma ${listJoin(aromas(s).slice(0, 2))}` : ''}.</p></div>
       ${window.FS ? FS.home() : ''}
       <div class="sec"><p class="h3">A história</p><p class="about">${esc(aboutText(s))}</p>
         ${par.length === 2 ? `<div class="par">${par.map(p => `<button class="pc" data-open="${p.id}"><span class="im">${pic(p)}</span><b>${esc(p.n)}</b><small>${kind(p)}</small></button>`).join('<span class="x">×</span>')}</div>` : ''}</div>
@@ -892,7 +892,7 @@ html.solock, html.solock body { overflow: hidden; }
       ${st.fav.length ? `<div class="sec"><p class="h3">Suas favoritas<button class="lnk" data-favall>Ver todas (${st.fav.length})</button></p><div class="row">${st.fav.slice(0, 12).map(id => budHTML(by[id])).join('')}</div></div>` : ''}
       ${st.recent.length ? `<div class="sec"><p class="h3">Vistas por você</p><div class="row">${st.recent.map(id => budHTML(by[id])).join('')}</div></div>` : ''}
       </div>
-      <p class="legal">Uma strain nova aparece aqui todo dia. Conteúdo informativo: efeitos são relatos de usuários, não recomendação médica.</p>
+      <p class="legal">Uma strain nova aparece aqui todo dia. Conteúdo informativo: efeitos são estimados pelo perfil genético, não recomendação médica.</p>
     </div></div>`;
   }
 
@@ -932,7 +932,7 @@ html.solock, html.solock body { overflow: hidden; }
     else if (parents.length === 2) origin = `<p class="kv">Cruzamento de</p><div class="par">${parents[0]}<span class="x">×</span>${parents[1]}</div>`;
     else if (parents.length) origin = `<p class="kv">Cruzamento de ${parents.length} linhagens</p><div class="row" style="margin-inline:-18px;padding-inline:18px">${parents.map(h => h.replace('class="pc', 'style="width:120px;flex:none" class="pc')).join('')}</div>`;
     else origin = `<p class="about">${s.unk ? 'Origem desconhecida. Não há registro confiável dos pais.' : `Variedade nativa de ${esc(s.or)}, sem cruzamento feito por breeder.`}</p>`;
-    const lead = `Quem usa ${esc(s.n)} costuma relatar <em>${R.ef[0].n}</em> e ${R.ef[1].n}${aromas(s).length ? `, com aroma ${listJoin(aromas(s).slice(0, 2))}` : ''}.`;
+    const lead = `O perfil genético de ${esc(s.n)} aponta para <em>${R.ef[0].n}</em> e ${R.ef[1].n}${aromas(s).length ? `, com aroma ${listJoin(aromas(s).slice(0, 2))}` : ''}.`;
     return `<div class="sheet${st.wipe ? ' in' : ''}" role="dialog" aria-label="Ficha de ${esc(s.n)}">
       <div class="topb"><button class="rb" data-back aria-label="Fechar">${I.back}</button><span class="tbr"><button class="rb" data-share="${id}" aria-label="Compartilhar">${I.share}</button><button class="rb fav" data-fav="${id}" aria-pressed="${st.fav.includes(id)}" aria-label="${st.fav.includes(id) ? 'Tirar das favoritas' : 'Salvar nas favoritas'}">${I.heart}</button><button class="rb" data-cmp="${id}" aria-pressed="${inC}" aria-label="${inC ? 'Tirar da comparação' : 'Comparar'}">${inC ? I.check : I.cmp}</button></span></div>
       <div class="view" id="sv"><div class="stack" style="gap:22px">
@@ -942,10 +942,10 @@ html.solock, html.solock body { overflow: hidden; }
           <div class="tags"><span class="tag">${s.ind === 100 ? 'Indica pura' : s.ind === 0 ? 'Sativa pura' : `${kind(s)} · ${s.ind}% indica`}</span><span class="tag"><i class="dot" style="--cc:${cc(s)}"></i>${chemo(s.ch)}</span></div>
           <div class="btns" style="margin-top:18px"><button class="btn" data-tree="${id}">Ver árvore</button><button class="btn fill" data-cmp="${id}">${inC ? 'Na comparação ✓' : 'Comparar'}</button></div></div>
         <div class="card"><p class="lead">${lead}</p>
-          <div class="bars">${R.ef.map(e => `<div class="bar"><span>${e.n[0].toUpperCase() + e.n.slice(1)}</span><span class="tr"><i style="width:${e.p}%"></i></span><span class="v">${e.p}%</span></div>`).join('')}</div>
-          <p class="kv" style="margin:0">De ${R.n} relatos. Efeitos indesejados mais citados: ${listJoin(R.adv)}.</p></div>
+          <div class="bars">${R.ef.map(e => `<div class="bar"><span>${e.n[0].toUpperCase() + e.n.slice(1)}</span><span class="tr"><i style="width:${e.p}%"></i></span><span class="v">${e.p >= 60 ? 'alta' : e.p >= 45 ? 'média' : 'leve'}</span></div>`).join('')}</div>
+          <p class="kv" style="margin:0">Estimativa a partir de genética, quimiotipo e terpenos, não de relatos. Efeitos indesejados comuns nesse perfil: ${listJoin(R.adv)}.</p></div>
         ${s.tex ? '' : `<div class="sec"><p class="h3">Aromas</p><div class="chips">${aromas(s).map(a => `<span class="chip">${a}</span>`).join('')}${s.te.map(t => `<span class="chip" style="color:var(--fg2)">${t}</span>`).join('')}</div></div>`}
-        <div class="sec"><p class="h3">Pra que as pessoas usam</p><div class="chips">${R.us.map(u => `<span class="chip">${u}</span>`).join('')}</div><p class="warn">São relatos de usuários, não indicação médica. Converse com um profissional de saúde antes de qualquer uso terapêutico.</p></div>
+        <div class="sec"><p class="h3">Usos associados a esse perfil</p><div class="chips">${R.us.map(u => `<span class="chip">${u}</span>`).join('')}</div><p class="warn">Associação estimada, não indicação médica. Converse com um profissional de saúde antes de qualquer uso terapêutico.</p></div>
         <div class="tiles"><div class="tile"><span>THC</span><b>${s.thcx ? 'Não informado' : `${pt(s.thc[0])} a ${pt(s.thc[1])}%`}</b></div><div class="tile"><span>CBD</span><b>${pt(s.cbd[0])} a ${pt(s.cbd[1])}%</b></div><div class="tile"><span>${s.f === 'auto' ? 'Ciclo total' : 'Floração'}</span><b>${s.fl[0]} a ${s.fl[1]} semanas</b></div><div class="tile"><span>Cultivo</span><b>${s.d[0].toUpperCase() + s.d.slice(1)}</b></div></div>
         <div class="sec"><p class="h3">De onde vem${s.p.length || s.kids.length ? `<button class="lnk" data-tree="${id}">Ver árvore</button>` : ''}</p>${origin}</div>
         ${kidsS.length ? `<div class="sec"><p class="h3">Deu origem a<small>${kidsS.length} ${kidsS.length === 1 ? 'strain' : 'strains'}</small></p><div class="row">${kidsS.map(k => budHTML(k)).join('')}</div></div>` : ''}
@@ -1391,7 +1391,7 @@ html.solock, html.solock body { overflow: hidden; }
       <div class="sec" style="gap:6px"><p class="h1">Comparar</p><p class="sub">${n >= 2 ? `Comparando ${n} strains. Toque numa foto pra abrir a ficha.` : 'Escolha até 3 strains pra ver lado a lado. Também dá pra adicionar pelo botão Comparar de cada ficha.'}</p></div>
       <div class="cslots" style="--n:${cols}">${slots.map(slot).join('')}</div>
       ${body}
-      <p class="legal">THC, CBD e floração são faixas típicas e variam por fenótipo, cultivo e laboratório. Efeitos são relatos de usuários.</p>
+      <p class="legal">THC, CBD e floração são faixas típicas e variam por fenótipo, cultivo e laboratório. Efeitos são estimados pelo perfil genético.</p>
     </div></div>`;
   }
 
