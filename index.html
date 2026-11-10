@@ -729,7 +729,7 @@ html.solock, html.solock body { overflow: hidden; }
 (() => {
   const S = window.STRAINS;
   const FAM = [['landraces', 'Nativas (landraces)'], ['skunk', 'Skunk e clássicas holandesas'], ['haze', 'Haze e sativas'], ['kush', 'Afegã e Kush'], ['chem', 'Chem, OG e Diesel'], ['cookies', 'Cookies e sobremesas'], ['fruit', 'Frutadas e purples'], ['cbd', 'CBD'], ['auto', 'Autoflorescentes']];
-  S.forEach((s, i) => { s.no = 'FB-' + String(i + 1).padStart(4, '0'); s.kids = []; if (s.ph) { s.img = 'thumb/' + s.id + '.webp'; s.hi = 'hi/' + s.id + '.webp'; } });
+  S.forEach((s, i) => { s.no = 'FB-' + String(i + 1).padStart(4, '0'); s.kids = []; if (s.ph) { const f = s.phf || s.id; s.img = 'thumb/' + f + '.webp'; s.hi = 'hi/' + f + '.webp'; } });
   const by = Object.fromEntries(S.map(s => [s.id, s]));
   S.forEach(s => s.p.forEach(p => { if (typeof p === 'string' && by[p]) by[p].kids.push(s.id); }));
   const mp = s => s.p.filter(p => typeof p === 'string' && by[p]);

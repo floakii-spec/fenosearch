@@ -28,4 +28,4 @@ for (const url of fs.readFileSync(`${__dirname}/${shop}.txt`, 'utf8').split('\n'
 }
 fs.writeFileSync(`${__dirname}/${shop}.json`, JSON.stringify(out, null, 0));
 console.log('matched strains', Object.keys(out).length, 'unmatched products', miss.length);
-if (process.env.MISS) console.log(miss.map(m => parse(m).name).join(' ')); else console.log(Object.entries(out).map(([id, L]) => id + ' <- ' + L.map(x => x.url.replace(/\/$/, '').split('/').pop()).join(', ')).join('\n'));
+if (process.env.MISSURL) { const all = fs.readFileSync(`${__dirname}/${shop}.txt`, 'utf8').split('\n'); console.log(miss.map(m => all.find(u => u.includes('/' + m + '/'))).join('\n')); } else if (process.env.MISS) console.log(miss.map(m => parse(m).name).join(' ')); else console.log(Object.entries(out).map(([id, L]) => id + ' <- ' + L.map(x => x.url.replace(/\/$/, '').split('/').pop()).join(', ')).join('\n'));

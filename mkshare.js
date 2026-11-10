@@ -10,7 +10,7 @@ for(const s of S){
   const bits=[kind(s),s.thcx?null:`THC ${pt(s.thc[0])} a ${pt(s.thc[1])}%`,NOBR.includes(s.br)?null:s.br,s.or].filter(Boolean);
   const desc=`${bits.join(' · ')}. Veja ficha, efeitos, árvore genealógica e de onde vem.`;
   const url=`https://fenosearch.site/s/${s.id}`, to=`/#${encodeURIComponent(s.id)}`;
-  const img=s.ph?`<meta property="og:image" content="https://fenosearch.site/hi/${s.id}.webp">\n<meta name="twitter:card" content="summary_large_image">\n`:'';
+  const img=s.ph?`<meta property="og:image" content="https://fenosearch.site/hi/${s.phf||s.id}.webp">\n<meta name="twitter:card" content="summary_large_image">\n`:'';
   fs.writeFileSync(dir+s.id+'.html',`<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
