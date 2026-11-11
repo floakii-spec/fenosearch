@@ -960,7 +960,7 @@ html.solock, html.solock body { overflow: hidden; }
 
   // ---------- onde comprar ----------
   const BUY = window.BUY || {};
-  const SHOPS = { seedclub: ['Seed Club', 'seedclub.com.br'], dentista: ['Dentista Seeds', 'dentistaseeds.com'], donaflorinda: ['Dona Florinda', 'donaflorindashop.com'], maconhaseeds: ['Maconha Seeds Bank', 'maconhaseedsbank.com'] };
+  const SHOPS = { seedclub: ['Seed Club', 'seedclub.com.br'], dentista: ['Dentista Seeds', 'dentistaseeds.com'], donaflorinda: ['Dona Florinda', 'donaflorindashop.com'], maconhaseeds: ['Maconha Seeds Bank', 'maconhaseedsbank.com'], santasemente: ['Santa Semente', 'santasementebr.com'], pyramid: ['Pyramid Seeds', 'brasil.pyramidseeds.com'] };
   function buyHTML(s) {
     const L = BUY[s.id] || [];
     if (!L.length) return `<div class="card" style="gap:6px"><p class="h3" style="font-size:15px">Onde comprar</p><p class="sub">Nenhuma das lojas brasileiras que acompanhamos vende ${esc(s.n)} no momento.</p></div>`;
