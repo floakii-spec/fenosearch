@@ -12,7 +12,7 @@ const kind = s => s.ind >= 70 ? 'Indica' : s.ind <= 30 ? 'Sativa' : 'Híbrida';
 const chemo = c => ({ I: 'Mais THC', II: 'Equilibrada', III: 'Mais CBD' })[c];
 const NOBR = ['Desconhecido', 'Nativa (landrace)', 'Vários bancos'];
 const TERP = { mirceno: ['terroso', 'herbal'], limoneno: ['cítrico'], cariofileno: ['apimentado'], pineno: ['pinho'], terpinoleno: ['floral', 'fresco'], linalol: ['lavanda'], humuleno: ['amadeirado'], ocimeno: ['doce'] };
-const SHOPS = { seedclub: 'Seed Club', dentista: 'Dentista Seeds', donaflorinda: 'Dona Florinda', maconhaseeds: 'Maconha Seeds Bank' };
+const SHOPS = { seedclub: 'Seed Club', dentista: 'Dentista Seeds', donaflorinda: 'Dona Florinda', maconhaseeds: 'Maconha Seeds Bank', santasemente: 'Santa Semente', pyramid: 'Pyramid Seeds' };
 const pt = n => String(n).replace('.', ',');
 const listJoin = a => a.length < 2 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1];
 const img = s => s.ph ? (s.phf || s.id) : null;
