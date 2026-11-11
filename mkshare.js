@@ -85,12 +85,12 @@ ${im ? `<div class="hero"><img src="/hi/${im}.webp" alt="Flor de ${E(s.n)}" widt
 <p class="meta">${[NOBR.includes(s.br) ? null : E(s.br), s.y, E(s.or)].filter(Boolean).join(' · ')}</p>
 <div class="tags"><span class="tag">${s.ind === 100 ? 'Indica pura' : s.ind === 0 ? 'Sativa pura' : `${kind(s)} · ${s.ind}% indica`}</span><span class="tag">${chemo(s.ch)}</span>${s.f === 'auto' ? '<span class="tag">Automática</span>' : ''}</div></div>
 <a class="cta" href="${to}">Ver ficha completa e árvore genealógica</a>
+${buy.length ? `<section><h2>Onde comprar no Brasil</h2><div class="links">${buy.map(([sh, u, l]) => `<a href="${E(u)}" rel="nofollow noopener" target="_blank">${SHOPS[sh] || sh}<small>${E(l)}</small></a>`).join('')}</div><p class="note" style="margin-top:8px">Sementes vendidas como item de colecionador. Verifique a legislação vigente.</p></section>` : ''}
 <p>${E(about(s, par.map(p => p.n)))}</p>
 <div class="tiles"><div class="tile"><span>THC</span><b>${s.thcx ? 'Não informado' : `${pt(s.thc[0])} a ${pt(s.thc[1])}%`}</b></div><div class="tile"><span>CBD</span><b>${pt(s.cbd[0])} a ${pt(s.cbd[1])}%</b></div><div class="tile"><span>${s.f === 'auto' ? 'Ciclo total' : 'Floração'}</span><b>${s.fl[0]} a ${s.fl[1]} semanas</b></div><div class="tile"><span>Cultivo</span><b>${s.d[0].toUpperCase() + s.d.slice(1)}</b></div></div>
 ${s.tex ? '' : `<section><h2>Aromas e terpenos</h2><div class="links">${aro.map(a => `<a>${a}</a>`).join('')}${s.te.map(t => `<a><small style="margin:0">${t}</small></a>`).join('')}</div></section>`}
 ${par.length ? `<section><h2>${s.pheno ? 'Selecionada a partir de' : 'Parentais'}</h2><div class="links">${par.map(plink).join('')}</div></section>` : ''}
 ${ks.length ? `<section><h2>Descendentes</h2><div class="links">${ks.map(plink).join('')}</div>${(kids[s.id] || []).length > ks.length ? `<p class="note" style="margin-top:8px">E mais ${(kids[s.id] || []).length - ks.length} no app.</p>` : ''}</section>` : ''}
-${buy.length ? `<section><h2>Onde comprar no Brasil</h2><div class="links">${buy.map(([sh, u, l]) => `<a href="${E(u)}" rel="nofollow noopener" target="_blank">${SHOPS[sh] || sh}<small>${E(l)}</small></a>`).join('')}</div><p class="note" style="margin-top:8px">Sementes vendidas como item de colecionador. Verifique a legislação vigente.</p></section>` : ''}
 <p class="note">THC, CBD e floração são faixas típicas e variam por fenótipo, cultivo e laboratório. Conteúdo informativo, não recomendação médica.</p>
 </main></body></html>
 `);
